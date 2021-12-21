@@ -1,0 +1,82 @@
+Hi Russ,
+
+Before you start to change any parameter I recommend to save the current parameter into a parameter file.
+? Start PIMicroMove (or NanoCapture) ? open the “Device Parameter Configuration” Window ? and “Save edit values as…”
+
+To set the 0µm point in center of the Stage, please change the following parameters for all 4 axes:
+CCL 1 ADVANCED
+SPA 1 0x07000000 -50                     ; changes the range limit min. to -50µm
+SPA 1 0x07000001 50                       ; changes the range limit max. to 50µm
+SPA 1 0x07000802 0
+SPA 2 0x07000000 -50
+SPA 2 0x07000001 50
+SPA 2 0x07000802 0
+SPA 3 0x07000000 -50
+SPA 3 0x07000001 50
+SPA 3 0x07000802 0
+SPA 4 0x07000000 -50
+SPA 4 0x07000001 50
+SPA 4 0x07000802 0
+
+Start the Auto Zero Procedure for each axis one at a time:
+ATZ 1 50               ; Start Auto Zero axis 1 to 50V piezo voltage = 0µm @~50V
+ATZ? 1                   ; Start next ATZ if response = “1”….
+ATZ 2 50
+ATZ? 2
+ATZ 3 50
+ATZ? 3
+ATZ 4 50
+ATZ? 4
+
+Check if the axes are working from -50µm till 50µm and if the 0µm is in center.
+Please check also the piezo voltages @-50µm and +50µm:
+Piezo Voltage @-50µm: ~ -5V
+Piezo Voltage @+50µm: ~ 105V
+If anything is working fine, write the parameters into the nonvolatile memory with command: WPA 100
+
+If you have any further question, don’t hesitate to contact me.
+
+Mit freundlichen Grüßen / Best regards
+i.A. Alexander Kiefer
+Technical Support
+
+Physik Instrumente (PI) GmbH & Co.KG
+Auf der Roemerstrasse 1
+76228 Karlsruhe
+Germany
+www.pi.ws
+
+Phone    +49 721 4846-1713
+Fax        +49 721 4846-1709
+Mail       a.kiefer@pi.ws
+
+Geschäftsführer: Dr. Karl Spanner (Vors.), Norbert Ludwig, Dr. Peter Schittenhelm, Markus Spanner
+Sitz der Gesellschaft: Karlsruhe (Register- Gericht Mannheim: HRA 104804); Umsatzsteuer-ID-Nr.: DE 143182803;  WEEE-Reg.-Nr.: DE 93978928
+Persönlich haftende Gesellschafterin: Physik Instrumente (PI) Verwaltungs-GmbH, Karlsruhe (Register- Gericht Mannheim: HRB 109941)
+ 
+PIEZO NANO POSITIONING
+This message, and any associated files, are for the attention and use of the individual or entity to which it is addressed and may contain information that is legally privileged and confidential, subject to copyright, or that constitutes a trade secret. The legal privilege or associated confidentiality is not waived or lost by reason of mistaken transmission. Where opinions are expressed, they are not necessarily those of Physik Instrumente (PI) GmbH & Co. KG., Auf der Römerstrasse 1, D-76228 Karlsruhe, Tel. (+49) 721 4846-0, Fax (+49) 721 4846-100.
+
+
+
+
+Von: Russ Berg [mailto:Russ.Berg@lightsource.ca] 
+Gesendet: Dienstag, 12. Mai 2015 23:52
+An: Kiefer, Alexander
+Cc: Gabriel, Jeff
+Betreff: E-712 referencing mode/sequence question
+
+Hi Alexander, I was given your name by Jeff Gabriel, he said that you would be my contact for programming questions related to the E-712 controller. Our E-712 is connected to 4 stages 2x P-621.1CD and 2x P-621.ZCD.
+
+What I want to do is create a calibration routine that will send the necessary commands to each stage such that at the end of the sequence each P-621 is in the center of it’s physical range and the feedback position is 0. 
+So if the full physical range of the P-621 is 100 microns, I want to perform a sequence of commands such that at the end the stage is at the center of it’s physical range and the feedback position is 0.
+
+I have looked at the manual and I tried a few things but I get mixed results so I thought I would just ask for the correct sequence as I am on a time constraint, 
+Thanks
+-Russ
+
+~~~~~~~~~
+Russ Berg                                     Software & Controls
+e-mail: russ.berg@lightsource.ca   Canadian Light Source
+ph: 306 657 3572                         University of Saskatchewan
+fax: 306 657 3535                        Saskatoon SK S7N 0X4

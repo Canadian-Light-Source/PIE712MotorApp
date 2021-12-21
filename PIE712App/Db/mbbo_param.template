@@ -1,0 +1,65 @@
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_$(param)String   	 		"$(port_drvr_string)"  			/* $(param_type),    r/w */
+# int P_$(param);
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_$(param)String,          asynParamInt32,       &P_$(param));
+#	setIntegerParam (P_$(param),       $(zrvl));
+#
+#################################################################
+
+
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(mbbo, "$(P)$(M)$(param)")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(port_drvr_string)")
+   field(ZRST, "$(zrst)")
+   field(ZRVL, "$(zrvl)")
+   field(ONST, "$(onst)")
+   field(ONVL, "$(onvl)")
+   field(TWST, "$(twst)")
+   field(TWVL, "$(twvl)")
+   field(THST, "$(thst)")
+   field(THVL, "$(thvl)")
+   field(FRST, "$(frst)")
+   field(FRVL, "$(frvl)")
+   field(FVST, "$(fvst)")
+   field(FVVL, "$(fvvl)")
+   field(SXST, "$(sxst)")
+   field(SXVL, "$(sxvl)")
+   field(SVST, "$(svst)")
+   field(SVVL, "$(svvl)")
+   field(EIST, "$(eist)")
+   field(EIVL, "$(eivl)")
+   field(NIST, "$(nist)")
+   field(NIVL, "$(nivl)")
+   field(TEST, "$(test)")
+   field(TEVL, "$(tevl)")
+   field(ELST, "$(elst)")
+   field(ELVL, "$(elvl)")
+   field(TVST, "$(tvst)")
+   field(TVVL, "$(tvvl)")
+   field(TTST, "$(ttst)")
+   field(TTVL, "$(ttvl)")
+   field(FTST, "$(ftst)")
+   field(FTVL, "$(ftvl)")
+   field(FFST, "$(ffst)")
+   field(FFVL, "$(ffvl)")  
+   
+}
+
+#record(ai, "$(P)$(M)$(param)_RBV")
+#{
+#   field(PINI, "1")
+#   field(DTYP, "asynInt32")
+#   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(port_drvr_string)")
+#   field(SCAN, "I/O Intr")
+#}

@@ -1,0 +1,233 @@
+0x02000100 1 Input Signal Channel 3 / 7 6 / 10 INT Sensor Range factor ID-chip	The available factors depend on the type of sensor module. 
+0x02000101 1 Input Signal Channel 3 / 7 6 / 10 INT Sensor Board Gain ID-chip 
+0x02000102 1 Input Signal Channel 3 / 7 6 / 10 INT Sensor Offset factor ID-chip 
+0x02000103 1 Input Signal Channel 3 / 7 6 / 10 INT Sensor Cable Compensation ID-chip 
+0x02000104 1 Input Signal Channel 3 / 7 6 / 10 FLOAT Autozero Matched Offset 
+0x02000200 1 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Mech. Correction 1 ID-chip This value is set as new sensor position after a referencing motion started with FRF. 
+0x02000300 1 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Mech. Correction 2 ID-chip 
+0x02000400 1 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Mech. Correction 3 ID-chip 
+0x02000500 1 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Mech. Correction 4 ID-chip 
+0x02000600 1 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Mech. Correction 5 ID-chip Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 199 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x02000a00 1 Input Signal Channel 3 / 7 6 / 10 INT Sensor Reference Mode Determines how the sensor is to be referenced: 1 = no reference (absolute sensors, no referencing required, RON cannot be set to 0) 2 = reference on negative hardstop 3 = reference on positive hardstop 4 = reference on signed reference mark 5 = reference on impulse 
+0x03000100 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 1 1 
+0x03000101 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 2 1 
+0x03000102 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 3 1 
+0x03000103 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 4 1 
+0x03000104 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 5 1 
+0x03000105 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 6 1 
+0x03000106 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 7 1 
+0x03000107 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 8 1 
+0x03000108 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 9 1 
+0x03000200 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 1 2 
+0x03000201 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 2 2 
+0x03000202 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 3 2 
+0x03000203 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 4 2 Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 200 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x03000204 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 5 2 
+0x03000205 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 6 2 
+0x03000206 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 7 2 
+0x03000207 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 8 2 
+0x03000208 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 9 2 
+0x03000300 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 1 3 
+0x03000301 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 2 3 
+0x03000302 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 3 3 
+0x03000303 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 4 3 
+0x03000304 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 5 3 
+0x03000305 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 6 3 
+0x03000306 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 7 3 
+0x03000307 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 8 3 
+0x03000308 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 9 3 
+0x03000400 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 1 4 
+0x03000401 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 2 4 
+0x03000402 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 3 4 
+0x03000403 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 4 4 
+0x03000404 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 5 4 Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 201 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x03000405 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 6 4 
+0x03000406 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 7 4 
+0x03000407 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 8 4 
+0x03000408 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 9 4 
+0x03000500 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 1 5 
+0x03000501 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 2 5 
+0x03000502 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 3 5 
+0x03000503 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 4 5 
+0x03000504 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 5 5 
+0x03000505 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 6 5 
+0x03000506 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 7 5 
+0x03000507 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 8 5 
+0x03000508 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Elec. Correction 9 5 
+0x03001000 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Offset Correction 1 
+0x03001100 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Offset Correction 2 
+0x03001200 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Offset Correction 3 
+0x03001300 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Offset Correction 4 
+0x03001400 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Offset Correction 5 
+0x03001500 2 Input Signal Channel 3 / 7 6 / 10 FLOAT Sensor Offset Correction 6 Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 202 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x04000000 2 Input Signal Channel 3 / 7 6 / 10 FLOAT PGA Correction of gain 1 
+0x04000001 2 Input Signal Channel 3 / 7 6 / 10 FLOAT PGA Correction of gain 2 
+0x04000002 2 Input Signal Channel 3 / 7 6 / 10 FLOAT PGA Correction of gain 3 
+0x04000003 2 Input Signal Channel 3 / 7 6 / 10 FLOAT PGA Correction of gain 4 
+0x04000004 2 Input Signal Channel 3 / 7 6 / 10 FLOAT PGA Correction of gain 5 
+0x04000005 2 Input Signal Channel 3 / 7 6 / 10 FLOAT PGA Correction of gain 6 
+0x04000006 2 Input Signal Channel 3 / 7 6 / 10 FLOAT PGA Correction of gain 7 
+0x05000000 1 Input Signal Channel 3 / 7 6 / 10 INT Digital Filter Type ID-chip 
+0x05000001 1 Input Signal Channel 3 / 7 6 / 10 FLOAT Digital Filter Bandwidth ID-chip 
+0x05000002 1 Input Signal Channel 3 / 7 6 / 10 INT Digital Filter Order ID-chip 
+0x05000101 1 Input Signal Channel 3 / 7 6 / 10 FLOAT User Filter Param. 1 
+0x05000102 1 Input Signal Channel 3 / 7 6 / 10 FLOAT User Filter Param. 2 
+0x05000103 1 Input Signal Channel 3 / 7 6 / 10 FLOAT User Filter Param. 3 
+0x05000104 1 Input Signal Channel 3 / 7 6 / 10 FLOAT User Filter Param. 4 
+0x05000105 1 Input Signal Channel 3 / 7 6 / 10 FLOAT User Filter Param. 5 
+0x06000500 1 Logical Axis 3 / 6 INT ADC Channel for Target Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 203 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x06000501 1 Logical Axis 3 / 6 FLOAT Analog Target Offset 
+0x07000000 1 Logical Axis 3 / 6 FLOAT Range Limit min ID-chip 
+0x07000001 1 Logical Axis 3 / 6 FLOAT Range Limit max ID-chip 
+0x07000200 1 Logical Axis 3 / 6 FLOAT Servo Loop Slew-Rate ID-chip 
+0x07000201 1 Logical Axis 3 / 6 FLOAT Open Loop Slew-Rate 
+0x07000204 1 PiezoWalk Channel * FLOAT PiezoWalk Open-Loop Velocity [µm/s] Used to calculate the piezo voltage slew rate, affects the duration of the relax procedures for PiezoWalk channels 
+0x07000300 1 Logical Axis 3 / 6 FLOAT Servo-loop P-Term ID-chip 
+0x07000301 1 Logical Axis 3 / 6 FLOAT Servo-loop I-Term ID-chip 
+0x07000302 1 Logical Axis 3 / 6 FLOAT Servo-loop D-Term ID-chip 
+0x07000500 1 Logical Axis 3 / 6 FLOAT Position from Sensor 1 ID-chip 
+0x07000501 1 Logical Axis 3 / 6 FLOAT Position from Sensor 2 ID-chip 
+0x07000502 1 Logical Axis 3 / 6 FLOAT Position from Sensor 3 ID-chip 
+0x07000503 1 Logical Axis 3 / 6 FLOAT Position from Sensor 4 ID-chip 
+0x07000504 1 Logical Axis 3 / 6 FLOAT Position from Sensor 5 ID-chip 
+0x07000505 1 Logical Axis 3 / 6 FLOAT Position from Sensor 6 ID-chip 
+0x07000506 1 Logical Axis 3 / 6 FLOAT Position from Sensor 7 
+0x07000507 1 Logical Axis 3 / 6 FLOAT Position from Sensor 8 Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 204 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x07000508 1 Logical Axis 3 / 6 FLOAT Position from Sensor 9 
+0x07000509 1 Logical Axis 3 / 6 FLOAT Position from Sensor 10 
+0x0700050a 1 Logical Axis 3 / 6 FLOAT Position from Sensor 11 
+0x0700050b 1 Logical Axis 3 / 6 FLOAT Position from Sensor 12 
+0x0700050c 1 Logical Axis 3 / 6 FLOAT Position from Sensor 13 
+0x0700050d 1 Logical Axis 3 / 6 FLOAT Position from Sensor 14 
+0x07000600 1 Logical Axis 3 / 6 CHAR Axis Name ID-chip 
+0x07000601 2 Logical Axis 3 / 6 CHAR Axis Unit ID-chip 
+0x07000800 1 Logical Axis 3 / 6 INT Power Up Servo ON Enable 
+0x07000802 1 Logical Axis 3 / 6 INT Power Up AutoZero Enable 
+0x07000900 1 Logical Axis 3 / 6 FLOAT ON Target Tolerance ID-chip [µm] Gives the settling window. The settling window is centered around the axis target position. The on-target status of an axis is true when the current axis position is inside the settling window and stays there for at least the settling time (Settling Time parameter, ID  0x07000901). See the separate E712T0010 Technical Note for the special functionality of this parameter with PiezoWalk systems. 
+0x07000901 1 Logical Axis 3 / 6 FLOAT Settling Time [s] Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 205 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x07000a00 1 Logical Axis 3 / 6 FLOAT AutoZero Low Voltage ID-chip 
+0x07000a01 1 Logical Axis 3 / 6 FLOAT AutoZero High Voltage ID-chip 
+0x07000c01 1 Logical Axis 3 / 6 FLOAT Default voltage ID-chip 
+0x07001005 1 Logical Axis 3 / 6 FLOAT Position Report Scaling 
+0x07001006 1 Logical Axis 3 / 6 FLOAT Position Report Offset 
+0x07001500 1 PiezoWalk Channel * FLOAT NEXLINE Forward Correction 1 Coefficients of step forward linearization polynomial of piezo-voltage-to-position-calculation. Coefficients are used to compensate for the piezo nonlinearity. If 
+0x07001500 is set to 1 and all other coefficients are set to 0, linearization is disabled. 
+0x07001501 1 PiezoWalk Channel * FLOAT NEXLINE Forward Correction 2 
+0x07001502 1 PiezoWalk Channel * FLOAT NEXLINE Forward Correction 3 
+0x07001503 1 PiezoWalk Channel * FLOAT NEXLINE Forward Correction 4 
+0x07001504 1 PiezoWalk Channel * FLOAT NEXLINE Forward Correction 5 
+0x07001600 1 PiezoWalk Channel * FLOAT NEXLINE Backward Correction 1 Coefficients of step backward linearization polynomial of piezo-voltage-to position-calculation. Coefficients are used to compensate for the piezo nonlinearity. If 
+0x07001600 is set to 1 and all other coefficients are set to 0, linearization is disabled. 
+0x07001601 1 PiezoWalk Channel * FLOAT NEXLINE Backward Correction 2 
+0x07001602 1 PiezoWalk Channel * FLOAT NEXLINE Backward Correction 3 
+0x07001603 1 PiezoWalk Channel * FLOAT NEXLINE Backward Correction 4 
+0x07001604 1 PiezoWalk Channel * FLOAT NEXLINE Backward Correction 5 Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 206 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x07001900 1 PiezoWalk Channel * FLOAT NEXLINE Clamp-Free Voltage Used for nanostepping mode only. See the separate E712T0010 Technical Note for details. 
+0x07001a00 1 PiezoWalk Channel * INT PiezoWalk Driving Mode Selects the driving mode: 0 = Full-step mode 1 = Nanostepping mode 2 = Analog mode (if selected, no stepping motion is possible) 
+0x07011700 1 PiezoWalk Channel * FLOAT NEXLINE Step Size [µm] The feed caused by one step cycle, with maximum amplitude of the shearing voltages (VDmax – VDmin). Can be determined as follows: Perform n steps using OSM, measure the position difference and divide it by the number of steps. 
+0x07011800 1 PiezoWalk Channel * FLOAT NEXLINE Shearing-To-Clamping Ratio Used for full-step mode only. Must be in the range of 0.01 to 0.5 See the separate E712T0010 Technical Note for details. 
+0x07011900 1 PiezoWalk Channel * FLOAT NEXLINE Min Step Cycle Time [s] Minimum time per step cycle. This value will be rounded to a multiple of the sample time. See the separate E712T0010 Technical Note for details. Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 207 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x07011b00 1 PiezoWalk Channel * FLOAT PiezoWalk Max Acceleration [µm/s2] Maximum acceleration of a NEXLINE® drive. 
+0x07022000 3 Logical Axis 3 / 6 INT Open-Loop Control Mode 0 = position control 1 = velocity control 2 = velocity control for PiezoWalk drives, use OSM and SVA in open-loop operation 
+0x07030100 1 Logical Axis 3 / 6 INT Closed-Loop Control Mode 0 = hardware 1 = PID algorithm 2 = Advanced Piezo Control (APC) algorithm, licence must be ordered separately 3 = reserved 4 = reserved For axes driven by NEXLINE® or NEXACT® drives, the PID algorithm must be selected. 
+0x08000100 1 Logical Axis 3 / 6 FLOAT Notch frequency 1 ID-chip 
+0x08000101 1 Logical Axis 3 / 6 FLOAT Notch frequency 2 ID-chip 
+0x08000200 1 Logical Axis 3 / 6 FLOAT Notch Rejection 1 ID-chip 
+0x08000201 1 Logical Axis 3 / 6 FLOAT Notch Rejection 2 ID-chip 
+0x08000300 1 Logical Axis 3 / 6 FLOAT Notch Bandwidth 1 ID-chip 
+0x08000301 1 Logical Axis 3 / 6 FLOAT Notch Bandwidth 2 ID-chip 
+0x08000400 1 Logical Axis 3 / 6 FLOAT Creep factor T1/sec ID-chip 
+0x08000401 1 Logical Axis 3 / 6 FLOAT Creep factor T2/sec ID-chip Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 208 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x08000500 1 Logical Axis 3 / 6 INT Enable Notch in Open Loop Enables usage of notch filter in open-loop operation. In closed-loop operation, the notch filters are always enabled. 0 = disable notch filter in open-loop operation 1 = enable notch filter in open-loop operation 
+0x09000000 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 1 ID-chip 
+0x09000001 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 2 ID-chip 
+0x09000002 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 3 ID-chip 
+0x09000003 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 4 ID-chip 
+0x09000004 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 5 ID-chip 
+0x09000005 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 6 ID-chip 
+0x09000006 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 7 ID-chip 
+0x09000007 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 8 ID-chip 
+0x09000008 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 9 
+0x09000009 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 10 
+0x0900000a 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 11 
+0x0900000b 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 12 
+0x0900000c 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 13 
+0x0900000d 1 Logical Axis 3 / 6 FLOAT Driving Factor of Piezo 14 Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 209 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x09000100 1 PiezoWalk Channel * INT NEXLINE Shear Channel 1 Gives the piezo amplifier channel to be used for the first pair of shearing segments of the NEXLINE® drive 
+0x09000101 1 PiezoWalk Channel * INT NEXLINE Shear Channel 2 Gives the piezo amplifier channel to be used for the second pair of shearing segments of the NEXLINE® drive 
+0x09000200 1 PiezoWalk Channel * INT NEXLINE Clamp Channel 1 Gives the piezo amplifier channel to be used for the first pair of clamping segments of the NEXLINE® drive 
+0x09000201 1 PiezoWalk Channel * INT NEXLINE Clamp Channel 2 Gives the piezo amplifier channel to be used for the second pair of clamping segments of the NEXLINE® drive 
+0x0a000003 1 Output Signal Channel 4 / 8 8 / 12 INT Select Output type 
+0x0a000004 1 Output Signal Channel 4 / 8 8 / 12 INT Select Output index 
+0x0b000007 2 Output Signal Channel 4 / 8 8 / 12 FLOAT Min Output Voltage of Amplifier 
+0x0b000008 2 Output Signal Channel 4 / 8 8 / 12 FLOAT Max Output Voltage of Amplifier 
+0x0b000009 2 Output Signal Channel 4 / 8 8 / 12 FLOAT Voltage of Amplifier with zero to Dac 
+0x0b00000a 1 Output Signal Channel 4 / 8 8 / 12 FLOAT Voltage Offset of Amplifier 
+0x0c000000 1 Output Signal Channel 4 / 8 8 / 12 FLOAT Soft Voltage Low Limit ID-chip Gives the lower limit for the piezo voltage output 
+0x0c000001 1 Output Signal Channel 4 / 8 8 / 12 FLOAT Soft Voltage High Limit ID-chip Gives the upper limit for the piezo voltage output. 
+0x0d000000 2 System 1 CHAR Device S/N Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 210 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x0d000100 2 Hardware Module 8 CHAR Hardware S/N 
+0x0d000200 2 Hardware Module 8 CHAR Hardware Name 
+0x0e000100 2 System 1 FLOAT Sensor Sampling Time 
+0x0e000200 3 System 1 FLOAT Servo Update Time 
+0x0e000400 1 System 1 INT DDL license 
+0x0e000401 3 System 1 INT DDL license valid 
+0x0e000b00 3 System 1 INT Number of input channels 
+0x0e000b01 3 System 1 INT Number of output channels 
+0x0e000b02 2 System 1 INT Number of system axes 
+0x0e000b03 3 System 1 INT Number of sensor channels 
+0x0e000b04 3 System 1 INT Number of piezo channels 
+0x0e000b05 3 System 1 INT Number of trigger outputs 
+0x0e000b06 3 System 1 INT Number Of PiezoWalk Channels Maximum possible number of PiezoWalk channels. 
+0x0e000b07 3 System 1 INT Number of conf. PiezoWalk chan. Number of PiezoWalk channels which are actually configured for use. Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 211 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x0e000e00 1 Logical Axis 3 / 6 INT Adv. Piezo Control License Advanced Piezo Control (APC) license number, must be valid before APC can be used. Advanced Piezo Control is an alternative control algorithm for closed-loop operation of piezo actuator systems. The APC license must be expressly ordered (order E-712.U1). The Closed-Loop Control Mode parameter (ID  0x07030100) must be set to 2. See Technical Note E712T0007 for more information. 
+0x0e000f00 3 Logical Axis 3 / 6 INT Adv. Piezo Control License-Valid Flag Check if APC license activation was successful 
+0x0f000000 1 Input Signal Channel 3 / 7 6 / 10 INT Power Up Read ID-Chip 
+0x0f000100 1 Input Signal Channel 3 / 7 6 / 10 CHAR Stage Type ID-chip 
+0x0f000200 1 Input Signal Channel 3 / 7 6 / 10 CHAR Stage Serial Number ID-chip 
+0x0f000300 1 Input Signal Channel 3 / 7 6 / 10 CHAR Stage assembly Date ID-chip 
+0x11000400 1 System 1 INT Uart Baudrate 
+0x11000600 1 System 1 CHAR IP-Address 
+0x11000700 1 System 1 CHAR IP-Mask 
+0x11000800 1 System 1 INT IP-Configura-tion 
+0x11000b00 2 System 1 CHAR MAC-Address 
+0x13000004 3 System 1 INT Max Wave Points Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 212 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x13000109 1 System 1 INT Wave Generator Table Rate 
+0x1300010a 3 System 1 INT Number of Waves 
+0x1300010b 1 Logical Axis 3 / 6 FLOAT Wave Offset 
+0x14000001 1 Logical Axis 3 / 6 INT DDL repeat number 
+0x14000006 1 Logical Axis 3 / 6 FLOAT Time Delay Max 
+0x14000007 1 Logical Axis 3 / 6 FLOAT Time Delay Min 
+0x14000008 1 Logical Axis 3 / 6 INT Time Delay Change Rule 
+0x1400000a 1 Logical Axis 3 / 6 INT DDL Zero Gain Number 
+0x1400000b 3 System 1 INT Max DDL Points 
+0x14000100 2 Logical Axis 3 / 6 FLOAT Autocal Time Delay Factor 
+0x14000101 2 Logical Axis 3 / 6 FLOAT Autocal Min/Max Time Delay Factor 
+0x16000000 1 System 1 INT Data Recorder Table Rate 
+0x16000100 3 System 1 INT Max Number of Data Recorder Channels 
+0x16000200 3 System 1 INT Data Recorder Max Points 
+0x16000300 1 System 1 INT Data Recorder Chan Number Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 213 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x1a00000n 1 System 1 FLOAT Max. Position Error to Stop n Safety shutdown n is the axis index (starts with 0). The parameter gives the range of tolerance for axes 1 to n+1. The range of tolerance is –float to +float), float must be > 0; the unit is the axis position unit. 
+0x1a000100 1 System 1 INT Number of Trigger Input to Stop Safety shutdown Gives the digital input line which is to be observed (one of the lines on the “DIGITAL I/O” socket). Active HIGH. If the parameter value is 0, the criterion is disabled. If one digital input line (1 to 8) is defined, this line will also be set to HIGH when the connector is removed from the DIGITAL I/O socket. 
+0x1a00020n 1 System 1 FLOAT Absolute Input Value to Stop n Safety shutdown n is the index of the input signal channels (starts with 0). The parameter gives the range of tolerance for input signal channels 1 to n+1. The range of tolerance is –float to +float, must not be negative. If the parameter value is 0, the criterion is disabled for the input signal channel. Should only be enabled with input signal channels provided by an E-711.IA4 analog interface module. Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 214 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0x1a00030n 1 System 1 INT Usage of Limit Switch n Safety shutdown n is the index of the input signal channels (starts with 0). The parameter enables/disables the usage of the criterion for input signal channel 1 to n+1; parameter values can be: 0 = limit switch criterion not used 1 = limit switch criterion used Should only be enabled for sensors which support limit switches. 
+0x1a00040n 1 System 1 INT Usage of Position Error to Stop n Safety shutdown n is the axis index (starts with 0). The parameter enables/disables the usage of the criterion for axes 1 to n+1, parameter values can be: 0 = position error criterion not used 1 = position error criterion used 
+0xffff0001 2 Firmware Unit 4 / 5 6 / 7 INT firmware mark 
+0xffff0002 2 Firmware Unit 4 / 5 6 / 7 INT firmware CRC 
+0xffff0003 2 Firmware Unit 4 / 5 6 / 7 INT firmware desc. CRC 
+0xffff0004 2 Firmware Unit 4 / 5 6 / 7 INT firmware desc. version 
+0xffff0006 2 Firmware Unit 4 / 5 6 / 7 CHAR firmware matchcode 
+0xffff0007 2 Firmware Unit 4 / 5 6 / 7 CHAR hardware matchcode 
+0xffff0008 2 Firmware Unit 4 / 5 6 / 7 INT firmware version 
+0xffff000b 2 Firmware Unit 4 / 5 6 / 7 INT firmware max. size Controller Parameters www.pi.ws E-711/E-712 PZ195E Release 1.3.1 Page 215 Parameter ID (hexa-decimal) Command Level for write access Item Type Concerned Max. No. of Items Data Type Parameter Description Notes 
+0xffff000c 2 Firmware Unit 4 / 5 6 / 7 CHAR firmware device 
+0xffff000d 2 Firmware Unit 4 / 5 6 / 7 CHAR short description of firmware 
+0xffff000e 2 Firmware Unit 4 / 5 6 / 7 CHAR date of firmware 
+0xffff000f 2 Firmware Unit 4 / 5 6 / 7 CHAR firmware developer 
+0xffff0010 2 Firmware Unit 4 / 5 6 / 7 INT firmware length 
+0xffff0011 2 Firmware Unit 4 / 5 6 / 7 INT firmware compatibility 
+0xffff0012 2 Firmware Unit 4 / 5 6 / 7 INT firmware rel. address 
+0xffff0013 2 Firmware Unit 4 / 5 6 / 7 CHAR firmware device type 
+0xffff0014 2 Firmware Unit 4 / 5 6 / 7 INT hardware revision 
+0xffff0015 2 Firmware Unit 4 / 5 6 / 7 INT firmware dest. addr. 
+0xffff0016 2 Firmware Unit 4 / 5 6 / 7 INT firmware configuration

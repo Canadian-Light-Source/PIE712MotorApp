@@ -1,0 +1,36 @@
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_$(param)String   	 		"$(port_drvr_string)"  			/* $(param_type),    r/w */
+# int P_$(param);
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_$(param)String,          asynParamFloat64,       &P_$(param));
+#	setDoubleParam (P_$(param),       $(drvl));
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)$(M)$(param)")
+{
+   field(PINI, "$(pini)")
+   field(DTYP, "$(param_type)")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(port_drvr_string)")
+   field(DRVL, "$(drvl)")
+   field(DRVH, "$(drvh)")
+   field(PREC, "$(prec)")
+   field(VAL, "$(val)")
+}
+
+record(ai, "$(P)$(M)$(param)_RBV")
+{
+   field(PINI, "$(pini)")
+   field(DTYP, "$(param_type)")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(port_drvr_string)")
+   field(PREC, "$(prec)")
+   field(SCAN, "I/O Intr")
+}

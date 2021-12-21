@@ -1,0 +1,17 @@
+# Use the following lines if motorNewport was built inside motor
+#MOTOR=
+-include $(MOTOR)/configure/RELEASE
+# Use the following lines if motorNewport was built outside motor
+#
+
+EPICS_MODULES=/home/epics/src/R7-SL7/modules
+CALC=$(EPICS_MODULES)/support/calc-R3-7-3
+AUTOSAVE=$(EPICS_MODULES)/support/autosave-R5-10
+SNSEQ=$(EPICS_MODULES)/support/seq-2-2-6
+SSCAN=$(EPICS_MODULES)/support/sscan-R2-11-3
+
+MOTOR=/home/epics/src/R7-SL7/modules/support/motor-R7-1
+MOTOR_NEWPORT=/home/epics/src/R7-SL7/modules/support/motor-R7-1
+-include $(MOTOR_NEWPORT)/configure/RELEASE.local
+
+

@@ -1,0 +1,53 @@
+#errlogInit(5000)
+< envPaths
+
+# Tell EPICS all about the record types, device-support modules, drivers,
+# etc. in this build from CARS
+
+dbLoadDatabase("$(TOP)/dbd/pi_e712WithAsyn.dbd")
+dbLoadDatabase("$(TOP)/dbd/PI_E712Support.dbd")    
+
+pi_e712WithAsyn_registerRecordDeviceDriver(pdbbase)
+
+
+### Motors
+
+dbLoadTemplate "$(IOCDIR)/motor.substitutions.pi_e712"
+
+
+drvAsynIPPortConfigure("L100", "192.168.168.10:50000",0,0,0)
+
+# PI_E712_CreateController("Port name","asyn Port name","Number of axes","moving polling time [msec]","idle polling time [msec]") 
+#     NOV10_2021 PI_E712_CreateController("E712", "L100", 4, 500, 1000)
+#     NOV10_2021 
+#     NOV10_2021 
+#     NOV10_2021 # PI_E712_MotorConfigAxis("Port name", "Axis #", "Axis name",  "High limit", "Low limit", "Home position", "Start posn", "Simulate")
+#     NOV10_2021 PI_E712_MotorConfigAxis("E712", 0, "SampleFineX", 20000, -20000,  500, 0, 1)
+#     NOV10_2021 PI_E712_MotorConfigAxis("E712", 1, "SampleFineY", 20000, -20000,  500, 0, 1)
+
+#asynSetTraceIOMask("E712", 0, 255)
+#asynSetTraceMask("E712", 0, 255)
+
+
+dbLoadRecords(("$(TOP)/db/e712.db", "P=SIM_IOC:,M=m700:,PORT=E712,ADDR=0,TIMEOUT=1")
+dbLoadRecords(("$(TOP)/db/e712.db", "P=SIM_IOC:,M=m701:,PORT=E712,ADDR=1,TIMEOUT=1")
+
+dbLoadRecords("$(ASYN)/db/asynRecord.db", "P=SIM_IOC:, R=L100, PORT=L100, ADDR=0, OMAX=256, IMAX=256")         
+    
+    
+epicsEnvSet(AUTOSAVE_PREFIX,"piE712")
+epicsEnvSet(BL,"uhv")
+
+#< $(TOP)/autosave-1.cmd
+
+iocInit
+
+
+# save positions every five seconds, it will look only in the dir setup in set_requestfile_path()
+#create_monitor_set("piE712.req", 5, "P=IOC")
+
+
+#dbpf(SIM_IOC:m1.FOFF, "1") # the unit offset is Frozen
+#dbpf(SIM_IOC:m2.FOFF, "1") # the unit offset is Frozen
+#dbpf(SIM_IOC:m3.FOFF, "1") # the unit offset is Frozen
+#dbpf(SIM_IOC:m4.FOFF, "1") # the unit offset is Frozen

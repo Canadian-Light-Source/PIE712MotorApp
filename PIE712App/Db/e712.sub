@@ -1,0 +1,104 @@
+
+
+file ao_param.template
+{
+    pattern
+    {  param            param_type     port_drvr_string   pini  drvl			drvh			val		prec}
+    {  SetMarker				asynFloat64    PI_SET_MARKER		NO		-9999999	9999999			0								6	}
+    {  SetVelo				asynFloat64    	 PI_SET_VELO			NO		0					9999999			0								6	}
+                                                                                                    	
+    {  MarkerStart			asynFloat64    PI_MARKER_START		NO		-9999999	9999999			0							6	}
+    {  MarkerStop				asynFloat64    PI_MARKER_STOP		NO		-9999999	9999999			0								6	}
+                                                                                              				
+    {  ScanStart				asynFloat64    PI_SCAN_START		NO		-9999999	9999999			0								6	}
+    {  ScanStop					asynFloat64    PI_SCAN_STOP		NO		-9999999	9999999			0									6	}
+                                                                                          						
+    {  SetStartupPos		asynFloat64    PI_SET_STARTUP_POS		NO		-9999999	9999999			0						6	}
+    {  OutputVolt				asynFloat64    PI_OUTPUT_VOLT		NO		-20	120			0													6	}
+                                                                                              				
+    {  ForceDoneWaitTime	asynFloat64    PI_FORCE_DONE_WAIT_TIME		NO		0	10			0								6	}
+                                                                                              				
+                                                                                              				
+    {  DigFltBWidth			asynFloat64    PI_DIGFILT_BWIDTH	NO		0	5000			0												6	}
+    {  DigFltParm1				asynFloat64    PI_DIGFILT_PARM1		NO		0	9999999			0										6	}
+    {  DigFltParm2				asynFloat64    PI_DIGFILT_PARM2		NO		0	9999999			0										6	}
+    {  DigFltParm3				asynFloat64    PI_DIGFILT_PARM3		NO		0	9999999			0										6	}
+    {  DigFltParm4				asynFloat64    PI_DIGFILT_PARM4		NO		0	9999999			0										6	}
+    {  DigFltParm5				asynFloat64    PI_DIGFILT_PARM5		NO		0	9999999			0										6	}
+                                                                                                    	
+    {  CapSensBParm				asynFloat64    PI_CAPSENS_B_PARM		YES		-9999999	9999999			-17.25		6	}
+    {  CapSensMParm				asynFloat64    PI_CAPSENS_M_PARM		YES		-9999999	9999999			-0.9943		6	}
+                                                                                                    	
+    {  PTerm				asynFloat64    PI_P_TERM		NO		0	1000			0																	6	}    
+    {  ITerm				asynFloat64    PI_I_TERM		NO		0	1000			0																	6	}    
+    {  DTerm				asynFloat64    PI_D_TERM		NO		0	1000			0																	6	}    
+    
+    
+    
+}
+
+
+
+file ai_param.template
+{
+    pattern
+    {  param            param_type     port_drvr_string   	pini  prec}
+#    {  OutputVolt				asynFloat64   PI_OUTPUT_VOLT	YES		3 }
+    {  AdcSensor				asynFloat64    	PI_ADC_SENSOR	YES		3 }
+    {  CapSensor				asynFloat64    	PI_CAP_SENSOR	YES		3 }
+#    {  PTerm				asynFloat64    PI_P_TERM		YES	3 }    
+#    {  ITerm				asynFloat64    PI_I_TERM		YES	3 }    
+#    {  DTerm				asynFloat64    PI_D_TERM		YES	3 }    
+
+		{  SlewRate				asynFloat64    PI_SLEW_RATE		YES	6 }    
+    {  NotchFreq1			asynFloat64    PI_NFREQ_1			YES	6 }	     
+    {  NotchFreq2			asynFloat64    PI_NFREQ_2			YES	6 }    
+    {  NotchReject1		asynFloat64    PI_NREJ_1			YES	6 }    
+    {  NotchReject2		asynFloat64    PI_NREJ_2			YES	6 }    
+    {  NotchBW1				asynFloat64    PI_NBW_1				YES	6 }    
+    {  NotchBW2				asynFloat64    PI_NBW_2				YES	6 }    
+    
+}
+
+
+# here param_type refers to the readback type
+file mbbo_param.template
+{
+    pattern
+    {  param  param_type     port_drvr_string   pini 	zrst						zrvl	onst					onvl	twst	twvl	thst	thvl	frst	frvl	fvst	fvvl	sxst	sxvl	svst	svvl	eist	eivl	nist	nivl	test	tevl	elst	elvl	tvst	tvvl	ttst	ttvl	ftst	ftvl	ffst	ffvl	}
+    {  Mode   asynInt32   	 PI_MODE   					YES		"NORMAL"				0			"LINE_UNIDIR"	1			"LINE_BIDIR"		2		"POINT"		3		"COARSE"		4		"SCAN_START"		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15	}
+#define CTO_TRIGMODE_POSDIST 	0
+#define CTO_TRIGMODE_ONTRGT 	2
+#define CTO_TRIGMODE_MINMAX 	3
+#define CTO_TRIGMODE_GENTRIG 	4    
+    {  CTO    asynInt32   	 			PI_TRIG_OUTPUT_SEL YES		"POSITION_DIST"				0			"ON_TARGET"	2			"MIN_MAX"		3		"GENERATOR"		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15		""		16	}
+    {  DigFltType    asynInt32   	 PI_DIGFILT_TYPE NO		"Type 0"	0			"Type 1"		1			"Type 2"		2		"Type 3"		3		""		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15	}
+    {  DigFltOrder   asynInt32   	 PI_DIGFILT_ORDER NO		"0"				0			"1"		1			"2"		2		"3"		3		""		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15	}
+		{  ForceDone		 asynInt32   	 PI_FORCE_DONE  YES		"NORMAL"	0 	"FORCED"	1   "INTERNAL_TIMED"		2		"3"		3		""		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15	}
+		
+		
+
+}
+
+
+
+# here param_type refers to the readback type
+file bo_bi_param.template
+{
+    pattern
+    {  param  				param_type     port_drvr_string   	pini 	znam		onam	high}
+    {  ServoPower    	asynInt32   	 PI_POWER   		NO		"OFF"		"ON"	0.0}
+    {  ReInitialize  	asynInt32   	 PI_RE_INITIALIZE   		NO		"OFF"		"ON"	0.0}
+#    {  CoarseStatus    				asynInt32   	 COARSE_STATUS   		NO		"STOPPED"		"MOVING"	0.0}
+		{  AutoZero    		asynInt32   	 PI_AUTO_ZERO   									NO		"OFF"		"ON"	0.0}
+		{  SelectEncoder  asynInt32   	 PI_SELECT_ENCODER_SOURCE   			NO		"Capacitive"		"Quadrature"	0.0}
+		{  SelectOutputDir  asynInt32   	 PI_SELECT_OUTPUT_DIRECTION   	YES		"POS"		"NEG"	0.0}
+#		{  ForceDone		  asynInt32   	 PI_FORCE_DONE   	YES		"NORMAL"		"FORCED"	0.0}
+		{  ZeroADSensor  	asynInt32   	 PI_ZERO_AD_SENSOR	NO		"OFF"		"ON"	0.0}
+		{  VoltRngWarn  	asynInt32   	 PI_VOLT_RANGE_WARNING	NO		"GOOD"		"WARNING"	0.0}
+		{  ResetVoltRngWarn  	asynInt32  PI_RESET_VOLT_RANGE_WARNING	NO		"OFF"		"ON"	0.2}
+		{  ServoOffAndCntr  	asynInt32  PI_SERVO_OFF_AND_CENTER	NO		"OFF"		"ON"	0.2}
+		
+			
+}
+

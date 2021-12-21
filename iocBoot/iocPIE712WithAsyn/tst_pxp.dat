@@ -1,0 +1,17 @@
+# REM data scanned with E-712 Control
+#
+# TYPE = 0
+# SEPARATOR = 9
+# DIM = 2
+#
+# START0 = -1.0
+# END0 = 1.0
+# NDATA0 = 20
+# NAME0 = X [um]
+#
+# START1 = 1.0
+# DELTA1 = -1.0
+# NDATA1 = 20
+# NAME1 = Y [um]
+
+-1.0	1.0

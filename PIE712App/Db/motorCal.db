@@ -1,0 +1,105 @@
+#
+#   records used by SNL to control the calibration procedure.
+#       calibRun   will initiate the calibration procedure.
+#       calibDone  indicates calibration has been successfully completed.
+#       calibLog   used to log progress of calibration.
+#       moveHome   - (in the command template) moves to home position and writes calibration value.
+#
+
+record(bo, "$(clsdev)$(motor):calibDone")
+{
+        field(DESC, "Calibration completed")
+        field(VAL,  "0")
+        field(ZNAM, "NOT CALIBRATED")
+        field(ONAM, "CALIBRATED")
+        field(ZSV,  "MAJOR")
+
+        field(PINI, "1")
+}
+
+record(bo, "$(clsdev)$(motor):calibRun")
+{
+        field(DESC, "Calibration completed")
+        field(VAL,  "0")
+        field(ZNAM, "CALIBRAT STOPPED")
+        field(ONAM, "CALIBRATION RUNNING")
+        field(ZSV,  "MAJOR")
+}
+
+record(stringin, "$(clsdev)$(motor):log")
+{
+	field(DESC, "msg logging")
+}
+
+#
+#  direction and amount of move at start of calibration
+#
+record(ao, "$(clsdev)$(motor):calibFirstMv")
+{
+	field(DESC, "direction to move for calib")
+	field(VAL,  "$(move1)")
+  info(autosaveFields_pass0, "VAL RVAL")
+}
+
+record(ao, "$(clsdev)$(motor):calibFirstMv:vel")
+{
+	#it is expected that this value will be decided during commissioning
+	# and will be saved and restored instead of set explicitly here
+  field(DESC, "vel for move 1")
+  field(VAL,  "0")
+  info(autosaveFields_pass0, "VAL RVAL")
+}
+
+record(ao, "$(clsdev)$(motor):calibMove2")
+{
+	field(DESC, "direction to move for calib")
+	field(VAL,  "$(move2)")
+	info(autosaveFields_pass0, "VAL RVAL")
+}
+
+
+record(ao, "$(clsdev)$(motor):calibMove2:vel")
+{
+  #it is expected that this value will be decided during commissioning
+  # and will be saved and restored instead of set explicitly here
+  field(DESC, "vel for move 2")
+  field(VAL,  "0")
+  info(autosaveFields_pass0, "VAL RVAL")
+}
+
+record(stringout, "$(clsdev)$(motor):calibLimit")
+{
+	field(DESC, "limit used in calibration")
+	field(VAL,  "$(calibLimit)")
+	info(autosaveFields_pass0, "VAL")
+}
+
+#  value of calibrated position, either home/index pulse or limit switch
+record(ao, "$(clsdev)$(motor):calibPosn")
+{
+	field(DESC, "value calibrated position")
+	field(VAL,  "$(calibPosn)")
+	field(PREC, "3")
+	info(autosaveFields_pass0, "PREC VAL RVAL")
+}
+
+record(ao, "$(clsdev)$(motor):finalPosn")
+{
+	field(DESC, "final position after calib")
+	field(VAL,  "$(finalPosn)")
+	field(EGU,  "$(unit)")
+	field(PREC, "3")
+	info(autosaveFields_pass0, "PREC VAL RVAL")
+}
+
+
+
+
+#  value of calibrated position, either home/index pulse or limit switch
+record(ao, "$(clsdev)$(motor):calibOffset")
+{
+	field(DESC, "offset applied to the OFF field ")
+	field(VAL,  "$(offset)")
+	field(PREC, "3")
+	info(autosaveFields_pass0, "PREC VAL RVAL")
+}

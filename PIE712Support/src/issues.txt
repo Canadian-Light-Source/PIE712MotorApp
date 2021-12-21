@@ -1,0 +1,5 @@
+issues:
+ - Dec 11 2015, AD sensor overflows causing the calculation of the encoder feedback to be completley wrong, sent data and question to A Hauss
+ 		I rebooted the E-712 and that made the sensors go to near 0 values
+ - Dec 11 2015, Zx and Zy are using interferometer
+ - Dec 11 2015, Trigger output will have an offset due to filter bandwidth etc, talking with A Haas to figure it out

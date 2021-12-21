@@ -1,0 +1,204 @@
+
+#file stringout_param.template
+#{
+#    pattern
+#    {  param    M    port_drvr_string  pini  val}
+#    {  DataRecFname		""		PI_DR_FILE_NAME				YES		"test_data.dat"}
+#    
+#} 
+
+#file stringin_param.template
+#{
+#    pattern
+#    {  param    	M    port_drvr_string  pini }
+#    {  LastErr		""	PI_LAST_ERR				NO		}
+#    
+#    
+#} 
+#
+#file waveform_param.template
+#{
+#    pattern
+#    {  param      M		port_drvr_string  pini  nelm}
+#    {  GetRecData	""	PI_DR_GET_DRR		NO		950000	}
+#    
+#}
+#
+#
+file ai_param.template
+{
+    pattern
+    {  param         M   param_type     port_drvr_string   pini  		prec}
+    {  GetRecTblRate	""		asynInt32    PI_DR_GET_RTR		YES	 	0}
+    {  GetRecTblRateInSec	""		asynFloat64    PI_DR_GET_RTR_IN_SEC		YES	 	6}
+    {  GetNumRecPoints	""		asynInt32    PI_DR_GET_DRL		YES	 	0}
+    {  GetRecDataProg	""		asynInt32    PI_DR_DRR_PROG		YES	 	1}
+    
+    
+    
+    
+
+}
+
+file ao_param.template
+{
+    pattern
+    {  param         M   param_type     port_drvr_string   pini  drvl			drvh			val		prec}
+    {  DRTbl_1:src		""		asynInt32    PI_DR_T1_SRC				YES		0				64				3				0}
+    {  DRTbl_2:src		""		asynInt32    PI_DR_T2_SRC				YES		0				64				3				0}
+    {  DRTbl_3:src		""		asynInt32    PI_DR_T3_SRC				YES		0				64				3				0}
+    {  DRTbl_4:src		""		asynInt32    PI_DR_T4_SRC				YES		0				64				3				0}
+    {  DRTbl_5:src		""		asynInt32    PI_DR_T5_SRC				YES		0				64				3				0}
+    {  DRTbl_6:src		""		asynInt32    PI_DR_T6_SRC				YES		0				64				3				0}
+    {  DRTbl_7:src		""		asynInt32    PI_DR_T7_SRC				YES		0				64				3				0}
+    {  DRTbl_8:src		""		asynInt32    PI_DR_T8_SRC				YES		0				64				3				0}
+    {  DRTbl_9:src		""		asynInt32    PI_DR_T9_SRC				YES		0				64				3				0}
+    {  DRTbl_10:src		""		asynInt32    PI_DR_T10_SRC			YES		0				64				3				0}
+    {  DRTbl_11:src		""		asynInt32    PI_DR_T11_SRC			YES		0				64				3				0}
+    {  DRTbl_12:src		""		asynInt32    PI_DR_T12_SRC			YES		0				64				3				0}
+    
+    
+    {  SetRecTblRate		""		asynInt32    PI_DR_SET_RTR			YES		1			64				1				0}
+    
+    
+    
+}
+
+
+#file busy.template
+#{
+#    pattern
+#    {  param  			M		param_type     port_drvr_string   	pini}
+#
+#		{  ExecWavgen  	""	asynInt32  		PI_EXEC_WAVGEN				NO		}
+#}
+#
+#file bi_param.template
+#{
+#    pattern
+#    {  param  				M			param_type     port_drvr_string   	pini 	znam		onam	}
+#
+#		{  CommStatus  		 ""		asynInt32  PI_COMMUNICATION_STATUS	YES		"READY"		"BUSY"	}
+#		{  WaveGen1Status  ""		asynInt32  PI_WAVEGEN_1_STATUS	YES		"STOPPED"		"RUNNING"	}
+#		{  WaveGen2Status  ""		asynInt32  PI_WAVEGEN_2_STATUS	YES		"STOPPED"		"RUNNING"	}
+#		{  WaveGen3Status  ""  	asynInt32  PI_WAVEGEN_3_STATUS	YES		"STOPPED"		"RUNNING"	}
+#		{  WaveGen4Status  ""  	asynInt32  PI_WAVEGEN_4_STATUS	YES		"STOPPED"		"RUNNING"	}
+#
+#}
+
+file bo_param.template
+{
+    pattern
+    {  param  					M		param_type     port_drvr_string   	pini 	znam		onam	high}
+
+		{  DRTbl_1:en  ""	asynInt32  		PI_DR_T1_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_2:en  ""	asynInt32  		PI_DR_T2_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_3:en  ""	asynInt32  		PI_DR_T3_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_4:en  ""	asynInt32  		PI_DR_T4_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_5:en  ""	asynInt32  		PI_DR_T5_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_6:en  ""	asynInt32  		PI_DR_T6_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_7:en  ""	asynInt32  		PI_DR_T7_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_8:en  ""	asynInt32  		PI_DR_T8_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_9:en  ""	asynInt32  		PI_DR_T9_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_10:en  ""	asynInt32  		PI_DR_T10_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_11:en  ""	asynInt32  		PI_DR_T11_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		{  DRTbl_12:en  ""	asynInt32  		PI_DR_T12_EN		NO		"DISABLED"		"ENABLED"	0.0}
+		
+		{  ConfigDataRec	 ""	asynInt32  		PI_DR_EXEC_CFG		NO		"OFF"		"ON"	0.2}
+		{  GetDataRecTbls  ""	asynInt32  		PI_DR_GET_DRR		NO		"OFF"		"ON"	0.2}
+		{  StartDataRec  		""	asynInt32 	PI_DR_START		NO		"STOP"		"START"	0.2}
+		{  AutoDataRec  		""	asynInt32 	PI_DR_AUTO_ENABLE		NO		"DISABLED"		"ENABLED"	0.0}
+		{  AbortDataRec  		""	asynInt32 	PI_DR_ABORT		NO		"NORMAL"		"ABORT"	3.0}
+		
+		
+}
+
+file bi_param.template
+{
+    pattern
+    {  param  					M		param_type     port_drvr_string   	pini 	znam		onam	high}
+
+		{  GetDataRecTblsSts  ""	asynInt32  		PI_DR_GET_DRR_STS		NO		"READY"		"SAVING_DATA"	0.0}
+		
+		
+		
+}
+
+file char_waveform_param.template
+{
+    pattern
+    {  param      	port_drvr_string  pini  nelm}
+    {  DataRecFPath			PI_DR_FPATH		NO		1000	}
+    
+    
+}
+
+## 699050 is max number of data recorder points on E712
+#file dbl_waveform_param.template
+#{
+#    pattern
+#    {  param      	port_drvr_string  pini  nelm}
+#    {  DRTbl_1			PI_DR_T1_DATA				NO		699050	}
+#    {  DRTbl_2			PI_DR_T2_DATA				NO		699050	}
+#    {  DRTbl_3			PI_DR_T3_DATA				NO		699050	}
+#    {  DRTbl_4			PI_DR_T4_DATA				NO		699050	}
+#    {  DRTbl_5			PI_DR_T5_DATA				NO		699050	}
+#    {  DRTbl_6			PI_DR_T6_DATA				NO		699050	}
+#    {  DRTbl_7			PI_DR_T7_DATA				NO		699050	}
+#    {  DRTbl_8			PI_DR_T8_DATA				NO		699050	}
+#    {  DRTbl_9			PI_DR_T9_DATA				NO		699050	}
+#    {  DRTbl_10			PI_DR_T10_DATA			NO		699050	}
+#    {  DRTbl_11			PI_DR_T11_DATA			NO		699050	}
+#    {  DRTbl_12			PI_DR_T12_DATA			NO		699050	}
+#    
+#    
+#}
+#
+
+## here param_type refers to the readback type
+# not supporting all options only the 16 most used
+#	1=Target Position of axis 
+#	2=Current Position of axis 
+#	3=Position Error of axis 
+#	7=Cntrl Voltage output ch 
+#	13=DDL Output of axis 
+#	14=Open Loop Control of axis 			
+#	15=Control Output of axis 
+#	16=Voltage of output chan 
+#X	17=Sensor Normalized of input chan 
+#X	18=Sensor Filtered of input chan 
+#	19=ELinear of input chan
+#	20=MLinear of input chan 
+#	22=Slowed Trgt pos of axis 
+#	23=Target velocity of axis 
+#	24=Target accel of axis 
+#	25=Target jerk of axis 
+#	26=Value of Digital Input 
+#	27=Value of Digital Output 
+#
+file mbbo_param.template
+{
+    pattern
+    {  param  						param_type  M    port_drvr_string   pini 	zrst											zrvl	onst					onvl	twst							twvl		thst	thvl	frst	frvl	fvst	fvvl	sxst	sxvl	svst	svvl	eist	eivl	nist	nivl	test	tevl	elst	elvl	tvst	tvvl	ttst	ttvl	ftst	ftvl	ffst	ffvl	}
+    {  DataRecT1Option   	asynInt32   ""	 PI_DR_T1_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT2Option   	asynInt32   ""	 PI_DR_T2_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT3Option   	asynInt32   ""	 PI_DR_T3_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT4Option   	asynInt32   ""	 PI_DR_T4_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT5Option   	asynInt32   ""	 PI_DR_T5_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT6Option   	asynInt32   ""	 PI_DR_T6_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT7Option   	asynInt32   ""	 PI_DR_T7_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT8Option   	asynInt32   ""	 PI_DR_T8_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT9Option   	asynInt32   ""	 PI_DR_T9_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT10Option   	asynInt32   ""	 PI_DR_T10_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT11Option   	asynInt32   ""	 PI_DR_T11_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    {  DataRecT12Option   	asynInt32   ""	 PI_DR_T12_OPTION 		YES		"Target Position of axis"	1			"Current Position of axis"	2			"Position Error of axis"		3				"Cntrl Voltage output ch"		7		"DDL Output of axis"		13		"Open Loop Control of axis"		14		"Control Output of axis"		15		"Voltage of output chan"			16		"ELinear of input chan"		19		"MLinear of input chan"		20		"Slowed Trgt pos of axis"		22		"Target velocity of axis"		23		"Target accel of axis"		24		"Target jerk of axis"		25		"Value of Digital Input"		26		"Value of Digital Output"		27}
+    
+    
+    {  DataRecTrigSrc   	asynInt32   ""	 PI_DR_TRGSRC 		YES		"Default Setting"	0			"Any CMD changing pos"	1			"External Trigger"		3				"Immediate Trigger"		4		""		13		""		14		""		15		""			16		""		19		""		20		""		22		""		23		""		24		""		25		""		26		""		27}
+    
+   
+
+		
+}
+
+	

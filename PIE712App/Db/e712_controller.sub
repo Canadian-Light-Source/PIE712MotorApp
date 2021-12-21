@@ -1,0 +1,189 @@
+
+file stringout_param.template
+{
+    pattern
+    {  param    M    port_drvr_string  pini  val}
+    {  GetIDN		""		PI_GET_IDN				NO		"*IDN?"}
+    {  ParamFileName		""	PI_PARAM_FILE_NAME				YES		"test_param_file.dat"}
+} 
+
+file stringin_param.template
+{
+    pattern
+    {  param    	M    port_drvr_string  pini }
+    {  LastErr		""	PI_LAST_ERR				NO		}
+    
+    
+} 
+
+file waveform_param.template
+{
+    pattern
+    {  param      M		port_drvr_string  pini  nelm}
+    {  SendCmnds	""	PI_SEND_COMMANDS		NO		950000	}
+    
+}
+
+
+file ai_param.template
+{
+    pattern
+    {  param         M   param_type     port_drvr_string   pini  		prec}
+    {  WaveTbl1Len	""		asynInt32    PI_WAVE_TABLE_1_LEN		YES	 	0}
+    {  WaveTbl2Len	""		asynInt32    PI_WAVE_TABLE_2_LEN		YES	 	0}
+    {  WaveTbl3Len	""		asynInt32    PI_WAVE_TABLE_3_LEN		YES	 	0}
+    {  WaveTbl4Len	""		asynInt32    PI_WAVE_TABLE_4_LEN		YES	 	0}
+    
+    {  DDLTbl1Len	""			asynInt32    PI_DDL_TABLE_1_LEN			YES	 	0}
+    {  DDLTbl2Len	""			asynInt32    PI_DDL_TABLE_2_LEN			YES	 	0}
+    {  DDLTbl3Len	""			asynInt32    PI_DDL_TABLE_3_LEN			YES	 	0}
+    {  DDLTbl4Len	""			asynInt32    PI_DDL_TABLE_4_LEN			YES	 	0}
+    
+    {  TotalPointsLeft	""		asynInt32    PI_TTL_POINTS_LEFT		YES	 0}
+    
+}
+
+
+
+file ao_param.template
+{
+    pattern
+    {  param         M   param_type     port_drvr_string   pini  drvl			drvh			val		prec}
+    {  TrigOutput		""		asynInt32    PI_TRIG_OUTPUT				YES		1				8					1											0}
+    {  XAxisId			""		asynInt32    PI_X_AXIS_ID					YES		1				4					3											0}
+    {  YAxisId			""		asynInt32    PI_Y_AXIS_ID					YES		1				4					4											0}
+                                                                                            							
+    {  NumCycles			""		asynInt32    PI_NUM_CYCLES					YES		1				5000			1									0}
+    {  WaveTableRate	""		asynInt32    PI_WAVE_TABLE_RATE			YES		1				5000			1									0}
+                                                                                            							
+    {  XStartPos			""		asynFloat64    PI_X_START_POS		YES		-7000				7000			0.0								6}
+    {  YStartPos			""		asynFloat64    PI_Y_START_POS		YES		-7000				7000			0.0								6}
+                                                                                                      		
+    {  WavGen1UseTblNum			""		asynInt32    PI_WAVEGEN_1_USETABLE_NUM		YES		0				120			120			0}
+    {  WavGen2UseTblNum			""		asynInt32    PI_WAVEGEN_2_USETABLE_NUM		YES		0				120			120			0}
+    {  WavGen3UseTblNum			""		asynInt32    PI_WAVEGEN_3_USETABLE_NUM		YES		0				120			3				0}
+    {  WavGen4UseTblNum			""		asynInt32    PI_WAVEGEN_4_USETABLE_NUM		YES		0				120			4				0}
+                                                                                                      		
+    {  DDLTbl_NORD			""		asynInt32    PI_DDLTBL_NORD		YES		0				9999999			0										0}
+    
+    
+}
+
+file busy.template
+{
+    pattern
+    {  param  			M		param_type     port_drvr_string   	pini}
+
+		{  ExecWavgen  	""	asynInt32  		PI_EXEC_WAVGEN				NO		}
+}
+
+file bi_param.template
+{
+    pattern
+    {  param  				M			param_type     port_drvr_string   	pini 	znam		onam	}
+
+		{  CommStatus  		 ""		asynInt32  PI_COMMUNICATION_STATUS	YES		"READY"		"BUSY"	}
+		{  WaveGen1Status  ""		asynInt32  PI_WAVEGEN_1_STATUS	YES		"STOPPED"		"RUNNING"	}
+		{  WaveGen2Status  ""		asynInt32  PI_WAVEGEN_2_STATUS	YES		"STOPPED"		"RUNNING"	}
+		{  WaveGen3Status  ""  	asynInt32  PI_WAVEGEN_3_STATUS	YES		"STOPPED"		"RUNNING"	}
+		{  WaveGen4Status  ""  	asynInt32  PI_WAVEGEN_4_STATUS	YES		"STOPPED"		"RUNNING"	}
+
+}
+
+file bo_param.template
+{
+    pattern
+    {  param  			M		param_type     port_drvr_string   	pini 	znam		onam	high}
+
+		{  StartWavgen  	""	asynInt32  		PI_START_WAVGEN		NO		"OFF"		"ON"	0.2}
+		{  StopWavgen  	""	asynInt32  		PI_STOP_WAVGEN		NO		"OFF"		"ON"	0.2}
+		
+		{  GetWavTbl1  	""	asynInt32  		PI_GET_WVTBL_1		NO		"OFF"		"ON"	0.2}
+		{  GetWavTbl2  	""	asynInt32  		PI_GET_WVTBL_2		NO		"OFF"		"ON"	0.2}
+		{  GetWavTbl3  	""	asynInt32  		PI_GET_WVTBL_3		NO		"OFF"		"ON"	0.2}
+		{  GetWavTbl4  	""	asynInt32  		PI_GET_WVTBL_4		NO		"OFF"		"ON"	0.2}
+		
+		{  GetDDLTbl1  	""	asynInt32  		PI_GET_DDLTBL_1		NO		"OFF"		"ON"	0.2}
+		{  GetDDLTbl2  	""	asynInt32  		PI_GET_DDLTBL_2		NO		"OFF"		"ON"	0.2}
+		{  GetDDLTbl3  	""	asynInt32  		PI_GET_DDLTBL_3		NO		"OFF"		"ON"	0.2}
+		{  GetDDLTbl4  	""	asynInt32  		PI_GET_DDLTBL_4		NO		"OFF"		"ON"	0.2}
+		
+		{  GetTrigTbl  	""	asynInt32  		PI_GET_TRIG_TBL		NO		"OFF"		"ON"	0.2}
+		{  ClearTrigTbl  	""	asynInt32   PI_CLR_TRIGTBL		NO		"OFF"		"ON"	0.2}
+		
+		{  ClearDDLTbl1  ""		asynInt32  	PI_CLR_DDLTBL_1		NO		"OFF"		"ON"	0.2}
+		{  ClearDDLTbl2  ""		asynInt32  	PI_CLR_DDLTBL_2		NO		"OFF"		"ON"	0.2}
+		{  ClearDDLTbl3  ""		asynInt32  	PI_CLR_DDLTBL_3		NO		"OFF"		"ON"	0.2}
+		{  ClearDDLTbl4  ""		asynInt32  	PI_CLR_DDLTBL_4		NO		"OFF"		"ON"	0.2}
+		
+		{  ClearWavTbl1  ""		asynInt32  	PI_CLR_WAVTBL_1		NO		"OFF"		"ON"	0.2}
+		{  ClearWavTbl2  ""		asynInt32  	PI_CLR_WAVTBL_2		NO		"OFF"		"ON"	0.2}
+		{  ClearWavTbl3  ""		asynInt32  	PI_CLR_WAVTBL_3		NO		"OFF"		"ON"	0.2}
+		{  ClearWavTbl4  ""		asynInt32  	PI_CLR_WAVTBL_4		NO		"OFF"		"ON"	0.2}
+		
+		{  CalcDDLParms  ""		asynInt32  	PI_CALC_DDL_PARMS		NO		"OFF"		"ON"	0.2}
+		
+		
+		{  WavTbl1UseDDL  ""		asynInt32  	PI_WVT1_USE_DDL		NO		"OFF"		"ON"	0}
+		{  WavTbl2UseDDL  ""		asynInt32  	PI_WVT2_USE_DDL		NO		"OFF"		"ON"	0}
+		{  WavTbl3UseDDL  ""		asynInt32  	PI_WVT3_USE_DDL		NO		"OFF"		"ON"	0}
+		{  WavTbl4UseDDL  ""		asynInt32  	PI_WVT4_USE_DDL		NO		"OFF"		"ON"	0}
+		
+		{  WavTbl1UseReinitDDL  ""		asynInt32  	PI_WVT1_USEREINIT_DDL		NO		"OFF"		"ON"	0}
+		{  WavTbl2UseReinitDDL  ""		asynInt32  	PI_WVT2_USEREINIT_DDL		NO		"OFF"		"ON"	0}
+		{  WavTbl3UseReinitDDL  ""		asynInt32  	PI_WVT3_USEREINIT_DDL		NO		"OFF"		"ON"	0}
+		{  WavTbl4UseReinitDDL  ""		asynInt32  	PI_WVT4_USEREINIT_DDL		NO		"OFF"		"ON"	0}
+		
+		{  WavTbl1StartAtEndPos  ""		asynInt32  	PI_WVT1_START_AT_END_DDL		NO		"OFF"		"ON"	0}
+		{  WavTbl2StartAtEndPos ""		asynInt32  	PI_WVT2_START_AT_END_DDL		NO		"OFF"		"ON"	0}
+		{  WavTbl3StartAtEndPos ""		asynInt32  	PI_WVT3_START_AT_END_DDL		NO		"OFF"		"ON"	0}
+		{  WavTbl4StartAtEndPos ""		asynInt32  	PI_WVT4_START_AT_END_DDL		NO		"OFF"		"ON"	0}
+		
+		{  ScanMode 					""		asynInt32  	PI_SCAN_MODE		NO		"LxL"		"PxP"	0} 
+		
+		{  LoadParamFile			""		asynInt32  	PI_LOAD_PARAM_FILE		NO		"Load"		"Load"	0.25} 
+		
+		
+		
+		
+}
+
+file dbl_waveform_param.template
+{
+    pattern
+    {  param      	port_drvr_string  pini  nelm}
+    {  WaveTbl1			PI_WAVETBL_1				NO		262144	}
+    {  WaveTbl2			PI_WAVETBL_2				NO		262144	}
+    {  WaveTbl3			PI_WAVETBL_3				NO		262144	}
+    {  WaveTbl4			PI_WAVETBL_4				NO		262144	}
+    
+    {  DDLTbl1			PI_DDLTBL_1				NO		262144	}
+    {  DDLTbl2			PI_DDLTBL_2				NO		262144	}
+    {  DDLTbl3			PI_DDLTBL_3				NO		262144	}
+    {  DDLTbl4			PI_DDLTBL_4				NO		262144	}
+    
+    {  TrigTbl			PI_TRIG_TBL				NO		262144	}
+    
+}
+
+
+# here param_type refers to the readback type
+file mbbo_param.template
+{
+    pattern
+    {  param  						param_type  M    port_drvr_string   pini 	zrst						zrvl	onst					onvl	twst							twvl		thst	thvl	frst	frvl	fvst	fvvl	sxst	sxvl	svst	svvl	eist	eivl	nist	nivl	test	tevl	elst	elvl	tvst	tvvl	ttst	ttvl	ftst	ftvl	ffst	ffvl	}
+    {  WavTbl1StartMode   asynInt32   ""	 PI_WAV1_START_MODE YES		"DO_NOT_START"	0			"IMMEDIATELY"	1			"EXTERNAL_TRIG"		2				""		3		""		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15	}
+    {  WavTbl2StartMode   asynInt32   ""	 PI_WAV2_START_MODE YES		"DO_NOT_START"	0			"IMMEDIATELY"	1			"EXTERNAL_TRIG"		2				""		3		""		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15	}
+    {  WavTbl3StartMode   asynInt32   ""	 PI_WAV3_START_MODE YES		"DO_NOT_START"	0			"IMMEDIATELY"	1			"EXTERNAL_TRIG"		2				""		3		""		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15	}
+    {  WavTbl4StartMode   asynInt32   ""	 PI_WAV4_START_MODE YES		"DO_NOT_START"	0			"IMMEDIATELY"	1			"EXTERNAL_TRIG"		2				""		3		""		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15	}
+
+		
+		{  TrigModeWg1		 asynInt32  ""	 PI_TRIG_MODE_WG1  YES		"POSITION_DIST"	0 	"ON_TARGET"	2   "MINMAX_THRESHOLD"		3		"GENERATOR_TRIG"		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15		""		16	}
+		{  TrigModeWg2		 asynInt32  ""	 PI_TRIG_MODE_WG2  YES		"POSITION_DIST"	0 	"ON_TARGET"	2   "MINMAX_THRESHOLD"		3		"GENERATOR_TRIG"		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15		""		16	}
+		{  TrigModeWg3		 asynInt32  ""	 PI_TRIG_MODE_WG3  YES		"POSITION_DIST"	0 	"ON_TARGET"	2   "MINMAX_THRESHOLD"		3		"GENERATOR_TRIG"		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15		""		16	}
+		{  TrigModeWg4		 asynInt32  ""	 PI_TRIG_MODE_WG4  YES		"POSITION_DIST"	0 	"ON_TARGET"	2   "MINMAX_THRESHOLD"		3		"GENERATOR_TRIG"		4		""		5		""		6		""		7		""		8		""		9		""		10		""		11		""		12		""		13		""		14		""		15		""		16	}
+		
+
+		
+}
+

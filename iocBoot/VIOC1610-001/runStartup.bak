@@ -1,0 +1,20 @@
+
+echo $"Starting SM_BlApiApp_VIOC1610-001 App"
+
+source /home/epics/src/R7-SL7/Startup/startup.R7.sh
+. /home/epics/src/R7-SL7/base/bin/linux-x86_64/caRepeater &
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/local/lib/linux-x86_64;
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/base/lib/linux-x86_64;
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/modules/support/seq-2-2-6/lib/linux-x86_64
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/modules/support/calc-R3-7-3/lib/linux-x86_64
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/modules/support/sscan-R2-11-3/lib/linux-x86_64
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/modules/support/asyn-R4-37/lib/linux-x86_64
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/modules/support/autosave-R5-10/lib/linux-x86_64
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/modules/support/motor-R7-1/lib/linux-x86_64
+export LD_LIBRARY_PATH
+
+
+#( sleep 10; echo "Restoring blApi_r7_VIOC1610-001..."; /iocApps/IOCrestore/IOCrestore VIOC1610-001-blApi_r7;) &
+
+cd /iocApps/10ID_1_SM_BL/VIOC1610-001/BlApiApp/
+./bin/linux-x86_64/blApi_r7 st.cmd.ambsim

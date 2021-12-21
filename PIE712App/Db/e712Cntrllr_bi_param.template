@@ -1,0 +1,25 @@
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_$(param)String   	 		"$(port_drvr_string)"  			/* $(param_type),    r/w */
+# int P_$(param);
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_$(param)String,          asynParamInt32,       &P_$(param));
+#	setIntegerParam (P_$(param),       0);
+#
+#################################################################
+
+record(bi, "$(P)$(param)_RBV")
+{
+    field(PINI, "$(pini)")
+    field(DTYP, "$(param_type)")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(port_drvr_string)")
+    field(ZNAM, "$(znam)")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "$(onam)ing")
+    field(OSV,  "MINOR")
+    field(SCAN, "I/O Intr")
+}

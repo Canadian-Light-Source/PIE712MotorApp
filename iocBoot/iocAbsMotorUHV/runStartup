@@ -1,0 +1,6 @@
+#!/bin/sh
+echo $"Starting UHV Cryo-STXM AbstractMotor App"
+echo $PATH
+cd /cygdrive/c/controls/epics/R3.14.12.4/modules/support/motor-6-8/
+
+./bin/win32-x86-debug/uhvAbsMotor.exe ./iocBoot/iocAbsMotorUHV/st.cmd.abs-uhv

@@ -1,0 +1,57 @@
+//## 1 - E-712 on TCP/IP host 172.17.128.53, port 50000 (axes 1:X, 2:Y, 3:Z, ...)
+
+
+//this is a line of 500pts over 3um with a dwell of 2ms, so the line time should be 1second, speedup/down is 50ms
+// WAV <TableID> <AppendWave> <WaveType> <SegLength> <Amp> <Offset> <Wavelength> <Startpoint> <Speedupdown>
+
+WAV 1 X LIN 100 0 -2 100 0 20 
+WAV 1 & LIN 10000 14 -2 10000 0 100
+
+WAV 1 & LIN 200 0 12 200 0 50
+WAV 1 & LIN 200 -14 12 200 0 50
+WAV 1 & LIN 10 0 -2 10 0 50
+WAV 1 & LIN 200 0 -1 200 0 50
+
+WAV 2 X LIN 9500 0.1 0 1000 0 10
+WAV 2 X LIN 200 0.1 0.1 2000 0 10
+WAV 2 X LIN 9500 0.1 0 2000 0 10
+WAV 2 & LIN 9500 0.1 0.1 2000 0 10
+
+TWC
+
+TWS 1 1 1 1 2 1
+
+CTO 1 3 4
+
+
+//WGO 1 1 2 257
+//WOS 2 0
+//MOV 2 0
+
+//WGO 1 1 2 257
+
+//WOS 2 0
+//MOV 2 0
+
+
+
+//## ORIGINAL FROM ANDREAS
+//  WAV 1 X LIN 800 100 0 800 0 20
+//  WAV 1 & LIN 200 0 100 200 0 20
+//  WAV 1 & LIN 800 -100 100 800 0 20
+//  WAV 1 & LIN 200 0 0 200 0 20
+
+//  WAV 2 X LIN 1000 1 0 100 900 10
+//  WAV 2 X LIN 1000 1 1 100 900 10
+//  WAV 2 X LIN 1000 1 0 100 900 10
+//  WAV 2 & LIN 1000 1 1 100 900 10
+
+//  WGO 1 1 2 257
+
+//  WOS 2 0
+//  MOV 2 0
+
+//  WGO 1 1 2 257
+
+//  WOS 2 0
+//  MOV 2 0

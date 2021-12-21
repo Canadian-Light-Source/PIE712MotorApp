@@ -1,0 +1,120 @@
+>>HLP?
+<<The following commands are valid: 
+<<#24 - Stop All Motion 
+<<#5 - Request Motion Status 
+<<#7 - Controller Busy With Referencing 
+<<#8 - Tests if a macro is running 
+<<#9 - Get Wave Generator Status 
+<<*IDN? - Get Device Identification 
+<<ADD - Add two values, save result to a variable 
+<<AOS - Set Analog Input Offset 
+<<AOS? - Get Analog Input Offset 
+<<ATZ - Set Automatic Zero-Point Calibration 
+<<ATZ? - Get Automatic Zero-Point Calibration 
+<<CCL - Set Command Level 
+<<CCL? - Get Command Level 
+<<CPY - Copy CMD response into Variable, Macros only 
+<<CST? - Stage Type Of Selected Axis 
+<<CSV? - Get Current Syntax Version 
+<<CTO - Set Configuration Of Trigger Output 
+<<CTO? - Get Configuration Of Trigger Output 
+<<DDL - Set DDL Table Value(s) 
+<<DDL? - Get DDL Table Value(s) 
+<<DEL - Delay CMD, Macros only 
+<<DIO? - Get Digital Input Lines 
+<<DPO - DDL Parameter Optimization 
+<<DRC - Set Data Recorder Configuration 
+<<DRC? - Get Data Recorder Configuration 
+<<DRL? - Data Recorder Length 
+<<DRR? - Get Recorded Data Value(s) 
+<<DRT - Set Data Recorder Trigger Source 
+<<DRT? - Get Data Recorder Trigger Source 
+<<DTC - Clears DDL Table Data 
+<<DTL? - Get DDL Table Length 
+<<ERR? - Get Error Number 
+<<GWD? - Get Wave Table Data 
+<<HDR? - Get All Data Recorder Options 
+<<HLP? - Get List Of Available Commands 
+<<HLT - Halt Axis Movement 
+<<HPA? - Get List Of Available Parameters 
+<<HPV? - Get Parameter Value Description 
+<<IDN? - Get Device Identification 
+<<IFC - Set Interface Param. Temporary 
+<<IFC? - Get Interface Param. Temporary 
+<<IFS - Set Interface Default Parameters 
+<<IFS? - Get Interface Default Parameters 
+<<IMP - Start Impulse & Response Measurement 
+<<JOG - Set JOG 
+<<JOG? - Get JOG 
+<<JRC - Jump Relative on Condition, Macros only 
+<<LIM? -  Ask if given index has LIMit switches 
+<<MAC - Set Macros 
+<<MAC? - Get Macros 
+<<MEX - Stop macro execution 
+<<MOV - Set Target Position 
+<<MOV? - Get Target Position 
+<<MRT? -  test the rising time of amplifer voltage 
+<<MRT? -  test the rising time of amplifer voltage 
+<<MVR - Set Target Relative To Current Position 
+<<ONT? - Get Ontarget State 
+<<OVF? - Get Overflow Status 
+<<POS? - Real Axis Position 
+<<PUN? - Get Current position unit 
+<<RBT - Reboot System  
+<<RMC? - List macros currently running 
+<<RPA - Reset Temporary Memory Parameter(s) 
+<<RTR - Set Record Table Rate 
+<<RTR? - Get Record Table Rate 
+<<SAI? - Get List Of Current Axis Identifiers 
+<<SEP - Set Nonvolatile Memory Parameter(s) 
+<<SEP? - Get Nonvolatile Memory Parameter(s) 
+<<SPA - Set Temporary Memory Parameter(s) 
+<<SPA? - Get Temporary Memory Parameter(s) 
+<<SRG? -  Report register status as C-867 
+<<SSN? - Get Device Serial Number 
+<<STE - Start Step & Response-Measurement 
+<<STP - Stop All Non Complex Motion 
+<<SVA - Set Openloop Axis Value 
+<<SVA? - Get Openloop Axis Value 
+<<SVO - Set Servo State 
+<<SVO? - Get Servo State 
+<<SVR - Set Relative Open-Loop Axis Value 
+<<TAD? - Get ADC Value Of Input Signal 
+<<TIO? - Get Number Of Digital I/O Lines 
+<<TLT? - Get Number Of DDL Tables 
+<<TMN? - Get Minimum Commandable Position 
+<<TMX? - Get Maximum Commandable Position 
+<<TNR? - Get Number Of Record Tables 
+<<TNS? - Get Normalized Input Signal Value 
+<<TPC? - Get Number Of Output Signal Channels 
+<<TSC? - Get Number Of Input Signal Channels 
+<<TSP? - Get Input Position Value 
+<<TWC - Clear All Wave Related Triggers 
+<<TWG? - Get Number Of Wave Generators 
+<<TWS - Set TriggerLine Action To Waveform Point 
+<<TWS? - Get TriggerLine Action To Waveform Point 
+<<VAR - Set Variables 
+<<VAR? - Get Variables 
+<<VCO - Set Velocity Control Mode 
+<<VCO? - Get Velocity Control Mode 
+<<VEL - Set Velocity 
+<<VEL? - Get Velocity 
+<<VER? - Get Versions Of Firmware And Driver 
+<<VOL? - Get Voltage Of Output-Signal Channel 
+<<WAC - WAit until Cond. 
+<<WAV - Set Waveform Definition 
+<<WAV? - Get Waveform Definition 
+<<WCL - Clear Wave Table Data 
+<<WGC - Set Number Of Wave Generator Cycles 
+<<WGC? - Get Number Of Wave Generator Cycles 
+<<WGO - Set Wave Generator Start/Stop Mode 
+<<WGO? - Get Wave Generator Start/Stop Mode 
+<<WGR - Starts Recording Synchron to Wave Generator 
+<<WOS - Set Wave Generator Output Offset 
+<<WOS? - Get Wave Generator Output Offset 
+<<WPA - Save Parameters To Nonvolatile Memory 
+<<WSL - Set Connection of Wave Table to Wave Generator 
+<<WSL? - Get Connection of Wave Table to Wave Generator 
+<<WTR - Set Wave Generator Table Rate 
+<<WTR? - Get Wave Generator Table Rate 
+<<end of help
