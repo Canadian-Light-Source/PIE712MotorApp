@@ -627,10 +627,9 @@ public:
 	double m_force_done_wait_time;
 	
 	
-	
-	
-    friend class PIE712Controller;
+  friend class PIE712Controller;
 private:
+		
 		PIE712Controller *pC_;
     double negLimit_;
     double posLimit_;
@@ -643,8 +642,6 @@ private:
     double m_rrbv_;
     epicsEventId m_forceDoneWaiteventId_;
   
-    
-
 };
 
 

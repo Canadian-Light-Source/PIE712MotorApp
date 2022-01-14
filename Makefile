@@ -22,8 +22,8 @@ DIRS += $(wildcard iocBoot)
 #     $(eval $(dir)_DEPEND_DIRS += $(filter %Sup, $(DIRS))))
 # 
 # # Any *Top dirs depend on all *Sup and *App dirs
-# $(foreach dir, $(filter %Top, $(DIRS)), \
-#     $(eval $(dir)_DEPEND_DIRS += $(filter %Sup %App, $(DIRS))))
+$(foreach dir, $(filter %Top, $(DIRS)), \
+    $(eval $(dir)_DEPEND_DIRS += $(filter %Sup %App, $(DIRS))))
 # 
 # # iocBoot depends on all *App dirs
 # iocBoot_DEPEND_DIRS += $(filter %App,$(DIRS))

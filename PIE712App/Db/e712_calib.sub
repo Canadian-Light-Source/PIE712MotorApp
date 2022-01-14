@@ -1,0 +1,9 @@
+file calibPvs.template
+{
+    pattern
+  {   clsdev			calibMove		calibPosn		finalPosn 	calibDir}
+# Sample Fine X	 
+	{ PZAC1610-3-I12-40		0			0.0					0		  			0   }
+# Sample Fine Y	 	
+	{ PZAC1610-3-I12-41		0			0.0					0		  			0   }
+}

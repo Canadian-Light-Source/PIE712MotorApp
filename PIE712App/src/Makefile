@@ -10,8 +10,16 @@
 
 TOP = ../..
 include $(TOP)/configure/CONFIG
+
+USR_CFLAGS += -g -O0
+USR_CPPFLAGS += -g -O0
+
 USR_CPPFLAGS += -I/home/beamline/tools/anaconda3/include/python3.7m
 USR_LDFLAGS += -L/home/beamline/tools/anaconda3/lib
+
+USR_CPPFLAGS += -I/$(MOTOR)/include
+USR_CFLAGS += -I/$(MOTOR)/include
+
 
 
 PROD_IOC_DEFAULT = pi_e712WithAsyn

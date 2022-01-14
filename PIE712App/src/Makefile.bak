@@ -17,6 +17,9 @@ USR_LDFLAGS += -L/home/beamline/tools/anaconda3/lib
 PROD_IOC_DEFAULT = pi_e712WithAsyn
 
 COMMONDBDS  = base.dbd
+COMMONDBDS += asyn.dbd
+#motorSim_DBD += motorSimSupport.dbd
+
 COMMONDBDS += transformRecord.dbd
 COMMONDBDS += calcSupport.dbd
 COMMONDBDS += motorSupport.dbd

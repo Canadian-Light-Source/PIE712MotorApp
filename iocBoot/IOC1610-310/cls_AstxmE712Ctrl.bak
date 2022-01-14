@@ -1,0 +1,20 @@
+#
+# chkconfig: 345 90 10
+# description: Must be started after networking and NFS
+#
+
+. /etc/rc.d/init.d/functions
+
+IOCNAME=IOC1610-310
+INSTALL_DIR=/iocApps/10ID_1_SM_BL/IOC1610-310/AStxm_E712Ctrl
+TOP=/home/epics/src/R7-SL7/
+T_A=linux-x86_64
+# RUNCMD=
+# RUNAS=root
+RUNSCRIPT=runStartup
+DAEMON=pi_e712WithAsyn
+PORTNO=10006
+NETWORK="10.52.32.0/22"
+
+source /iocApps/Common/startup.include
+

@@ -7,14 +7,8 @@ include $(TOP)/configure/CONFIG
 
 #==================================================
 # Build an IOC support library
-#USR_CFLAGS += -DDEBUG  /Zi 
-#USR_CPPFLAGS += -DDEBUG /Zi -IC:\Continuum\Anaconda2\include 
-#USR_LDFLAGS += /INCREMENTAL:NO /OPT:REF /OPT:ICF /LIBPATH:C:\Continuum\Anaconda2\libs
-
-USR_CPPFLAGS += -I/home/beamline/tools/anaconda3/include/python3.7m -Wno-unused-variable
+USR_CPPFLAGS += -I/home/beamline/tools/anaconda3/include/python3.7m -Wno-unused-variable -Wno-unused-but-set-variable
 USR_LDFLAGS += -L/home/beamline/tools/anaconda3/lib -Wno-unused-variable
-
-
 
 
 LIBRARY_IOC += PI_E712Support
@@ -25,20 +19,8 @@ DBD += PI_E712Support.dbd
 
 # The following are compiled and added to the Support library
 PI_E712Support_SRCS += PIE712Controller.cpp
-
-
-#PI_E712Support_SRCS += PIGCSController.cpp
-#PI_E712Support_SRCS += PIGCSMotorController.cpp
-#PI_E712Support_SRCS += PIGCSPiezoController.cpp
-#PI_E712Support_SRCS += PIE517Controller.cpp
-#PI_E712Support_SRCS += PIE755Controller.cpp
-#PI_E712Support_SRCS += PIHexapodController.cpp
-#PI_E712Support_SRCS += PIGCS2_HexapodController.cpp
-#PI_E712Support_SRCS += PIC702Controller.cpp
 PI_E712Support_SRCS += translateerror.c
 PI_E712Support_SRCS += PIInterface.cpp
-#PI_E712Support_SRCS += PIDaisyChainInterface.cpp
-
 PI_E712Support_SRCS += load_param_file.cpp
 
 PI_E712Support_LIBS += motor

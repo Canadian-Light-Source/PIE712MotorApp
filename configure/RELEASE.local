@@ -3,15 +3,18 @@
 -include $(MOTOR)/configure/RELEASE
 # Use the following lines if motorNewport was built outside motor
 #
+EPICS_BASE=/home/bergr/epics/R7/epics-base-R7.0.3.1
 
-EPICS_MODULES=/home/epics/src/R7-SL7/modules
+#EPICS_MODULES=/home/epics/src/R7-SL7/modules
+EPICS_MODULES=$(EPICS_BASE)/../modules
+ASYN=$(EPICS_MODULES)/support/asyn-R4-37
 CALC=$(EPICS_MODULES)/support/calc-R3-7-3
 AUTOSAVE=$(EPICS_MODULES)/support/autosave-R5-10
 SNSEQ=$(EPICS_MODULES)/support/seq-2-2-6
 SSCAN=$(EPICS_MODULES)/support/sscan-R2-11-3
 
-MOTOR=/home/epics/src/R7-SL7/modules/support/motor-R7-1
-MOTOR_NEWPORT=/home/epics/src/R7-SL7/modules/support/motor-R7-1
+#MOTOR=/home/epics/src/R7-SL7/modules/support/motor-R7-1
+MOTOR=$(EPICS_MODULES)/support/motor-R7-1
+MOTOR_NEWPORT=$(EPICS_MODULES)/support/motor-R7-1
 -include $(MOTOR_NEWPORT)/configure/RELEASE.local
-
 

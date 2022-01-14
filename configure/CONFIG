@@ -3,6 +3,8 @@
 # Do not make changes to this file!
 
 # Allow user to override where the build rules come from
+#
+EPICS_BASE=/home/bergr/epics/R7/epics-base-R7.0.3.1
 RULES = $(EPICS_BASE)
 
 # RELEASE files point to other application tops

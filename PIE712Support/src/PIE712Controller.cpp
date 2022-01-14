@@ -880,10 +880,12 @@ asynStatus PIE712Axis::Init(const char *portname)
 	double val, cap, quad = 0.0;
 	
 
+	/*
 	if(m_simchan)
 	{	
 		return(	asynSuccess);
-	}	
+	}
+	*/	
   sprintf(cmd, "CST? %d", m_axisNo);
   asynStatus status = pC_->m_pInterface->sendAndReceive(cmd, buf, 99);;
   if (status != asynSuccess)
@@ -2793,14 +2795,22 @@ bool PIE712Axis::isWithInRange(double target_microns)
 /***************************************************************************/
 asynStatus PIE712Axis::config(char *axisName, int hiHardLimit, int lowHardLimit, int home, int start, int simulate)
 {
+	printf("simulate = %d\n", simulate);
+
+  //Init(m_portName);
 	
   hiHardLimit_ = hiHardLimit;
   lowHardLimit_ = lowHardLimit;
   home_ = home;
   //enc_offset_ = start;
-  m_simchan = simulate>0?true:false;
+  //m_simchan = simulate>0?true:false;
   
-  Init(m_portName);
+  if(simulate>0){
+  	m_simchan = true;
+  } else { 
+  	m_simchan = false;
+  }
+  
   
   sprintf(m_axisName, "%s", axisName);   
 	initPositioner();
@@ -3287,6 +3297,9 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 	
 	callParamCallbacks();
 	
+	/* findout what axes there are */
+	findConnectedAxes();
+	
 	 if (numAxes < 1 ) numAxes = 1;
     this->numAxes_ = numAxes;
 
@@ -3301,6 +3314,8 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 		pAxis  = new PIE712Axis(this, axis, DEFAULT_LOW_LIMIT, DEFAULT_HI_LIMIT, DEFAULT_HOME, DEFAULT_START);
 		sprintf(pAxis->m_portName, "%s",portName);
     //moved this to support simulation pAxis->Init(portName);
+    /* put back Jan 13 2022*/
+    pAxis->Init(portName);
   }
 
     startPoller(double(movingPollPeriod)/1000, double(idlePollPeriod)/1000, 10);
@@ -6168,7 +6183,10 @@ extern "C" int PI_E712_MotorConfigAxis(const char *portName, int axis, char *axi
   while(pNode) {
     if (strcmp(pNode->portName, portName) == 0) {
 			printf("%s:%s: configuring controller %s axis %d\n", driverName, functionName, pNode->portName, axis); 
-      pNode->pController->getAxis(axis)->config(axisName, hiHardLimit, lowHardLimit, home, start, simulate);
+      //pNode->pController->getAxis(axis)->config(axisName, hiHardLimit, lowHardLimit, home, start, simulate);
+      PIE712Axis *pAxis = pNode->pController->getAxis(axis);
+      pAxis->config(axisName, hiHardLimit, lowHardLimit, home, start, simulate);
+      
       return(0);
     }
     pNode = (PIE712ControllerNode*)ellNext((ELLNODE*)pNode);

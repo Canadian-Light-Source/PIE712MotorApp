@@ -1,0 +1,12 @@
+epicsEnvSet(IOC,"PI E712 Control")
+epicsEnvSet(ARCH,"linux-x86_64")
+epicsEnvSet(IOC,"IOC1610-310")
+
+epicsEnvSet(TOP,".")
+
+epicsEnvSet(BP_API_APP,"/iocApps/10ID_1_SM_BL/VIOC1610-001/BlApiApp")
+
+epicsEnvSet(MOTOR,"/home/epics/src/R7-SL7/modules/support/motor-R7-1")
+epicsEnvSet(ASYN,"/home/epics/src/R7-SL7/modules/support/asyn-R4-37")
+epicsEnvSet(SSCAN,"/home/epics/src/R7-SL7/modules/support/sscan-R2-11-3")
+

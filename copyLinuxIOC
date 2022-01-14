@@ -1,0 +1,52 @@
+#!/bin/bash 
+#
+# copy CMCF ID2 Rontec BL_API to production.  
+#
+
+
+APP_ROOT=/iocApps/
+TARGET_ARCH=linux-x86_64
+
+OWNER="epics"
+
+APP_LIST="BL_API"
+
+BL_API_BEAMLINE=10ID_1_SM_BL
+BL_API_IOC_NAME=IOC1610-310
+BL_API_APP_DIR=$APP_ROOT/$BL_API_BEAMLINE/$BL_API_IOC_NAME
+BL_API_APP_NAME=AStxm_E712Ctrl
+BL_API_fileList="bin/$TARGET_ARCH/pi_e712WithAsyn \
+	IOC1610-310/runStartup                 \
+	IOC1610-310/cls_AstxmE712Ctrl		\
+	IOC1610-310/st.cmd	\
+	IOC1610-310/envPaths	\
+	
+	e712_controller.db  \
+	e712_datarecorder.db  \
+	e712.db  \
+	e712_scan_support.db  \
+	e712Status.db  \
+	autosave-1.cmd \
+	req_files/basic_motor_settings.req \
+	req_files/CLS_motor_calib.req \
+	req_files/astxm_e712.req  \
+	e712_calib.db \
+
+	iocBoot/IOC1610-310/motor.substitutions \
+	PI_E712Support.dbd \
+	pi_e712WithAsyn.dbd
+        " 
+
+
+. /home/epics/tools/deployScript/4-1/installFunctions.bash 
+
+
+
+
+
+
+
+
+
+
+

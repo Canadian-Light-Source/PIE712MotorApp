@@ -1,0 +1,13 @@
+# FILE... cls_motor_calib.req
+# Version:        $Revision: 1.1 $
+# Modified By:    $Author: Russ Berg (bergr) $
+# Last Modified:  $Date: 2015/05/19 14:55:49CST $
+# HeadURL:        $URL$
+$(P)$(M):calibFirstMv.VAL
+$(P)$(M):calibFirstMv.RVAL
+$(P)$(M):calibPosn.PREC
+$(P)$(M):calibPosn.VAL
+$(P)$(M):calibPosn.RVAL
+$(P)$(M):finalPosn.PREC
+$(P)$(M):finalPosn.VAL
+$(P)$(M):finalPosn.RVAL
