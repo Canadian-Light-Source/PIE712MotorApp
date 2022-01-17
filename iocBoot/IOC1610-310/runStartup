@@ -11,6 +11,9 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/modules/support/sscan-
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/modules/support/asyn-R4-37/lib/linux-x86_64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/modules/support/autosave-R5-10/lib/linux-x86_64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/epics/src/R7-SL7/modules/support/motor-R7-1/lib/linux-x86_64
+
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/iocApps//10ID_1_SM_BL/IOC1610-310/AStxm_E712Ctrl/lib
+
 export LD_LIBRARY_PATH
 
 

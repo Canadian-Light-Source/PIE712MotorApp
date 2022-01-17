@@ -34,7 +34,8 @@ BL_API_fileList="bin/$TARGET_ARCH/pi_e712WithAsyn \
 
 	iocBoot/IOC1610-310/motor.substitutions \
 	PI_E712Support.dbd \
-	pi_e712WithAsyn.dbd
+	pi_e712WithAsyn.dbd \
+	lib/linux-x86_64/libPI_E712Support.so
         " 
 
 

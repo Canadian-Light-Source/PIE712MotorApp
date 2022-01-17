@@ -3,7 +3,8 @@
 -include $(MOTOR)/configure/RELEASE
 # Use the following lines if motorNewport was built outside motor
 #
-EPICS_BASE=/home/bergr/epics/R7/epics-base-R7.0.3.1
+#EPICS_BASE=/home/bergr/epics/R7/epics-base-R7.0.3.1
+EPICS_BASE=/home/epics/src/R7-SL7/base
 
 #EPICS_MODULES=/home/epics/src/R7-SL7/modules
 EPICS_MODULES=$(EPICS_BASE)/../modules
