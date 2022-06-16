@@ -932,23 +932,9 @@ asynStatus PIE712Axis::Init(const char *portname)
 	pC_->getGCSParameter(this, m_cap_parm, cap);
 
 
-	if(quad == 1.0)
-	{
-		//setIntegerParam(pC_->P_SelectEncoderSrc, USE_QUADRATURE_SENSOR);
-		m_input_chan = m_quad_input_chan;
-		/*m_piezo_atz_voltages[ m_axisNo - 1] = -AUTOZERO_VOLTS; */
-		if(m_axisNo < 3){
-	  	m_piezo_atz_voltages[ m_axisNo - 1] = -AUTOZERO_VOLTS; 
-	  } else {
-	  	m_piezo_atz_voltages[ m_axisNo - 1 ] = AUTOZERO_VOLTS; 
-	  }
-		
-	} else {
-		/* default to capcitance sensor */
-		//setIntegerParam(pC_->P_SelectEncoderSrc, USE_CAPACITIVE_SENSOR);
-		m_input_chan = m_cap_input_chan;
-		m_piezo_atz_voltages[ m_axisNo - 1] = AUTOZERO_VOLTS; 
-	}	
+	/* both encoder inputs use same voltage for ATZ */
+	m_input_chan = m_cap_input_chan;
+	m_piezo_atz_voltages[ m_axisNo - 1] = AUTOZERO_VOLTS; 
 	
 	pC_->getGCSParameter(this, m_piezo_driving_factor_param, val);
 	
@@ -1097,7 +1083,7 @@ asynStatus PIE712Axis::zeroADSensor(void)
   printf("zeroADSensor: Sending [%s] to controller\n", cmd);
   status = pC_->m_pInterface->sendOnly(cmd);
   
-  printf("zeroADSensor: waiting 5 seconds for FRF to complete\n", cmd);
+  printf("zeroADSensor: waiting 5 seconds for FRF to complete\n");
   epicsThreadSleep(5.0);
 
   sprintf(cmd, "TAD? %d", m_input_chan);
@@ -1110,10 +1096,10 @@ asynStatus PIE712Axis::zeroADSensor(void)
   printf("zeroADSensor: Sending [%s] to controller\n", cmd);
   status = pC_->m_pInterface->sendOnly(cmd);
   
-  printf("zeroADSensor: performing an autozero\n", cmd);
+  printf("zeroADSensor: performing an autozero\n");
   autoZero();
   
-  printf("zeroADSensor: waiting 10 seconds for AutoZero to complete\n", cmd);
+  printf("zeroADSensor: waiting 10 seconds for AutoZero to complete\n");
   epicsThreadSleep(10.0);
   
   sprintf(cmd, "TAD? %d", m_input_chan);
@@ -1121,7 +1107,7 @@ asynStatus PIE712Axis::zeroADSensor(void)
   status = pC_->m_pInterface->sendAndReceive(cmd, buf, 255);
   printf("zeroADSensor: Rcvd AD sensor value reading of[%s] from controller\n", buf);
   
-  printf("zeroADSensor: zeroADSensor complete\n", cmd);
+  printf("zeroADSensor: zeroADSensor complete\n");
   
   if (status != asynSuccess)
   {

@@ -36,10 +36,10 @@ char *load_param_file(const char* fname)
   	ready = true;
   	
    	if (getcwd(cwd, sizeof(cwd)) != NULL){
-   		sprintf(curr_path, "%s\\python", cwd);
+   		sprintf(curr_path, "%s/python", cwd);
    	} else {
    		printf("There is a problem getting the current working directory\n");
-   		sprintf(curr_path, ".\\python");
+   		sprintf(curr_path, "./python");
    	}
    
   }
@@ -50,7 +50,7 @@ char *load_param_file(const char* fname)
   sprintf(py_cmd,"pypath = r'%s'", curr_path);
   PyRun_SimpleString(py_cmd);
   
-  //sprintf(py_cmd,"pypath = pypath.replace('\','\\'make )", curr_path);
+  //sprintf(py_cmd,"pypath = pypath.replace('\','/'make )", curr_path);
   //PyRun_SimpleString(py_cmd);
   
   sprintf(pypath, "sys.path.insert(0,pypath)");  

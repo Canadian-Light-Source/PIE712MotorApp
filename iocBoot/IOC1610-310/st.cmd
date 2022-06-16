@@ -37,10 +37,13 @@ PI_E712_MotorConfigAxis("E712", 1, "SampleFineY", 20000, -20000,  500, 0, 0)
 dbLoadRecords(("db/e712.db", "P=PZAC1610-3-I12-,M=40:,PORT=E712,ADDR=0,TIMEOUT=1")
 dbLoadRecords(("db/e712.db", "P=PZAC1610-3-I12-,M=41:,PORT=E712,ADDR=1,TIMEOUT=1")
 
-dbLoadRecords("$(ASYN)/db/asynRecord.db", "P=SIM_IOC:, R=L100, PORT=L100, ADDR=0, OMAX=256, IMAX=256")         
+dbLoadRecords("$(ASYN)/db/asynRecord.db", "P=$(STXM):E712:, R=L100, PORT=L100, ADDR=0, OMAX=256, IMAX=256")         
     
+dbLoadRecords(("db/e712_controller.db", "P=$(STXM):E712:,PORT=E712,ADDR=0,TIMEOUT=1")
     
 dbLoadRecords("db/e712_calib.db")
+
+dbLoadRecords("db/e712_scan_support.db", "P=$(STXM):E712")
 
 epicsEnvSet(AUTOSAVE_PREFIX,"astxm_e712")
 < $(TOP)/support/autosave-1.cmd
