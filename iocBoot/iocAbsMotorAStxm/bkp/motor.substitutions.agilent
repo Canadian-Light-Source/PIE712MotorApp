@@ -1,0 +1,7 @@
+file "db/asyn_motor.db"
+{
+pattern
+{P,     N,  M,        DTYP,         PORT,       ADDR,  DESC,    EGU, DIR,  VELO,  VBAS,  ACCL,  BDST,  BVEL,  BACC,  MRES,  PREC,  DHLM,  DLLM,  INIT}
+{IOC:,  1,  "m$(N)",  "asynMotor",  agilentCtrl,  0,   "pmcX",  um,  Pos,  4,     0.001,    .2,    8.0,     1,  .2,    1.0,  5,     99999999,   -99999999,  "YES"}
+{IOC:,  2,  "m$(N)",  "asynMotor",  agilentCtrl,  1,   "pmcY",  um,  Pos,  4,     0.001,    .2,    8.0,     1,  .2,    1.0,  5,     99999999,   -99999999,  "YES"}
+}

@@ -2234,12 +2234,37 @@ asynStatus PIE712Axis::setMarker(double pos)
 	sprintf(minThresh, "%d 5 %.3f", TRIG_OUT_ID, pos);
 	sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, pos + MARKER_WIDTH);
 	
-	//printf("PIE712Axis [%s]::setMarker(%.3f) with MARKER_WIDTH(%.3f)\n", m_axisName, pos, MARKER_WIDTH);
+	printf("PIE712Axis [%s]::setMarker(%.3f) with MARKER_WIDTH(%.3f)\n", m_axisName, pos, MARKER_WIDTH);
 	
 	/* for now the output line is the same number as the axis number (axis 1 uses output line 1 etc) */
 	sprintf(cmd, "CTO %s %s %s %s", axisSel, trigMode, minThresh, maxThresh);
+	printf("PIE712Axis::setMarker: %s\n", cmd);
 	asynStatus status = pC_->m_pInterface->sendOnly(cmd);
 	return status;
+
+#ifdef TEST
+	sprintf(cmd, "CTO %d 2 %d", TRIG_OUT_ID, m_axisNo);
+	asynStatus status = pC_->m_pInterface->sendOnly(cmd);
+	printf(cmd);
+	printf("\n");
+
+	sprintf(cmd, "CTO %d 3 3", TRIG_OUT_ID);
+        status = pC_->m_pInterface->sendOnly(cmd);
+	printf(cmd);
+	printf("\n");
+
+        sprintf(cmd, "CTO %d 5 %.3f", TRIG_OUT_ID, pos);
+        status = pC_->m_pInterface->sendOnly(cmd);
+	printf(cmd);
+	printf("\n");
+
+        sprintf(cmd, "CTO %d 6 %.3f", TRIG_OUT_ID, pos + MARKER_WIDTH);
+        status = pC_->m_pInterface->sendOnly(cmd);
+	printf(cmd);
+	printf("\n");
+
+#endif
+
 }
 
 /**************************************************************************
@@ -2288,22 +2313,59 @@ asynStatus PIE712Axis::setMarkerWindow(void)
 	pC_->getDoubleParam(axisNo_, pC_->P_MarkerStart, &m_markerStart);
 	pC_->getDoubleParam(axisNo_, pC_->P_MarkerStop, &m_markerStop);
 	
+
+
 	//sprintf(axisSel, "%d 2 %d", m_axisNo, m_axisNo);
 	sprintf(axisSel, "%d 2 %d", TRIG_OUT_ID, m_axisNo);
 	sprintf(trigMode, "%d 3 3", TRIG_OUT_ID);
 	sprintf(minThresh, "%d 5 %.3f", TRIG_OUT_ID, m_markerStart);
 	//sprintf(maxThresh, "%d 6 %.3f", m_axisNo, m_markerStop);
 	// MAX here is defined here assumes moving left(negative) to the right(positive)
-	sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 1.0);
+	
+	//JULY 6 2022 sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 1.0);
+	sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 100.0);
+	
 	
 	//printf("\n\nPIE712Axis [%s]::setMarkerWindow(%.5f, %.5f) with MARKER_WIDTH(%.3f)\n\n", m_axisName, m_markerStart, m_markerStop, MARKER_WINDOW);
 	
 	/* for now the output line is the same number as the axis number (axis 1 uses output line 1 etc) */
 	sprintf(cmd, "CTO %s %s %s %s", axisSel, trigMode, minThresh, maxThresh);
 	
-	//printf("sent: %s\n", cmd);
+	printf("PIE712Axis::setMarkerWindow: %s\n", cmd);
 	asynStatus status = pC_->m_pInterface->sendOnly(cmd);
 	return status;
+
+#ifdef TEST
+	sprintf(cmd, "CTO %d 2 %d", m_axisNo, m_axisNo);
+	asynStatus status = pC_->m_pInterface->sendOnly(cmd);
+	printf(cmd);
+	printf("\n");
+
+	sprintf(cmd, "CTO %d 2 %d", TRIG_OUT_ID, m_axisNo);
+	status = pC_->m_pInterface->sendOnly(cmd);
+	printf(cmd);
+	printf("\n");
+
+  sprintf(cmd, "CTO %d 3 3", TRIG_OUT_ID);
+	status = pC_->m_pInterface->sendOnly(cmd);
+	printf(cmd);
+	printf("\n");
+
+  sprintf(cmd, "CTO %d 5 %.3f", TRIG_OUT_ID, m_markerStart);
+	status = pC_->m_pInterface->sendOnly(cmd);
+	printf(cmd);
+	printf("\n");
+
+  sprintf(cmd, "CTO %d 6 %.3f", TRIG_OUT_ID, m_markerStart + 100.0);
+	status = pC_->m_pInterface->sendOnly(cmd);
+	printf(cmd);
+	printf("\n");
+	
+        return status;
+
+#endif
+
+
 }
 
 
@@ -2405,7 +2467,7 @@ asynStatus PIE712Axis::setPositionDistanceMarker(void)
 	
 	/* for now the output line is the same number as the axis number (axis 1 uses output line 1 etc) */
 	sprintf(cmd, "CTO %s %s %s %s", axisSel, trigMode, startThresh, stopThresh);
-	printf("%s\n",cmd);
+	printf("PIE712Axis::setPositionDistanceMarker: %s\n",cmd);
 	asynStatus status = pC_->m_pInterface->sendOnly(cmd);
 	return status;
 }
@@ -2446,7 +2508,7 @@ asynStatus PIE712Axis::setOnTargetMarker(void)
 	
 	/* for now the output line is the same number as the axis number (axis 1 uses output line 1 etc) */
 	sprintf(cmd, "CTO %s %s", axisSel, trigMode);
-	printf("%s\n",cmd);
+	printf("PIE712Axis::setOnTargetMarker: %s\n",cmd);
 	asynStatus status = pC_->m_pInterface->sendOnly(cmd);
 	return status;
 }
@@ -2495,7 +2557,7 @@ asynStatus PIE712Axis::setMinMaxMarker(void)
 	
 	/* for now the output line is the same number as the axis number (axis 1 uses output line 1 etc) */
 	sprintf(cmd, "CTO %s %s %s %s", axisSel, trigMode, minThresh, maxThresh);
-	printf("%s\n",cmd);
+	printf("PIE712Axis::setMinMaxMarker: %s\n",cmd);
 	asynStatus status = pC_->m_pInterface->sendOnly(cmd);
 	return status;
 }
@@ -2527,7 +2589,7 @@ asynStatus PIE712Axis::setGeneratorTrigMarker(void)
 	
 	/* for now the output line is the same number as the axis number (axis 1 uses output line 1 etc) */
 	sprintf(cmd, "CTO %s", trigMode);
-	printf("%s\n",cmd);
+	printf("PIE712Axis::setGeneratorTrigMarker: %s\n",cmd);
 	asynStatus status = pC_->m_pInterface->sendOnly(cmd);
 	return status;
 }
@@ -2593,7 +2655,8 @@ asynStatus PIE712Axis::setMode(int mode)
 			motorOn();
 		}	
 	}
-	setIntegerParam(pC_->P_Mode, mode);
+	//setIntegerParam(pC_->P_Mode, mode);
+	pC_->setIntegerParam(axisNo_, pC_->P_Mode, mode);
 	callParamCallbacks();
 		
   return asynSuccess;
@@ -3239,6 +3302,7 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 	
 	
 	/******* setup data recorder interface ****************/
+#ifdef USE_DATARECORDER
 	  asynUser* dr_pAsynCom;
     status = pasynOctetSyncIO->connect(dr_asynPort, 0, &dr_pAsynCom, NULL);
     if (status)
@@ -3268,6 +3332,7 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 	m_pDataRecInterface = new PIInterface(dr_pAsynCom);
 	m_pDataRecInterface->m_pCurrentLogSink = dr_pAsynCom;
 	printf("Data Recorder interface has been created\n");
+#endif
 	/**********************************************************/
 	
 	
@@ -3910,7 +3975,9 @@ asynStatus PIE712Controller::setRecTblRate(int rate)
     int rateFbk = 0;
     double rateInSec = 0.0;
     asynStatus status;
-    
+    /* june 30 2022 */
+    return(status);
+
     sprintf(cmd, "RTR %d", rate);
 		status = m_pDataRecInterface->sendOnly(cmd);
 		
@@ -3958,11 +4025,15 @@ asynStatus PIE712Controller::setDataRecTrigSrc(int src)
     	
     */
     
-    char cmd[100];
+    
+	char cmd[100];
+	asynStatus status;
+	/* june 30 2022 */
+	 return(status);
     
     /* get only the one table length */
 		sprintf(cmd, "DRT 1 %d 1", src);
-		asynStatus status = m_pDataRecInterface->sendOnly(cmd);
+		status = m_pDataRecInterface->sendOnly(cmd);
 		
     return status;
 }
@@ -3983,6 +4054,8 @@ asynStatus PIE712Controller::configDataRecorder(void)
     char cmd[100];
     int src, option = 0;
     asynStatus status=asynError;
+    /* june 30 2022 */
+     return(status);
     
     /* walk all 12 channels setting up the src and options */
    	for(int i=0; i < PI_DR_MAX_TABLES; i++){
@@ -4320,6 +4393,8 @@ asynStatus PIE712Controller::readDRRDatatbls(char *strbuf)
   int bytes_per_point=0;
   int j = 0;
   
+  /* June 28 2022*/
+  return(status);
   setIntegerParam(P_DatRec_Abort, abort);
   /* clear previous data */
   bytes_per_point = 11;

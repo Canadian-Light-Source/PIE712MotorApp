@@ -81,24 +81,24 @@ dbLoadRecords("$(ASYN)/db/asynRecord.db", "P=IOC:, R=XPS2, PORT=XPS2, ADDR=0, OM
 
 #########################################################
 # AbsMotor_CreateController("Fine Stage Port name", "Fine Axis Number", "Coarse Stage Port name", "Coarse Axis Number", "Coarse Step Size", "Moving poll rate (ms)", "Idle poll rate (ms)")
-AbsMotor_CreateController("UhvAbs2Mtr", "E712", "XPS2", 2, 10)
+AbsMotor_CreateController("AstxmAbs2Mtr", "E712", "XPS2", 2, 10)
 #AbsMotor_CreateAxis("Abstract Controller Portname", Axis Num, Axis Name, Fine Axis Num, Coarse Axis Num, Coarse StepSize, Fine scan range)
 
 #AbsMotor_CreateAxis("Abstract Controller Portname", Axis Num, Axis Name, Fine Axis Num, Coarse Axis Num, Coarse StepSize, Coarse Direction, Fine scan range, max velo)
 #Coarse Direction: is a sign that is applied to the coarse setpoint
-#AbsMotor_CreateAxis("UhvAbs2Mtr", 0, "SampleX",  0, 0, 1000, 1, 100, 3500)
-#AbsMotor_CreateAxis("UhvAbs2Mtr", 1, "SampleY",  1, 1, 983.816, 1, 30, 1500) # 983.816 = 1 / 0.00101645
+#AbsMotor_CreateAxis("AstxmAbs2Mtr", 0, "SampleX",  0, 0, 1000, 1, 100, 3500)
+#AbsMotor_CreateAxis("AstxmAbs2Mtr", 1, "SampleY",  1, 1, 983.816, 1, 30, 1500) # 983.816 = 1 / 0.00101645
 
 
-#AbsMotor_CreateAxis("UhvAbs2Mtr", 0, "SampleX",  0, 0, 1000, 1, $(MAX_FINEX_SCAN_RANGE), 3500)
-#AbsMotor_CreateAxis("UhvAbs2Mtr", 1, "SampleY",  1, 1, 983.816, 1, $(MAX_FINEY_SCAN_RANGE), 1500) # 983.816 = 1 / 0.00101645
+#AbsMotor_CreateAxis("AstxmAbs2Mtr", 0, "SampleX",  0, 0, 1000, 1, $(MAX_FINEX_SCAN_RANGE), 3500)
+#AbsMotor_CreateAxis("AstxmAbs2Mtr", 1, "SampleY",  1, 1, 983.816, 1, $(MAX_FINEY_SCAN_RANGE), 1500) # 983.816 = 1 / 0.00101645
 # NO INTERFEROMETER
-#AbsMotor_CreateAxis("UhvAbs2Mtr", 0, "SampleX",  0, 0, 1000, 1, $(MAX_FINEX_SCAN_RANGE), 3500, 0)
-#AbsMotor_CreateAxis("UhvAbs2Mtr", 1, "SampleY",  1, 1, 983.816, 1, $(MAX_FINEY_SCAN_RANGE), 1500, 0) 
+#AbsMotor_CreateAxis("AstxmAbs2Mtr", 0, "SampleX",  0, 0, 1000, 1, $(MAX_FINEX_SCAN_RANGE), 3500, 0)
+#AbsMotor_CreateAxis("AstxmAbs2Mtr", 1, "SampleY",  1, 1, 983.816, 1, $(MAX_FINEY_SCAN_RANGE), 1500, 0) 
 
 #using Zoneplate XY
-AbsMotor_CreateAxis("UhvAbs2Mtr", 0, "ZoneplateX",  2, 0, 1000, 1, $(MAX_FINEX_SCAN_RANGE), 3500, 1)
-AbsMotor_CreateAxis("UhvAbs2Mtr", 1, "ZoneplateY",  3, 1, 1000, 1, $(MAX_FINEY_SCAN_RANGE), 1500, 1) 
+AbsMotor_CreateAxis("AstxmAbs2Mtr", 0, "ZoneplateX",  2, 0, 1000, 1, $(MAX_FINEX_SCAN_RANGE), 3500, 1)
+AbsMotor_CreateAxis("AstxmAbs2Mtr", 1, "ZoneplateY",  3, 1, 1000, 1, $(MAX_FINEY_SCAN_RANGE), 1500, 1) 
 
 dbLoadTemplate "$(IOCDIR)/motor.substitutions.abs"
 
@@ -108,7 +108,7 @@ dbLoadRecords("db/e712_scan_support.db", "P=IOCE712")
 #asynSetTraceIOMask("E712", 0, 4)
 #asynSetTraceMask("E712", 0, 255)
 #asynSetTraceMask("XPS2", 4, 0x10)
-#asynSetTraceMask("UhvAbs2Mtr", 0, 0x10)
+#asynSetTraceMask("AstxmAbs2Mtr", 0, 0x10)
 
 epicsEnvSet(AUTOSAVE_PREFIX,"uhv-absmotor")
 epicsEnvSet(BL,"uhv")

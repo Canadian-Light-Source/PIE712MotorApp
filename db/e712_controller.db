@@ -1,0 +1,2835 @@
+
+###################################################################
+#  Records that use devAsynOctet                                  #
+###################################################################
+record(stringout, "$(P)GetIDN")
+{
+   field(PINI, "NO")
+   field(DTYP, "asynOctetWrite")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_IDN")
+   field(VAL,  "*IDN?")
+   field(TPRO, "1")
+}
+
+record(stringin, "$(P)GetIDN_RBV")
+{
+	 field(PINI, "NO")
+   field(DTYP, "asynOctetRead")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_IDN")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+
+
+###################################################################
+#  Records that use devAsynOctet                                  #
+###################################################################
+record(stringout, "$(P)ParamFileName")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynOctetWrite")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_PARAM_FILE_NAME")
+   field(VAL,  "test_param_file.dat")
+   field(TPRO, "1")
+}
+
+record(stringin, "$(P)ParamFileName_RBV")
+{
+	 field(PINI, "YES")
+   field(DTYP, "asynOctetRead")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_PARAM_FILE_NAME")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+
+
+###################################################################
+#  Records that use devAsynOctet                                  #
+###################################################################
+record(stringin, "$(P)LastErr_RBV")
+{
+	 field(PINI, "NO")
+   field(DTYP, "asynOctetRead")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_LAST_ERR")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+
+record(waveform, "$(P)SendCmnds")
+{
+   #field(PINI, "1")
+   field(DTYP, "asynOctetWrite")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_SEND_COMMANDS")
+   field(NELM, "950000")
+   field(FTVL, "CHAR")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)SendCmnds_RBV")
+{
+   field(DTYP, "asynOctetRead")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_SEND_COMMANDS")
+   field(NELM, "950000")
+   field(FTVL, "CHAR")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(ai, "$(P)WaveTbl1Len_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVE_TABLE_1_LEN")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}#################################################################
+#  a readback param                              								#
+#################################################################
+record(ai, "$(P)WaveTbl2Len_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVE_TABLE_2_LEN")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}#################################################################
+#  a readback param                              								#
+#################################################################
+record(ai, "$(P)WaveTbl3Len_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVE_TABLE_3_LEN")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}#################################################################
+#  a readback param                              								#
+#################################################################
+record(ai, "$(P)WaveTbl4Len_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVE_TABLE_4_LEN")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}#################################################################
+#  a readback param                              								#
+#################################################################
+record(ai, "$(P)DDLTbl1Len_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDL_TABLE_1_LEN")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}#################################################################
+#  a readback param                              								#
+#################################################################
+record(ai, "$(P)DDLTbl2Len_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDL_TABLE_2_LEN")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}#################################################################
+#  a readback param                              								#
+#################################################################
+record(ai, "$(P)DDLTbl3Len_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDL_TABLE_3_LEN")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}#################################################################
+#  a readback param                              								#
+#################################################################
+record(ai, "$(P)DDLTbl4Len_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDL_TABLE_4_LEN")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}#################################################################
+#  a readback param                              								#
+#################################################################
+record(ai, "$(P)TotalPointsLeft_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TTL_POINTS_LEFT")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_TrigOutputString   	 		"PI_TRIG_OUTPUT"  			/* asynInt32,    r/w */
+# int P_TrigOutput;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_TrigOutputString,          asynParamFloat64,       &P_TrigOutput);
+#	setDoubleParam (P_TrigOutput,       1);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)TrigOutput")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_OUTPUT")
+   field(DRVL, "1")
+   field(DRVH, "8")
+   field(PREC, "0")
+   field(VAL, "1")
+}
+
+record(ai, "$(P)TrigOutput_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_OUTPUT")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_XAxisIdString   	 		"PI_X_AXIS_ID"  			/* asynInt32,    r/w */
+# int P_XAxisId;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_XAxisIdString,          asynParamFloat64,       &P_XAxisId);
+#	setDoubleParam (P_XAxisId,       1);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)XAxisId")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_X_AXIS_ID")
+   field(DRVL, "1")
+   field(DRVH, "4")
+   field(PREC, "0")
+   field(VAL, "3")
+}
+
+record(ai, "$(P)XAxisId_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_X_AXIS_ID")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_YAxisIdString   	 		"PI_Y_AXIS_ID"  			/* asynInt32,    r/w */
+# int P_YAxisId;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_YAxisIdString,          asynParamFloat64,       &P_YAxisId);
+#	setDoubleParam (P_YAxisId,       1);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)YAxisId")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_Y_AXIS_ID")
+   field(DRVL, "1")
+   field(DRVH, "4")
+   field(PREC, "0")
+   field(VAL, "4")
+}
+
+record(ai, "$(P)YAxisId_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_Y_AXIS_ID")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_NumCyclesString   	 		"PI_NUM_CYCLES"  			/* asynInt32,    r/w */
+# int P_NumCycles;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_NumCyclesString,          asynParamFloat64,       &P_NumCycles);
+#	setDoubleParam (P_NumCycles,       1);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)NumCycles")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_NUM_CYCLES")
+   field(DRVL, "1")
+   field(DRVH, "5000")
+   field(PREC, "0")
+   field(VAL, "1")
+}
+
+record(ai, "$(P)NumCycles_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_NUM_CYCLES")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_WaveTableRateString   	 		"PI_WAVE_TABLE_RATE"  			/* asynInt32,    r/w */
+# int P_WaveTableRate;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WaveTableRateString,          asynParamFloat64,       &P_WaveTableRate);
+#	setDoubleParam (P_WaveTableRate,       1);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)WaveTableRate")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVE_TABLE_RATE")
+   field(DRVL, "1")
+   field(DRVH, "5000")
+   field(PREC, "0")
+   field(VAL, "1")
+}
+
+record(ai, "$(P)WaveTableRate_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVE_TABLE_RATE")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_XStartPosString   	 		"PI_X_START_POS"  			/* asynFloat64,    r/w */
+# int P_XStartPos;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_XStartPosString,          asynParamFloat64,       &P_XStartPos);
+#	setDoubleParam (P_XStartPos,       -7000);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)XStartPos")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynFloat64")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_X_START_POS")
+   field(DRVL, "-7000")
+   field(DRVH, "7000")
+   field(PREC, "6")
+   field(VAL, "0.0")
+}
+
+record(ai, "$(P)XStartPos_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_X_START_POS")
+   field(PREC, "6")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_YStartPosString   	 		"PI_Y_START_POS"  			/* asynFloat64,    r/w */
+# int P_YStartPos;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_YStartPosString,          asynParamFloat64,       &P_YStartPos);
+#	setDoubleParam (P_YStartPos,       -7000);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)YStartPos")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynFloat64")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_Y_START_POS")
+   field(DRVL, "-7000")
+   field(DRVH, "7000")
+   field(PREC, "6")
+   field(VAL, "0.0")
+}
+
+record(ai, "$(P)YStartPos_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_Y_START_POS")
+   field(PREC, "6")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_WavGen1UseTblNumString   	 		"PI_WAVEGEN_1_USETABLE_NUM"  			/* asynInt32,    r/w */
+# int P_WavGen1UseTblNum;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavGen1UseTblNumString,          asynParamFloat64,       &P_WavGen1UseTblNum);
+#	setDoubleParam (P_WavGen1UseTblNum,       0);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)WavGen1UseTblNum")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_1_USETABLE_NUM")
+   field(DRVL, "0")
+   field(DRVH, "120")
+   field(PREC, "0")
+   field(VAL, "120")
+}
+
+record(ai, "$(P)WavGen1UseTblNum_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_1_USETABLE_NUM")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_WavGen2UseTblNumString   	 		"PI_WAVEGEN_2_USETABLE_NUM"  			/* asynInt32,    r/w */
+# int P_WavGen2UseTblNum;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavGen2UseTblNumString,          asynParamFloat64,       &P_WavGen2UseTblNum);
+#	setDoubleParam (P_WavGen2UseTblNum,       0);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)WavGen2UseTblNum")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_2_USETABLE_NUM")
+   field(DRVL, "0")
+   field(DRVH, "120")
+   field(PREC, "0")
+   field(VAL, "120")
+}
+
+record(ai, "$(P)WavGen2UseTblNum_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_2_USETABLE_NUM")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_WavGen3UseTblNumString   	 		"PI_WAVEGEN_3_USETABLE_NUM"  			/* asynInt32,    r/w */
+# int P_WavGen3UseTblNum;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavGen3UseTblNumString,          asynParamFloat64,       &P_WavGen3UseTblNum);
+#	setDoubleParam (P_WavGen3UseTblNum,       0);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)WavGen3UseTblNum")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_3_USETABLE_NUM")
+   field(DRVL, "0")
+   field(DRVH, "120")
+   field(PREC, "0")
+   field(VAL, "3")
+}
+
+record(ai, "$(P)WavGen3UseTblNum_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_3_USETABLE_NUM")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_WavGen4UseTblNumString   	 		"PI_WAVEGEN_4_USETABLE_NUM"  			/* asynInt32,    r/w */
+# int P_WavGen4UseTblNum;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavGen4UseTblNumString,          asynParamFloat64,       &P_WavGen4UseTblNum);
+#	setDoubleParam (P_WavGen4UseTblNum,       0);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)WavGen4UseTblNum")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_4_USETABLE_NUM")
+   field(DRVL, "0")
+   field(DRVH, "120")
+   field(PREC, "0")
+   field(VAL, "4")
+}
+
+record(ai, "$(P)WavGen4UseTblNum_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_4_USETABLE_NUM")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}
+###################################################################
+#  
+# add these lines to the driver header file
+# 
+# #define P_DDLTbl_NORDString   	 		"PI_DDLTBL_NORD"  			/* asynInt32,    r/w */
+# int P_DDLTbl_NORD;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_DDLTbl_NORDString,          asynParamFloat64,       &P_DDLTbl_NORD);
+#	setDoubleParam (P_DDLTbl_NORD,       0);
+#
+#################################################################
+
+#################################################################
+#  a write and readback param                              								#
+#################################################################
+record(ao, "$(P)DDLTbl_NORD")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDLTBL_NORD")
+   field(DRVL, "0")
+   field(DRVH, "9999999")
+   field(PREC, "0")
+   field(VAL, "0")
+}
+
+record(ai, "$(P)DDLTbl_NORD_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDLTBL_NORD")
+   field(PREC, "0")
+   field(SCAN, "I/O Intr")
+}
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(busy, "$(P)ExecWavgen")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_EXEC_WAVGEN")
+    field(SCAN, "I/O Intr")
+}
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_CommStatusString   	 		"PI_COMMUNICATION_STATUS"  			/* asynInt32,    r/w */
+# int P_CommStatus;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_CommStatusString,          asynParamInt32,       &P_CommStatus);
+#	setIntegerParam (P_CommStatus,       0);
+#
+#################################################################
+
+record(bi, "$(P)CommStatus_RBV")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_COMMUNICATION_STATUS")
+    field(ZNAM, "READY")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "BUSY")
+    field(OSV,  "MINOR")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WaveGen1StatusString   	 		"PI_WAVEGEN_1_STATUS"  			/* asynInt32,    r/w */
+# int P_WaveGen1Status;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WaveGen1StatusString,          asynParamInt32,       &P_WaveGen1Status);
+#	setIntegerParam (P_WaveGen1Status,       0);
+#
+#################################################################
+
+record(bi, "$(P)WaveGen1Status_RBV")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_1_STATUS")
+    field(ZNAM, "STOPPED")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "RUNNING")
+    field(OSV,  "MINOR")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WaveGen2StatusString   	 		"PI_WAVEGEN_2_STATUS"  			/* asynInt32,    r/w */
+# int P_WaveGen2Status;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WaveGen2StatusString,          asynParamInt32,       &P_WaveGen2Status);
+#	setIntegerParam (P_WaveGen2Status,       0);
+#
+#################################################################
+
+record(bi, "$(P)WaveGen2Status_RBV")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_2_STATUS")
+    field(ZNAM, "STOPPED")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "RUNNING")
+    field(OSV,  "MINOR")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WaveGen3StatusString   	 		"PI_WAVEGEN_3_STATUS"  			/* asynInt32,    r/w */
+# int P_WaveGen3Status;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WaveGen3StatusString,          asynParamInt32,       &P_WaveGen3Status);
+#	setIntegerParam (P_WaveGen3Status,       0);
+#
+#################################################################
+
+record(bi, "$(P)WaveGen3Status_RBV")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_3_STATUS")
+    field(ZNAM, "STOPPED")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "RUNNING")
+    field(OSV,  "MINOR")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WaveGen4StatusString   	 		"PI_WAVEGEN_4_STATUS"  			/* asynInt32,    r/w */
+# int P_WaveGen4Status;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WaveGen4StatusString,          asynParamInt32,       &P_WaveGen4Status);
+#	setIntegerParam (P_WaveGen4Status,       0);
+#
+#################################################################
+
+record(bi, "$(P)WaveGen4Status_RBV")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVEGEN_4_STATUS")
+    field(ZNAM, "STOPPED")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "RUNNING")
+    field(OSV,  "MINOR")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_StartWavgenString   	 		"PI_START_WAVGEN"  			/* asynInt32,    r/w */
+# int P_StartWavgen;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_StartWavgenString,          asynParamInt32,       &P_StartWavgen);
+#	setIntegerParam (P_StartWavgen,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)StartWavgen")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_START_WAVGEN")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)StartWavgen_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_START_WAVGEN")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_StopWavgenString   	 		"PI_STOP_WAVGEN"  			/* asynInt32,    r/w */
+# int P_StopWavgen;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_StopWavgenString,          asynParamInt32,       &P_StopWavgen);
+#	setIntegerParam (P_StopWavgen,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)StopWavgen")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_STOP_WAVGEN")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)StopWavgen_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_STOP_WAVGEN")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_GetWavTbl1String   	 		"PI_GET_WVTBL_1"  			/* asynInt32,    r/w */
+# int P_GetWavTbl1;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_GetWavTbl1String,          asynParamInt32,       &P_GetWavTbl1);
+#	setIntegerParam (P_GetWavTbl1,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)GetWavTbl1")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_WVTBL_1")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)GetWavTbl1_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_WVTBL_1")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_GetWavTbl2String   	 		"PI_GET_WVTBL_2"  			/* asynInt32,    r/w */
+# int P_GetWavTbl2;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_GetWavTbl2String,          asynParamInt32,       &P_GetWavTbl2);
+#	setIntegerParam (P_GetWavTbl2,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)GetWavTbl2")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_WVTBL_2")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)GetWavTbl2_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_WVTBL_2")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_GetWavTbl3String   	 		"PI_GET_WVTBL_3"  			/* asynInt32,    r/w */
+# int P_GetWavTbl3;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_GetWavTbl3String,          asynParamInt32,       &P_GetWavTbl3);
+#	setIntegerParam (P_GetWavTbl3,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)GetWavTbl3")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_WVTBL_3")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)GetWavTbl3_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_WVTBL_3")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_GetWavTbl4String   	 		"PI_GET_WVTBL_4"  			/* asynInt32,    r/w */
+# int P_GetWavTbl4;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_GetWavTbl4String,          asynParamInt32,       &P_GetWavTbl4);
+#	setIntegerParam (P_GetWavTbl4,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)GetWavTbl4")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_WVTBL_4")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)GetWavTbl4_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_WVTBL_4")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_GetDDLTbl1String   	 		"PI_GET_DDLTBL_1"  			/* asynInt32,    r/w */
+# int P_GetDDLTbl1;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_GetDDLTbl1String,          asynParamInt32,       &P_GetDDLTbl1);
+#	setIntegerParam (P_GetDDLTbl1,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)GetDDLTbl1")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_DDLTBL_1")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)GetDDLTbl1_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_DDLTBL_1")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_GetDDLTbl2String   	 		"PI_GET_DDLTBL_2"  			/* asynInt32,    r/w */
+# int P_GetDDLTbl2;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_GetDDLTbl2String,          asynParamInt32,       &P_GetDDLTbl2);
+#	setIntegerParam (P_GetDDLTbl2,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)GetDDLTbl2")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_DDLTBL_2")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)GetDDLTbl2_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_DDLTBL_2")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_GetDDLTbl3String   	 		"PI_GET_DDLTBL_3"  			/* asynInt32,    r/w */
+# int P_GetDDLTbl3;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_GetDDLTbl3String,          asynParamInt32,       &P_GetDDLTbl3);
+#	setIntegerParam (P_GetDDLTbl3,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)GetDDLTbl3")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_DDLTBL_3")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)GetDDLTbl3_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_DDLTBL_3")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_GetDDLTbl4String   	 		"PI_GET_DDLTBL_4"  			/* asynInt32,    r/w */
+# int P_GetDDLTbl4;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_GetDDLTbl4String,          asynParamInt32,       &P_GetDDLTbl4);
+#	setIntegerParam (P_GetDDLTbl4,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)GetDDLTbl4")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_DDLTBL_4")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)GetDDLTbl4_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_DDLTBL_4")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_GetTrigTblString   	 		"PI_GET_TRIG_TBL"  			/* asynInt32,    r/w */
+# int P_GetTrigTbl;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_GetTrigTblString,          asynParamInt32,       &P_GetTrigTbl);
+#	setIntegerParam (P_GetTrigTbl,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)GetTrigTbl")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_TRIG_TBL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)GetTrigTbl_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_GET_TRIG_TBL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_ClearTrigTblString   	 		"PI_CLR_TRIGTBL"  			/* asynInt32,    r/w */
+# int P_ClearTrigTbl;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_ClearTrigTblString,          asynParamInt32,       &P_ClearTrigTbl);
+#	setIntegerParam (P_ClearTrigTbl,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)ClearTrigTbl")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_TRIGTBL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)ClearTrigTbl_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_TRIGTBL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_ClearDDLTbl1String   	 		"PI_CLR_DDLTBL_1"  			/* asynInt32,    r/w */
+# int P_ClearDDLTbl1;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_ClearDDLTbl1String,          asynParamInt32,       &P_ClearDDLTbl1);
+#	setIntegerParam (P_ClearDDLTbl1,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)ClearDDLTbl1")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_DDLTBL_1")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)ClearDDLTbl1_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_DDLTBL_1")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_ClearDDLTbl2String   	 		"PI_CLR_DDLTBL_2"  			/* asynInt32,    r/w */
+# int P_ClearDDLTbl2;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_ClearDDLTbl2String,          asynParamInt32,       &P_ClearDDLTbl2);
+#	setIntegerParam (P_ClearDDLTbl2,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)ClearDDLTbl2")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_DDLTBL_2")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)ClearDDLTbl2_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_DDLTBL_2")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_ClearDDLTbl3String   	 		"PI_CLR_DDLTBL_3"  			/* asynInt32,    r/w */
+# int P_ClearDDLTbl3;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_ClearDDLTbl3String,          asynParamInt32,       &P_ClearDDLTbl3);
+#	setIntegerParam (P_ClearDDLTbl3,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)ClearDDLTbl3")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_DDLTBL_3")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)ClearDDLTbl3_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_DDLTBL_3")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_ClearDDLTbl4String   	 		"PI_CLR_DDLTBL_4"  			/* asynInt32,    r/w */
+# int P_ClearDDLTbl4;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_ClearDDLTbl4String,          asynParamInt32,       &P_ClearDDLTbl4);
+#	setIntegerParam (P_ClearDDLTbl4,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)ClearDDLTbl4")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_DDLTBL_4")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)ClearDDLTbl4_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_DDLTBL_4")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_ClearWavTbl1String   	 		"PI_CLR_WAVTBL_1"  			/* asynInt32,    r/w */
+# int P_ClearWavTbl1;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_ClearWavTbl1String,          asynParamInt32,       &P_ClearWavTbl1);
+#	setIntegerParam (P_ClearWavTbl1,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)ClearWavTbl1")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_WAVTBL_1")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)ClearWavTbl1_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_WAVTBL_1")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_ClearWavTbl2String   	 		"PI_CLR_WAVTBL_2"  			/* asynInt32,    r/w */
+# int P_ClearWavTbl2;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_ClearWavTbl2String,          asynParamInt32,       &P_ClearWavTbl2);
+#	setIntegerParam (P_ClearWavTbl2,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)ClearWavTbl2")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_WAVTBL_2")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)ClearWavTbl2_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_WAVTBL_2")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_ClearWavTbl3String   	 		"PI_CLR_WAVTBL_3"  			/* asynInt32,    r/w */
+# int P_ClearWavTbl3;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_ClearWavTbl3String,          asynParamInt32,       &P_ClearWavTbl3);
+#	setIntegerParam (P_ClearWavTbl3,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)ClearWavTbl3")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_WAVTBL_3")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)ClearWavTbl3_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_WAVTBL_3")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_ClearWavTbl4String   	 		"PI_CLR_WAVTBL_4"  			/* asynInt32,    r/w */
+# int P_ClearWavTbl4;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_ClearWavTbl4String,          asynParamInt32,       &P_ClearWavTbl4);
+#	setIntegerParam (P_ClearWavTbl4,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)ClearWavTbl4")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_WAVTBL_4")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)ClearWavTbl4_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CLR_WAVTBL_4")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_CalcDDLParmsString   	 		"PI_CALC_DDL_PARMS"  			/* asynInt32,    r/w */
+# int P_CalcDDLParms;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_CalcDDLParmsString,          asynParamInt32,       &P_CalcDDLParms);
+#	setIntegerParam (P_CalcDDLParms,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)CalcDDLParms")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CALC_DDL_PARMS")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0.2")
+}
+
+#record(bi, "$(P)CalcDDLParms_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_CALC_DDL_PARMS")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl1UseDDLString   	 		"PI_WVT1_USE_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl1UseDDL;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl1UseDDLString,          asynParamInt32,       &P_WavTbl1UseDDL);
+#	setIntegerParam (P_WavTbl1UseDDL,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl1UseDDL")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT1_USE_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl1UseDDL_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT1_USE_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl2UseDDLString   	 		"PI_WVT2_USE_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl2UseDDL;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl2UseDDLString,          asynParamInt32,       &P_WavTbl2UseDDL);
+#	setIntegerParam (P_WavTbl2UseDDL,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl2UseDDL")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT2_USE_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl2UseDDL_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT2_USE_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl3UseDDLString   	 		"PI_WVT3_USE_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl3UseDDL;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl3UseDDLString,          asynParamInt32,       &P_WavTbl3UseDDL);
+#	setIntegerParam (P_WavTbl3UseDDL,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl3UseDDL")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT3_USE_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl3UseDDL_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT3_USE_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl4UseDDLString   	 		"PI_WVT4_USE_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl4UseDDL;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl4UseDDLString,          asynParamInt32,       &P_WavTbl4UseDDL);
+#	setIntegerParam (P_WavTbl4UseDDL,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl4UseDDL")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT4_USE_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl4UseDDL_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT4_USE_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl1UseReinitDDLString   	 		"PI_WVT1_USEREINIT_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl1UseReinitDDL;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl1UseReinitDDLString,          asynParamInt32,       &P_WavTbl1UseReinitDDL);
+#	setIntegerParam (P_WavTbl1UseReinitDDL,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl1UseReinitDDL")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT1_USEREINIT_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl1UseReinitDDL_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT1_USEREINIT_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl2UseReinitDDLString   	 		"PI_WVT2_USEREINIT_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl2UseReinitDDL;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl2UseReinitDDLString,          asynParamInt32,       &P_WavTbl2UseReinitDDL);
+#	setIntegerParam (P_WavTbl2UseReinitDDL,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl2UseReinitDDL")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT2_USEREINIT_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl2UseReinitDDL_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT2_USEREINIT_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl3UseReinitDDLString   	 		"PI_WVT3_USEREINIT_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl3UseReinitDDL;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl3UseReinitDDLString,          asynParamInt32,       &P_WavTbl3UseReinitDDL);
+#	setIntegerParam (P_WavTbl3UseReinitDDL,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl3UseReinitDDL")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT3_USEREINIT_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl3UseReinitDDL_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT3_USEREINIT_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl4UseReinitDDLString   	 		"PI_WVT4_USEREINIT_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl4UseReinitDDL;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl4UseReinitDDLString,          asynParamInt32,       &P_WavTbl4UseReinitDDL);
+#	setIntegerParam (P_WavTbl4UseReinitDDL,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl4UseReinitDDL")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT4_USEREINIT_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl4UseReinitDDL_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT4_USEREINIT_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl1StartAtEndPosString   	 		"PI_WVT1_START_AT_END_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl1StartAtEndPos;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl1StartAtEndPosString,          asynParamInt32,       &P_WavTbl1StartAtEndPos);
+#	setIntegerParam (P_WavTbl1StartAtEndPos,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl1StartAtEndPos")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT1_START_AT_END_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl1StartAtEndPos_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT1_START_AT_END_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl2StartAtEndPosString   	 		"PI_WVT2_START_AT_END_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl2StartAtEndPos;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl2StartAtEndPosString,          asynParamInt32,       &P_WavTbl2StartAtEndPos);
+#	setIntegerParam (P_WavTbl2StartAtEndPos,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl2StartAtEndPos")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT2_START_AT_END_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl2StartAtEndPos_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT2_START_AT_END_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl3StartAtEndPosString   	 		"PI_WVT3_START_AT_END_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl3StartAtEndPos;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl3StartAtEndPosString,          asynParamInt32,       &P_WavTbl3StartAtEndPos);
+#	setIntegerParam (P_WavTbl3StartAtEndPos,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl3StartAtEndPos")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT3_START_AT_END_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl3StartAtEndPos_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT3_START_AT_END_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl4StartAtEndPosString   	 		"PI_WVT4_START_AT_END_DDL"  			/* asynInt32,    r/w */
+# int P_WavTbl4StartAtEndPos;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl4StartAtEndPosString,          asynParamInt32,       &P_WavTbl4StartAtEndPos);
+#	setIntegerParam (P_WavTbl4StartAtEndPos,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)WavTbl4StartAtEndPos")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT4_START_AT_END_DDL")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)WavTbl4StartAtEndPos_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WVT4_START_AT_END_DDL")
+#    field(ZNAM, "OFF")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "ONing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_ScanModeString   	 		"PI_SCAN_MODE"  			/* asynInt32,    r/w */
+# int P_ScanMode;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_ScanModeString,          asynParamInt32,       &P_ScanMode);
+#	setIntegerParam (P_ScanMode,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)ScanMode")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_SCAN_MODE")
+    field(ZNAM, "LxL")
+    field(ONAM, "PxP")
+    field(HIGH, "0")
+}
+
+#record(bi, "$(P)ScanMode_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_SCAN_MODE")
+#    field(ZNAM, "LxL")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "PxPing")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_LoadParamFileString   	 		"PI_LOAD_PARAM_FILE"  			/* asynInt32,    r/w */
+# int P_LoadParamFile;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_LoadParamFileString,          asynParamInt32,       &P_LoadParamFile);
+#	setIntegerParam (P_LoadParamFile,       0);
+#
+#################################################################
+
+#################################################################
+#  a binary write and readback param                              								#
+#################################################################
+record(bo, "$(P)LoadParamFile")
+{
+    field(PINI,  "NO")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_LOAD_PARAM_FILE")
+    field(ZNAM, "Load")
+    field(ONAM, "Load")
+    field(HIGH, "0.25")
+}
+
+#record(bi, "$(P)LoadParamFile_RBV")
+#{
+#    field(PINI, "NO")
+#    field(DTYP, "asynInt32")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_LOAD_PARAM_FILE")
+#    field(ZNAM, "Load")
+#    field(ZSV,  "NO_ALARM")
+#    field(ONAM, "Loading")
+#    field(OSV,  "MINOR")
+#    field(SCAN, "I/O Intr")
+#}
+
+
+record(waveform, "$(P)WaveTbl1")
+{
+   #field(PINI, "1")
+   field(DTYP, "asynFloat64ArrayOut")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVETBL_1")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)WaveTbl1_RBV")
+{
+   field(DTYP, "asynFloat64ArrayIn")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVETBL_1")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)WaveTbl2")
+{
+   #field(PINI, "1")
+   field(DTYP, "asynFloat64ArrayOut")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVETBL_2")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)WaveTbl2_RBV")
+{
+   field(DTYP, "asynFloat64ArrayIn")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVETBL_2")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)WaveTbl3")
+{
+   #field(PINI, "1")
+   field(DTYP, "asynFloat64ArrayOut")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVETBL_3")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)WaveTbl3_RBV")
+{
+   field(DTYP, "asynFloat64ArrayIn")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVETBL_3")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)WaveTbl4")
+{
+   #field(PINI, "1")
+   field(DTYP, "asynFloat64ArrayOut")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVETBL_4")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)WaveTbl4_RBV")
+{
+   field(DTYP, "asynFloat64ArrayIn")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAVETBL_4")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)DDLTbl1")
+{
+   #field(PINI, "1")
+   field(DTYP, "asynFloat64ArrayOut")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDLTBL_1")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)DDLTbl1_RBV")
+{
+   field(DTYP, "asynFloat64ArrayIn")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDLTBL_1")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)DDLTbl2")
+{
+   #field(PINI, "1")
+   field(DTYP, "asynFloat64ArrayOut")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDLTBL_2")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)DDLTbl2_RBV")
+{
+   field(DTYP, "asynFloat64ArrayIn")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDLTBL_2")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)DDLTbl3")
+{
+   #field(PINI, "1")
+   field(DTYP, "asynFloat64ArrayOut")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDLTBL_3")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)DDLTbl3_RBV")
+{
+   field(DTYP, "asynFloat64ArrayIn")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDLTBL_3")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)DDLTbl4")
+{
+   #field(PINI, "1")
+   field(DTYP, "asynFloat64ArrayOut")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDLTBL_4")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)DDLTbl4_RBV")
+{
+   field(DTYP, "asynFloat64ArrayIn")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_DDLTBL_4")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)TrigTbl")
+{
+   #field(PINI, "1")
+   field(DTYP, "asynFloat64ArrayOut")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_TBL")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(TPRO, "1")
+}
+
+record(waveform, "$(P)TrigTbl_RBV")
+{
+   field(DTYP, "asynFloat64ArrayIn")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_TBL")
+   field(NELM, "262144")
+   field(FTVL, "DOUBLE")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl1StartModeString   	 		"PI_WAV1_START_MODE"  			/* asynInt32,    r/w */
+# int P_WavTbl1StartMode;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl1StartModeString,          asynParamInt32,       &P_WavTbl1StartMode);
+#	setIntegerParam (P_WavTbl1StartMode,       0);
+#
+#################################################################
+
+
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(mbbo, "$(P)WavTbl1StartMode")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAV1_START_MODE")
+   field(ZRST, "DO_NOT_START")
+   field(ZRVL, "0")
+   field(ONST, "IMMEDIATELY")
+   field(ONVL, "1")
+   field(TWST, "EXTERNAL_TRIG")
+   field(TWVL, "2")
+   field(THST, "")
+   field(THVL, "3")
+   field(FRST, "")
+   field(FRVL, "4")
+   field(FVST, "")
+   field(FVVL, "5")
+   field(SXST, "")
+   field(SXVL, "6")
+   field(SVST, "")
+   field(SVVL, "7")
+   field(EIST, "")
+   field(EIVL, "8")
+   field(NIST, "")
+   field(NIVL, "9")
+   field(TEST, "")
+   field(TEVL, "10")
+   field(ELST, "")
+   field(ELVL, "11")
+   field(TVST, "")
+   field(TVVL, "12")
+   field(TTST, "")
+   field(TTVL, "13")
+   field(FTST, "")
+   field(FTVL, "14")
+   field(FFST, "")
+   field(FFVL, "15")  
+   
+}
+
+record(ai, "$(P)WavTbl1StartMode_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAV1_START_MODE")
+   field(SCAN, "I/O Intr")
+}###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl2StartModeString   	 		"PI_WAV2_START_MODE"  			/* asynInt32,    r/w */
+# int P_WavTbl2StartMode;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl2StartModeString,          asynParamInt32,       &P_WavTbl2StartMode);
+#	setIntegerParam (P_WavTbl2StartMode,       0);
+#
+#################################################################
+
+
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(mbbo, "$(P)WavTbl2StartMode")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAV2_START_MODE")
+   field(ZRST, "DO_NOT_START")
+   field(ZRVL, "0")
+   field(ONST, "IMMEDIATELY")
+   field(ONVL, "1")
+   field(TWST, "EXTERNAL_TRIG")
+   field(TWVL, "2")
+   field(THST, "")
+   field(THVL, "3")
+   field(FRST, "")
+   field(FRVL, "4")
+   field(FVST, "")
+   field(FVVL, "5")
+   field(SXST, "")
+   field(SXVL, "6")
+   field(SVST, "")
+   field(SVVL, "7")
+   field(EIST, "")
+   field(EIVL, "8")
+   field(NIST, "")
+   field(NIVL, "9")
+   field(TEST, "")
+   field(TEVL, "10")
+   field(ELST, "")
+   field(ELVL, "11")
+   field(TVST, "")
+   field(TVVL, "12")
+   field(TTST, "")
+   field(TTVL, "13")
+   field(FTST, "")
+   field(FTVL, "14")
+   field(FFST, "")
+   field(FFVL, "15")  
+   
+}
+
+record(ai, "$(P)WavTbl2StartMode_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAV2_START_MODE")
+   field(SCAN, "I/O Intr")
+}###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl3StartModeString   	 		"PI_WAV3_START_MODE"  			/* asynInt32,    r/w */
+# int P_WavTbl3StartMode;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl3StartModeString,          asynParamInt32,       &P_WavTbl3StartMode);
+#	setIntegerParam (P_WavTbl3StartMode,       0);
+#
+#################################################################
+
+
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(mbbo, "$(P)WavTbl3StartMode")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAV3_START_MODE")
+   field(ZRST, "DO_NOT_START")
+   field(ZRVL, "0")
+   field(ONST, "IMMEDIATELY")
+   field(ONVL, "1")
+   field(TWST, "EXTERNAL_TRIG")
+   field(TWVL, "2")
+   field(THST, "")
+   field(THVL, "3")
+   field(FRST, "")
+   field(FRVL, "4")
+   field(FVST, "")
+   field(FVVL, "5")
+   field(SXST, "")
+   field(SXVL, "6")
+   field(SVST, "")
+   field(SVVL, "7")
+   field(EIST, "")
+   field(EIVL, "8")
+   field(NIST, "")
+   field(NIVL, "9")
+   field(TEST, "")
+   field(TEVL, "10")
+   field(ELST, "")
+   field(ELVL, "11")
+   field(TVST, "")
+   field(TVVL, "12")
+   field(TTST, "")
+   field(TTVL, "13")
+   field(FTST, "")
+   field(FTVL, "14")
+   field(FFST, "")
+   field(FFVL, "15")  
+   
+}
+
+record(ai, "$(P)WavTbl3StartMode_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAV3_START_MODE")
+   field(SCAN, "I/O Intr")
+}###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_WavTbl4StartModeString   	 		"PI_WAV4_START_MODE"  			/* asynInt32,    r/w */
+# int P_WavTbl4StartMode;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_WavTbl4StartModeString,          asynParamInt32,       &P_WavTbl4StartMode);
+#	setIntegerParam (P_WavTbl4StartMode,       0);
+#
+#################################################################
+
+
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(mbbo, "$(P)WavTbl4StartMode")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAV4_START_MODE")
+   field(ZRST, "DO_NOT_START")
+   field(ZRVL, "0")
+   field(ONST, "IMMEDIATELY")
+   field(ONVL, "1")
+   field(TWST, "EXTERNAL_TRIG")
+   field(TWVL, "2")
+   field(THST, "")
+   field(THVL, "3")
+   field(FRST, "")
+   field(FRVL, "4")
+   field(FVST, "")
+   field(FVVL, "5")
+   field(SXST, "")
+   field(SXVL, "6")
+   field(SVST, "")
+   field(SVVL, "7")
+   field(EIST, "")
+   field(EIVL, "8")
+   field(NIST, "")
+   field(NIVL, "9")
+   field(TEST, "")
+   field(TEVL, "10")
+   field(ELST, "")
+   field(ELVL, "11")
+   field(TVST, "")
+   field(TVVL, "12")
+   field(TTST, "")
+   field(TTVL, "13")
+   field(FTST, "")
+   field(FTVL, "14")
+   field(FFST, "")
+   field(FFVL, "15")  
+   
+}
+
+record(ai, "$(P)WavTbl4StartMode_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_WAV4_START_MODE")
+   field(SCAN, "I/O Intr")
+}###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_TrigModeWg1String   	 		"PI_TRIG_MODE_WG1"  			/* asynInt32,    r/w */
+# int P_TrigModeWg1;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_TrigModeWg1String,          asynParamInt32,       &P_TrigModeWg1);
+#	setIntegerParam (P_TrigModeWg1,       0);
+#
+#################################################################
+
+
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(mbbo, "$(P)TrigModeWg1")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_MODE_WG1")
+   field(ZRST, "POSITION_DIST")
+   field(ZRVL, "0")
+   field(ONST, "ON_TARGET")
+   field(ONVL, "2")
+   field(TWST, "MINMAX_THRESHOLD")
+   field(TWVL, "3")
+   field(THST, "GENERATOR_TRIG")
+   field(THVL, "4")
+   field(FRST, "")
+   field(FRVL, "5")
+   field(FVST, "")
+   field(FVVL, "6")
+   field(SXST, "")
+   field(SXVL, "7")
+   field(SVST, "")
+   field(SVVL, "8")
+   field(EIST, "")
+   field(EIVL, "9")
+   field(NIST, "")
+   field(NIVL, "10")
+   field(TEST, "")
+   field(TEVL, "11")
+   field(ELST, "")
+   field(ELVL, "12")
+   field(TVST, "")
+   field(TVVL, "13")
+   field(TTST, "")
+   field(TTVL, "14")
+   field(FTST, "")
+   field(FTVL, "15")
+   field(FFST, "")
+   field(FFVL, "16")  
+   
+}
+
+record(ai, "$(P)TrigModeWg1_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_MODE_WG1")
+   field(SCAN, "I/O Intr")
+}###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_TrigModeWg2String   	 		"PI_TRIG_MODE_WG2"  			/* asynInt32,    r/w */
+# int P_TrigModeWg2;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_TrigModeWg2String,          asynParamInt32,       &P_TrigModeWg2);
+#	setIntegerParam (P_TrigModeWg2,       0);
+#
+#################################################################
+
+
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(mbbo, "$(P)TrigModeWg2")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_MODE_WG2")
+   field(ZRST, "POSITION_DIST")
+   field(ZRVL, "0")
+   field(ONST, "ON_TARGET")
+   field(ONVL, "2")
+   field(TWST, "MINMAX_THRESHOLD")
+   field(TWVL, "3")
+   field(THST, "GENERATOR_TRIG")
+   field(THVL, "4")
+   field(FRST, "")
+   field(FRVL, "5")
+   field(FVST, "")
+   field(FVVL, "6")
+   field(SXST, "")
+   field(SXVL, "7")
+   field(SVST, "")
+   field(SVVL, "8")
+   field(EIST, "")
+   field(EIVL, "9")
+   field(NIST, "")
+   field(NIVL, "10")
+   field(TEST, "")
+   field(TEVL, "11")
+   field(ELST, "")
+   field(ELVL, "12")
+   field(TVST, "")
+   field(TVVL, "13")
+   field(TTST, "")
+   field(TTVL, "14")
+   field(FTST, "")
+   field(FTVL, "15")
+   field(FFST, "")
+   field(FFVL, "16")  
+   
+}
+
+record(ai, "$(P)TrigModeWg2_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_MODE_WG2")
+   field(SCAN, "I/O Intr")
+}###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_TrigModeWg3String   	 		"PI_TRIG_MODE_WG3"  			/* asynInt32,    r/w */
+# int P_TrigModeWg3;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_TrigModeWg3String,          asynParamInt32,       &P_TrigModeWg3);
+#	setIntegerParam (P_TrigModeWg3,       0);
+#
+#################################################################
+
+
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(mbbo, "$(P)TrigModeWg3")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_MODE_WG3")
+   field(ZRST, "POSITION_DIST")
+   field(ZRVL, "0")
+   field(ONST, "ON_TARGET")
+   field(ONVL, "2")
+   field(TWST, "MINMAX_THRESHOLD")
+   field(TWVL, "3")
+   field(THST, "GENERATOR_TRIG")
+   field(THVL, "4")
+   field(FRST, "")
+   field(FRVL, "5")
+   field(FVST, "")
+   field(FVVL, "6")
+   field(SXST, "")
+   field(SXVL, "7")
+   field(SVST, "")
+   field(SVVL, "8")
+   field(EIST, "")
+   field(EIVL, "9")
+   field(NIST, "")
+   field(NIVL, "10")
+   field(TEST, "")
+   field(TEVL, "11")
+   field(ELST, "")
+   field(ELVL, "12")
+   field(TVST, "")
+   field(TVVL, "13")
+   field(TTST, "")
+   field(TTVL, "14")
+   field(FTST, "")
+   field(FTVL, "15")
+   field(FFST, "")
+   field(FFVL, "16")  
+   
+}
+
+record(ai, "$(P)TrigModeWg3_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_MODE_WG3")
+   field(SCAN, "I/O Intr")
+}###################################################################
+# 
+# add these lines to the driver header file
+# 
+# #define P_TrigModeWg4String   	 		"PI_TRIG_MODE_WG4"  			/* asynInt32,    r/w */
+# int P_TrigModeWg4;
+#
+# add these lines to the driver source file in constructor
+#
+#	createParam(P_TrigModeWg4String,          asynParamInt32,       &P_TrigModeWg4);
+#	setIntegerParam (P_TrigModeWg4,       0);
+#
+#################################################################
+
+
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(mbbo, "$(P)TrigModeWg4")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_MODE_WG4")
+   field(ZRST, "POSITION_DIST")
+   field(ZRVL, "0")
+   field(ONST, "ON_TARGET")
+   field(ONVL, "2")
+   field(TWST, "MINMAX_THRESHOLD")
+   field(TWVL, "3")
+   field(THST, "GENERATOR_TRIG")
+   field(THVL, "4")
+   field(FRST, "")
+   field(FRVL, "5")
+   field(FVST, "")
+   field(FVVL, "6")
+   field(SXST, "")
+   field(SXVL, "7")
+   field(SVST, "")
+   field(SVVL, "8")
+   field(EIST, "")
+   field(EIVL, "9")
+   field(NIST, "")
+   field(NIVL, "10")
+   field(TEST, "")
+   field(TEVL, "11")
+   field(ELST, "")
+   field(ELVL, "12")
+   field(TVST, "")
+   field(TVVL, "13")
+   field(TTST, "")
+   field(TTVL, "14")
+   field(FTST, "")
+   field(FTVL, "15")
+   field(FFST, "")
+   field(FFVL, "16")  
+   
+}
+
+record(ai, "$(P)TrigModeWg4_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))PI_TRIG_MODE_WG4")
+   field(SCAN, "I/O Intr")
+}

@@ -1,0 +1,96 @@
+record(bo, "PZAC1610-3-I12-40:calibDone")
+{
+        field(DESC, "Calibration completed")
+        field(VAL,  "0")
+        field(ZNAM, "NOT CALIBRATED")
+        field(ONAM, "CALIBRATED")
+        field(ZSV,  "MAJOR")
+
+        field(PINI, "1")
+}
+
+record(bo, "PZAC1610-3-I12-40:calibRun")
+{
+        field(DESC, "Calibration completed")
+        field(VAL,  "0")
+        field(ZNAM, "CALIBRAT STOPPED")
+        field(ONAM, "CALIBRATION RUNNING")
+        field(ZSV,  "MAJOR")
+}
+
+
+record(stringin, "PZAC1610-3-I12-40:log")
+{
+	field(DESC, "msg logging")
+}
+
+record(ao, "PZAC1610-3-I12-40:calibFirstMv")
+{
+        field(DESC, "Calibration first Move")
+        field(VAL,  "0")
+}
+
+record(ao, "PZAC1610-3-I12-40:calibPosn")
+{
+        field(DESC, "Calibration first Move")
+        field(VAL,  "0.0")
+}
+record(ao, "PZAC1610-3-I12-40:finalPosn")
+{
+        field(DESC, "Calibration first Move")
+        field(VAL,  "0")
+}
+record(bo, "PZAC1610-3-I12-40:calibDir")
+{
+		field(DESC, "Calibration home direction")
+		field(VAL,  "0")
+}
+
+record(bo, "PZAC1610-3-I12-41:calibDone")
+{
+        field(DESC, "Calibration completed")
+        field(VAL,  "0")
+        field(ZNAM, "NOT CALIBRATED")
+        field(ONAM, "CALIBRATED")
+        field(ZSV,  "MAJOR")
+
+        field(PINI, "1")
+}
+
+record(bo, "PZAC1610-3-I12-41:calibRun")
+{
+        field(DESC, "Calibration completed")
+        field(VAL,  "0")
+        field(ZNAM, "CALIBRAT STOPPED")
+        field(ONAM, "CALIBRATION RUNNING")
+        field(ZSV,  "MAJOR")
+}
+
+
+record(stringin, "PZAC1610-3-I12-41:log")
+{
+	field(DESC, "msg logging")
+}
+
+record(ao, "PZAC1610-3-I12-41:calibFirstMv")
+{
+        field(DESC, "Calibration first Move")
+        field(VAL,  "0")
+}
+
+record(ao, "PZAC1610-3-I12-41:calibPosn")
+{
+        field(DESC, "Calibration first Move")
+        field(VAL,  "0.0")
+}
+record(ao, "PZAC1610-3-I12-41:finalPosn")
+{
+        field(DESC, "Calibration first Move")
+        field(VAL,  "0")
+}
+record(bo, "PZAC1610-3-I12-41:calibDir")
+{
+		field(DESC, "Calibration home direction")
+		field(VAL,  "0")
+}
+

@@ -1,18 +1,18 @@
-# VERY Important for XPS controller, set VBAS to 0.0, set ACCL to (max velo stated in XPS stages.ini) / (max accel stated in XPS stages.ini)
+
 file "$(MOTOR)/db/basic_asyn_motor.db"
 {
 	pattern
 	{P,    N, 	M,       DTYP,   		PORT, 	ADDR, DESC,   				EGU,	DIR,   VELO,  	VBAS, 	ACCL, 	BDST, BVEL, BACC, 	MRES, PREC,  	DLLM, 	DHLM, 	RTRY	INIT}
-	{IOC:, 700, "m$(N)", "asynMotor",	"E712", 	0, 		"SampleFineX",	um,  	Pos,    1000.0, 0.00,  	1.0,    0,  	.2,   .2,    	0.001,  5,   		-100,		100,  0,			""}
- 	{IOC:, 701, "m$(N)", "asynMotor",	"E712", 	1, 		"SampleFineY",	um,  	Pos,    1000.0, 0.00,  	1.0,    0,  	.2,   .2,    	0.001,  5,   		-100,		100,  0,			""}
+	{PZAC1610-3-I12-, 40, "$(N)", "asynMotor",	"E712", 	0, 		"SampleFineX",	um,  	Pos,    1000.0, 0.00,  	1.0,    0,  	.2,   .2,    	0.001,  5,   		-100,		100,  0,			""}
+ 	{PZAC1610-3-I12-, 41, "$(N)", "asynMotor",	"E712", 	1, 		"SampleFineY",	um,  	Pos,    1000.0, 0.00,  	1.0,    0,  	.2,   .2,    	0.001,  5,   		-100,		100,  0,			""}
 }
 
 file "$(TOP)/db/motorCal.db"
 {
 	pattern
 	{clsdev,  motor, 	unit,   calibPosn,   	move1, 	move2, calibLimit,  finalPosn,	offset}
-	{IOC:, 		m700, 		um,				0.0					0,			0,			HLS, 				0,			0		}      # SampleFineX  
-	{IOC:, 		m701, 		um,				0.0					0,			0,			HLS, 				0,			0		}      # SampleFineY  
+	{PZAC1610-3-I12-, 		40, 		um,				0.0					0,			0,			HLS, 				0,			0		}      # SampleFineX  
+	{PZAC1610-3-I12-, 		41, 		um,				0.0					0,			0,			HLS, 				0,			0		}      # SampleFineY  
 	
 }
 

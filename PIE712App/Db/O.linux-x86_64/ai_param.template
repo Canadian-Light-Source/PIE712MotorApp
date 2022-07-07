@@ -1,0 +1,11 @@
+#################################################################
+#  a readback param                              								#
+#################################################################
+record(ai, "$(P)$(M)$(param)_RBV")
+{
+   field(PINI, "$(pini)")
+   field(DTYP, "$(param_type)")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(port_drvr_string)")
+   field(PREC, "$(prec)")
+   field(SCAN, "I/O Intr")
+}

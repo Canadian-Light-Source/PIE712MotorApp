@@ -32,7 +32,9 @@ BL_API_fileList="bin/$TARGET_ARCH/pi_e712WithAsyn \
 	req_files/astxm_e712.req  \
 	e712_calib.db \
 
-	iocBoot/IOC1610-310/motor.substitutions \
+	paramFiles/tb_coarse_samplefine_mode.pam \
+
+	iocBoot/IOC1610-310/motor.substitutions.pi_e712 \
 	PI_E712Support.dbd \
 	pi_e712WithAsyn.dbd \
 	lib/linux-x86_64/libPI_E712Support.so

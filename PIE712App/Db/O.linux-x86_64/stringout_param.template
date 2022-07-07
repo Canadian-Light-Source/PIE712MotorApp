@@ -1,0 +1,23 @@
+
+###################################################################
+#  Records that use devAsynOctet                                  #
+###################################################################
+record(stringout, "$(P)$(M)$(param)")
+{
+   field(PINI, "$(pini)")
+   field(DTYP, "asynOctetWrite")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(port_drvr_string)")
+   field(VAL,  "$(val)")
+   field(TPRO, "1")
+}
+
+record(stringin, "$(P)$(M)$(param)_RBV")
+{
+	 field(PINI, "$(pini)")
+   field(DTYP, "asynOctetRead")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(port_drvr_string)")
+   field(SCAN, "I/O Intr")
+   field(TPRO, "1")
+}
+
+
