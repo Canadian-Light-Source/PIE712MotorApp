@@ -1741,7 +1741,7 @@ PAM_TYPE_NAME = "System Mechanics 5"
 11000700_A1 = "255.255.255.0"
 11000800_A1 = "0"
 11000b00_A1 = "0-c0-8-9b-35-92"
-11000c00_A1 = "5"
+11000c00_A1 = "1"
 PAM_TYPE_NAME = "Interface"
 
 [FG019_1]

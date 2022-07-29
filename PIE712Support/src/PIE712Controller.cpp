@@ -377,6 +377,8 @@ asynStatus PIE712Axis::poll(bool *returnMoving)
 		setIntegerParam(pC_->motorStatusDone_, moving_? 0:1);
 		setIntegerParam(pC_->motorStatusMoving_,    moving_);
 	
+	
+#ifdef DO_I_NEED_THESE
 		/* as per the E712 PZ195E User Manual */
 		/* the following use the input channel as the itemID */
     pC_->getGCSParameter(m_input_chan, DIGFILT_ORDER, t_dval);
@@ -439,7 +441,7 @@ asynStatus PIE712Axis::poll(bool *returnMoving)
     
     pC_->getGCSParameter(m_axisNo, NOTCH_BWIDTH_2, t_dval);
     setDoubleParam(pC_->P_NotchBW2, t_dval);
-    
+#endif
     
     callParamCallbacks();
 
@@ -3369,7 +3371,8 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
     pAxis->Init(portName);
   }
 
-    startPoller(double(movingPollPeriod)/1000, double(idlePollPeriod)/1000, 10);
+    //startPoller(double(movingPollPeriod)/1000, double(idlePollPeriod)/1000, 10);
+    startPoller(double(movingPollPeriod), double(idlePollPeriod), 10);
     
     
     getDRRTblLength(PI_DR_DEFAULT_TABLE_ID, num_points_expected);

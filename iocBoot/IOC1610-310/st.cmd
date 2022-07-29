@@ -21,7 +21,8 @@ drvAsynIPPortConfigure("L100", "192.168.50.5:50000",0,0,0)
 
 # PI_E712_CreateController("Port name","asyn Port name","data recorder asyn Port name","Number of axes","moving polling time [msec]","idle polling time [msec]") 
 #PI_E712_CreateController("E712", "L100", "L101", 3, 50, 250)
-PI_E712_CreateController("E712", "L100", "L101", 3, 50, 500)
+#PI_E712_CreateController("E712", "L100", "L101", 3, 50, 500)
+PI_E712_CreateController("E712", "L100", "L101", 3, 50, 250)
 
 
 
@@ -42,14 +43,14 @@ dbLoadRecords("db/e712_calib.db")
 dbLoadRecords("db/e712_scan_support.db", "P=$(STXM):E712")
 
 
-epicsEnvSet(AUTOSAVE_PREFIX,"astxm_e712")
-< $(TOP)/support/autosave-1.cmd
+# epicsEnvSet(AUTOSAVE_PREFIX,"astxm_e712")
+# < $(TOP)/support/autosave-1.cmd
 
 iocInit
 
 
 #save positions every five seconds, it will look only in the dir setup in set_requestfile_path()
-create_monitor_set("$(AUTOSAVE_PREFIX).req", 5, "P=IOC")
+# create_monitor_set("$(AUTOSAVE_PREFIX).req", 5, "P=IOC")
 
 dbpf(PZAC1610-3-I12-40:ServoPower, "0")
 dbpf(PZAC1610-3-I12-41:ServoPower, "0")

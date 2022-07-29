@@ -33,8 +33,8 @@ extern "C" {
 int TranslatePIError(const int error, char* szBuffer, const int maxlen);
 }
 
-//double PIInterface::TIMEOUT = 5.0;
-double PIInterface::TIMEOUT = 0.5;
+double PIInterface::TIMEOUT = 5.0;
+//double PIInterface::TIMEOUT = 0.5;
 
 
 PIInterface::PIInterface(asynUser* pCom)
@@ -123,8 +123,8 @@ asynStatus PIInterface::sendAndReceive(const char *outputBuff, char *inputBuff, 
                                          inputBuff, inputSize,
                                          TIMEOUT, &nWrite, &nRead, &eomReason);
     if (nWrite != 1)
-	{
-        asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,
+	{			
+				asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,
                   "PIGCSController:sendAndReceive error calling write, output=%s status=%d, error=%s\n",
                   outputBuff, status, m_pAsynInterface->errorMessage);
     	return asynError;
@@ -132,7 +132,7 @@ asynStatus PIInterface::sendAndReceive(const char *outputBuff, char *inputBuff, 
 
     if (status != asynSuccess)
     {
-        asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,
+				asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,
                   "PIGCSController:sendAndReceive error calling writeRead, output=%s status=%d, error=%s\n",
                   outputBuff, status, m_pAsynInterface->errorMessage);
     }
