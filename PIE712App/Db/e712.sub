@@ -33,7 +33,7 @@ file ao_param.template
     {  ITerm				asynFloat64    PI_I_TERM		NO		0	1000			0																	6	}    
     {  DTerm				asynFloat64    PI_D_TERM		NO		0	1000			0																	6	}    
     
-    
+    {  ATZVolts			asynFloat64    PI_ATZ_VOLTS	YES		-50	50			50																2	} 
     
 }
 

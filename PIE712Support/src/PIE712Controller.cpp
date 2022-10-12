@@ -498,9 +498,9 @@ asynStatus PIE712Axis::move(double positionCts, int relative, double minVelocity
 	accelerationEgu = accelerationCts * m_CPUdenominator / m_CPUnumerator;
 
   //printf("PIE712Axis:[%s]:move(positionEgu=%f, maxvelocityEgu=%f, accelerationEgu=%f)\n", m_axisName, positionEgu, maxvelocityEgu, accelerationEgu);
+	//getPositionEgu(&cur_posEgu);
+	cur_posEgu = getPositionEGU();
 	
-	
-	getPositionEgu(&cur_posEgu);
 	if(abs(cur_posEgu - positionEgu) <= MAX_MOVE_WITH_FORCED_STATUS){
 		m_ForceDonePollIters = MAX_MOVE_WITH_FORCED_STATUS_VAL;
 		//printf("E712 move[%s]: m_ForceDonePollIters = %d\n", m_axisName, m_ForceDonePollIters);
@@ -957,8 +957,10 @@ asynStatus PIE712Axis::autoZero(void)
 {
 	char cmd[100];
 	asynStatus status = asynSuccess;
-
-
+	double p_atzVolts = 0.0;
+	
+	pC_->getDoubleParam(axisNo_, pC_->P_ATZVolt, &p_atzVolts);
+	
 		if(m_simchan)
 		{	
 			return(	asynSuccess);
@@ -967,7 +969,8 @@ asynStatus PIE712Axis::autoZero(void)
   /* full votage range is -20v to 120v so mid range is 50v */
   /* <autozero command> <axis num> <0um at (50) volts> */
   /*sprintf(cmd, "ATZ %d NAN", m_axisNo);*/
-  sprintf(cmd, "ATZ %d %.2f", m_axisNo, m_piezo_atz_voltages[m_axisNo-1]);
+  /*sprintf(cmd, "ATZ %d %.2f", m_axisNo, m_piezo_atz_voltages[m_axisNo-1]);*/
+  sprintf(cmd, "ATZ %d %.2f", m_axisNo, p_atzVolts);
   
   
   printf("autoZero: Sending [%s] to controller\n", cmd);
@@ -980,6 +983,7 @@ asynStatus PIE712Axis::autoZero(void)
   
 	return status;
 }	
+
 
 /****************************************************************************************/
 asynStatus PIE712Axis::getAutoZeroStatus(bool *atz_sts)
@@ -1359,6 +1363,7 @@ asynStatus PIE712Axis::setAxisPositionCts(double positionCts)
 
 	asynPrint(pasynUser_, ASYN_TRACE_FLOW|ASYN_TRACE_ERROR,
 		"PIE712Axis::setAxisPositionCts(, %d) \n", positionCts);
+	printf("PIE712Axis::setAxisPositionCts(, %d) \n", positionCts);
 	return setAxisPosition( position);
 }
 
@@ -1389,7 +1394,9 @@ asynStatus PIE712Axis::setAxisPosition(double position)
     	return status;
     }
     asynPrint(pasynUser_, ASYN_TRACE_FLOW|ASYN_TRACE_ERROR,
-    		"PIE712Axis::setAxisPosition() sent \"%s\"\n", cmd);
+    		"PIE712Axis::setAxisPosition() sent \"%s\"\n", cmd);    
+    printf("PIE712Axis::setAxisPosition() sent \"%s\"\n", cmd);
+    
     sprintf(cmd,"RON %d 1", m_axisNo);
     status = pC_->m_pInterface->sendOnly(cmd);
     if (asynSuccess != status)
@@ -1496,7 +1503,8 @@ asynStatus PIE712Axis::haltAxis(void)
 asynStatus PIE712Axis::getAxisPosition(double& position)
 {
 	char cmd[100];
-	char buf[255];
+	char buf[255];\
+	int enc_src = 0; // 0 == Capacitance
 
 		if(m_simchan)
 		{	
@@ -1505,6 +1513,7 @@ asynStatus PIE712Axis::getAxisPosition(double& position)
 		
 	sprintf(cmd, "POS? %d", m_axisNo);
 	asynStatus status = pC_->m_pInterface->sendAndReceive(cmd, buf, 99);
+	//printf("PIE712Axis::getAxisPosition, sent[%s] received [%s]\n", cmd, buf);
 	if (status != asynSuccess)
 	{
 		return status;
@@ -1513,6 +1522,18 @@ asynStatus PIE712Axis::getAxisPosition(double& position)
 	{
 		status = asynError;
 	}
+	
+	// if using the interferometer for encoder input reduce the value by a 1000 so that it will
+	// fit into the 32 bit motor Record RRBV field
+	pC_->getIntegerParam(axisNo_, pC_->P_SelectEncoderSrc, &enc_src);
+	if(enc_src == USE_QUADRATURE_SENSOR)
+	{
+		position = position * 0.001;
+	}
+	
+	// if it is set for CAPACITANCE then just leave it, NOTE: the ERES and MRES must be set to account for 
+	// which encoder is selected
+	
 	return status;
 }
 
@@ -1852,6 +1873,7 @@ asynStatus PIE712Axis::getMaxRange(double * result)
 }
 
 /***************************************************************************/
+#ifdef REPLACED
 asynStatus PIE712Axis::getPositionEgu(double * result)
 {
 	double pos = 0.0;
@@ -1868,6 +1890,54 @@ asynStatus PIE712Axis::getPositionEgu(double * result)
 	//printf("PIE712Axis::[%s]getPositionEgu(%.5f)\n",m_axisName, *result);	
 	return asynSuccess;
 }
+#endif
+
+/***************************************************************************/
+double PIE712Axis::getPositionEGU(void)
+{
+	int status = 0;
+	double encPos = -9.5;
+	double mres = 0.0;
+	double encRatio, eres = 0.0;
+	double mrec_res = 0.0;
+	double mpos = 0.0;
+	double rbv = 0.0;
+	double mrec_offset = 0.0;
+
+  
+  pC_->getDoubleParam(axisNo_, pC_->motorPosition_, &mpos);
+	pC_->getDoubleParam(axisNo_, pC_->motorResolution_, &mres);
+	pC_->getDoubleParam(axisNo_, pC_->motorEncoderRatio_, &encRatio);
+	pC_->getDoubleParam(axisNo_, pC_->motorRecResolution_, &mrec_res);
+	pC_->getDoubleParam(axisNo_, pC_->motorEncoderPosition_, &encPos);
+	pC_->getDoubleParam(axisNo_, pC_->motorRecOffset_, &mrec_offset);
+	eres = mrec_res/encRatio;
+	rbv = encPos * eres;
+	
+	//printf("PIE712Axis::getPosition: axisNo[%d] rbv=%f, motorEncoderPosition_=%f, mres=%f, eres=%f, mrec_res=%f, mpos=%f\n",axisNo_, encPos, mres, eres, mrec_res, mpos );
+	printf("PIE712Axis::getPositionEGU: axisNo[%d] rbv=%f, mrec_offset=%f\n",axisNo_, rbv, mrec_offset );
+	
+	return rbv;
+	
+}	
+
+/* setPositionEGU(setpoint position) setpoint position in engineering units */
+asynStatus PIE712Axis::setPositionEGU(double pos)
+{
+	double mres = 0.0;
+	double steps = 0.0; 
+	
+	pC_->getDoubleParam(axisNo_, pC_->motorResolution_, &mres);
+	pC_->setDoubleParam(axisNo_, pC_->motorRecOffset_, 0.0);
+	
+	steps = pos / mres;
+	steps = int(steps);
+	printf("PIE712Axis::setPositionEGU: axisNo[%d] pos_egu=%f, steps=%d\n",axisNo_, pos, steps );
+	setPosition(steps);
+	//callParamCallbacks();
+
+	return asynSuccess;
+}		
 
 /***************************************************************************/
 asynStatus PIE712Axis::getRRBV(double * result)
@@ -2679,8 +2749,7 @@ asynStatus PIE712Axis::configure_for_mode(double positionEgu, int relative, doub
 		{	
 			return(	asynSuccess);
 		}	
-	
-	
+		
 	pC_->getIntegerParam(axisNo_, pC_->P_Mode, &p_mode);
 	pC_->getDoubleParam(axisNo_, pC_->P_ScanStart, &p_startscan);
 	pC_->getDoubleParam(axisNo_, pC_->P_ScanStop, &p_stopscan);
@@ -2688,7 +2757,8 @@ asynStatus PIE712Axis::configure_for_mode(double positionEgu, int relative, doub
 	pC_->getDoubleParam(axisNo_, pC_->P_MarkerStop, &p_markerstop);
 	pC_->getDoubleParam(axisNo_, pC_->motorVelocity_, &p_fbkvelo);
 
-	getPositionEgu(&p_fbkpos);
+	//getPositionEgu(&p_fbkpos);
+	p_fbkpos = getPositionEGU();
 	//printf("configure_for_mode [%s]: p_fbkpos = %f, position = %f\n", m_axisName, p_fbkpos, positionEgu);
 
 	if(p_mode == MODE_NORMAL){
@@ -2824,7 +2894,8 @@ bool PIE712Axis::isWithInRange(double target_microns)
 		return(false);
 		
 	}	
-	getPositionEgu(&dCurrPos_microns);
+	//getPositionEgu(&dCurrPos_microns);
+	dCurrPos_microns = getPositionEGU();
 	deltaPos = fabs(target_microns - dCurrPos_microns);
 	
 	if(MAX_PIEZO_EGU > m_capSensor){
@@ -3187,6 +3258,8 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 			
 		createParam(P_DatRec_TNRFbkString,					    asynParamInt32,      &P_DatRec_TNRFbk);
 		createParam(P_DataRec_AutoEnableString, 				asynParamInt32,	&P_DataRec_AutoEnable);
+		
+		createParam(P_ATZVoltString, 						asynParamFloat64, &P_ATZVolt);
 		
 		m_pWavTbl1Data = (epicsFloat64 *)calloc(WAVE_MAX_NUM_SAMPLES, sizeof(epicsFloat64));
 		m_pWavTbl2Data = (epicsFloat64 *)calloc(WAVE_MAX_NUM_SAMPLES, sizeof(epicsFloat64));
@@ -6071,7 +6144,7 @@ asynStatus PIE712Controller::poll(void)
 			setIntegerParam(P_ExecWavegen, 0);
 		}
 		
-    
+//#ifdef RUSS_SEPT_7_2022    
     
     /* only use the value returned from table 1 as all the tables report the same (most recently set) value */
     getWaveTableCycles(1, t_ival);
@@ -6133,7 +6206,8 @@ asynStatus PIE712Controller::poll(void)
 		
 		getDRRTblLength(PI_DR_DEFAULT_TABLE_ID, t_ival);
 		setIntegerParam(P_DatRec_getDRL, t_ival);
-		
+
+//#endif // RUSS_SEPT_7_2022    		
     
     callParamCallbacks();
 		

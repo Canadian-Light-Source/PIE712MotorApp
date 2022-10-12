@@ -286,7 +286,7 @@ December 13, 2009
 #define P_ParamFileNameString      		"PI_PARAM_FILE_NAME"							/* asynOctet */   	
 #define P_LoadParamFileString      		"PI_LOAD_PARAM_FILE"							/* asynInt32 */   	
 
-
+#define P_ATZVoltString 						"PI_ATZ_VOLTS"	/* asynFloat64,    r */ 
 
 
 #define P_LastParamString       	"PI_LAST_PARAM"    /* asynInt32,    r/w */ 
@@ -393,15 +393,15 @@ December 13, 2009
 #define AXIS4_CAPACITIVE POSITION_FROM_SENSOR_10
 #define AXIS4_DRIVING_FACTOR_PARAM DRIVING_FACTOR_OF_PIEZO_11
 
-#define AXIS1_OUTPUT_CHANNEL 5
-#define AXIS2_OUTPUT_CHANNEL 7
-#define AXIS3_OUTPUT_CHANNEL 9
-#define AXIS4_OUTPUT_CHANNEL 11
+#define AXIS1_OUTPUT_CHANNEL 1 //5
+#define AXIS2_OUTPUT_CHANNEL 2 //7
+#define AXIS3_OUTPUT_CHANNEL 3 //9
+#define AXIS4_OUTPUT_CHANNEL 4 //11
 
-#define AXIS1_INPUT_CHANNEL_CAP 5
-#define AXIS2_INPUT_CHANNEL_CAP 7
-#define AXIS3_INPUT_CHANNEL_CAP 8
-#define AXIS4_INPUT_CHANNEL_CAP 10
+#define AXIS1_INPUT_CHANNEL_CAP 1 //5
+#define AXIS2_INPUT_CHANNEL_CAP 2 //7
+#define AXIS3_INPUT_CHANNEL_CAP 3 //8
+#define AXIS4_INPUT_CHANNEL_CAP 4 //10
 
 #define AXIS1_INPUT_CHANNEL_INT 1
 #define AXIS2_INPUT_CHANNEL_INT 2
@@ -492,7 +492,10 @@ public:
     
     bool IsGCS2(void);
     
-    asynStatus getPositionEgu(double * result);
+    //asynStatus getPositionEgu(double * result);
+    double getPositionEGU(void);
+    asynStatus setPositionEGU(double pos);
+    
 	  asynStatus getRRBV(double * result);
 	  asynStatus getVolt(double * result);
 	  asynStatus getADSensor(double *result);
@@ -988,6 +991,7 @@ protected:
   int P_ParamFileName;
 	int P_LoadParamFile;
 	
+	int P_ATZVolt;
 	
   int P_LastParam;
   
