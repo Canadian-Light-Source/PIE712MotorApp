@@ -5,4 +5,4 @@ mkdir /iocApps//10ID_1_SM_BL/IOC1610-310/AStxm_E712Ctrl/paramFiles
 cp ./python/e712_pam_exclude_addrs.py /iocApps//10ID_1_SM_BL/IOC1610-310/AStxm_E712Ctrl/python
 cp ./python/e712_load_parm_file.py /iocApps//10ID_1_SM_BL/IOC1610-310/AStxm_E712Ctrl/python
 
-cp ./paramFiles/tb_coarse_samplefine_mode.pam /iocApps//10ID_1_SM_BL/IOC1610-310/AStxm_E712Ctrl/paramFiles
+cp ./paramFiles/oct20_2022_coarse_smplfine.pam /iocApps//10ID_1_SM_BL/IOC1610-310/AStxm_E712Ctrl/paramFiles

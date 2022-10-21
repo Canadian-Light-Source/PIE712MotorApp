@@ -43,14 +43,14 @@ dbLoadRecords("db/e712_calib.db")
 dbLoadRecords("db/e712_scan_support.db", "P=$(STXM):E712")
 
 
-# epicsEnvSet(AUTOSAVE_PREFIX,"astxm_e712")
-# < $(TOP)/support/autosave-1.cmd
+epicsEnvSet(AUTOSAVE_PREFIX,"astxm_e712")
+< $(TOP)/support/autosave-1.cmd
 
 iocInit
 
 
 #save positions every five seconds, it will look only in the dir setup in set_requestfile_path()
-# create_monitor_set("$(AUTOSAVE_PREFIX).req", 5, "P=IOC")
+create_monitor_set("$(AUTOSAVE_PREFIX).req", 5)
 
 dbpf(PZAC1610-3-I12-40:ServoPower, "0")
 dbpf(PZAC1610-3-I12-41:ServoPower, "0")
@@ -61,9 +61,9 @@ dbpf(PZAC1610-3-I12-41_able.VAL, "$(START_EN_DISABLED)")
 dbpf("PSMTR1610-3-I12-00.RTRY","1") 
 dbpf("PSMTR1610-3-I12-01.RTRY","1") 
 
-dbpf("$(STXM):E712:ParamFileName", "tb_coarse_samplefine_mode.pam")
-epicsThreadSleep(5.0)
+#dbpf("$(STXM):E712:ParamFileName", "oct20_2022_coarse_smplfine.pam")
+#epicsThreadSleep(5.0)
  
-dbpf("$(STXM):E712:LoadParamFile", "1")
+#dbpf("$(STXM):E712:LoadParamFile", "1")
  
  

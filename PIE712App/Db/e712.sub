@@ -31,9 +31,13 @@ file ao_param.template
                                                                                                     	
     {  PTerm				asynFloat64    PI_P_TERM		NO		0	1000			0																	6	}    
     {  ITerm				asynFloat64    PI_I_TERM		NO		0	1000			0																	6	}    
-    {  DTerm				asynFloat64    PI_D_TERM		NO		0	1000			0																	6	}    
+    {  DTerm				asynFloat64    PI_D_TERM		NO		0	1000			0																	6	}  
+    
+    {	 PosFromE712Scaler	asynFloat64	PI_POS_FROM_E712_SCALER	YES -9999999	9999999		100							2	}   
     
     {  ATZVolts			asynFloat64    PI_ATZ_VOLTS	YES		-50	50			50																2	} 
+    
+
     
 }
 

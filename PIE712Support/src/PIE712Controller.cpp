@@ -1505,6 +1505,7 @@ asynStatus PIE712Axis::getAxisPosition(double& position)
 	char cmd[100];
 	char buf[255];\
 	int enc_src = 0; // 0 == Capacitance
+	double e712_pos_scaler = 1.0;
 
 		if(m_simchan)
 		{	
@@ -1522,6 +1523,11 @@ asynStatus PIE712Axis::getAxisPosition(double& position)
 	{
 		status = asynError;
 	}
+	
+	// scale the value coming from the E712 as it was adjusted on the controller to make the system tunable
+	pC_->getDoubleParam(axisNo_, pC_->P_PosFromE712Scaler, &e712_pos_scaler);
+	position = position * e712_pos_scaler;
+	
 	
 	// if using the interferometer for encoder input reduce the value by a 1000 so that it will
 	// fit into the 32 bit motor Record RRBV field
@@ -1912,12 +1918,41 @@ double PIE712Axis::getPositionEGU(void)
 	pC_->getDoubleParam(axisNo_, pC_->motorEncoderPosition_, &encPos);
 	pC_->getDoubleParam(axisNo_, pC_->motorRecOffset_, &mrec_offset);
 	eres = mrec_res/encRatio;
-	rbv = encPos * eres;
+	rbv = (encPos * eres) + mrec_offset;
 	
 	//printf("PIE712Axis::getPosition: axisNo[%d] rbv=%f, motorEncoderPosition_=%f, mres=%f, eres=%f, mrec_res=%f, mpos=%f\n",axisNo_, encPos, mres, eres, mrec_res, mpos );
-	printf("PIE712Axis::getPositionEGU: axisNo[%d] rbv=%f, mrec_offset=%f\n",axisNo_, rbv, mrec_offset );
+	//printf("PIE712Axis::getPositionEGU: axisNo[%d] rbv=%f, mrec_offset=%f\n",axisNo_, rbv, mrec_offset );
 	
 	return rbv;
+	
+}	
+
+/***************************************************************************/
+double PIE712Axis::getPositionCTS(void)
+{
+	int status = 0;
+	double encPos = -9.5;
+	double mres = 0.0;
+	double encRatio, eres = 0.0;
+	double mrec_res = 0.0;
+	double mpos = 0.0;
+	double cts = 0;
+	double mrec_offset = 0.0;
+
+  
+  pC_->getDoubleParam(axisNo_, pC_->motorPosition_, &mpos);
+	pC_->getDoubleParam(axisNo_, pC_->motorResolution_, &mres);
+	pC_->getDoubleParam(axisNo_, pC_->motorEncoderRatio_, &encRatio);
+	pC_->getDoubleParam(axisNo_, pC_->motorRecResolution_, &mrec_res);
+	pC_->getDoubleParam(axisNo_, pC_->motorEncoderPosition_, &encPos);
+	pC_->getDoubleParam(axisNo_, pC_->motorRecOffset_, &mrec_offset);
+	eres = mrec_res/encRatio;
+	cts = encPos + (mrec_offset / eres);
+	
+	//printf("PIE712Axis::getPosition: axisNo[%d] rbv=%f, motorEncoderPosition_=%f, mres=%f, eres=%f, mrec_res=%f, mpos=%f\n",axisNo_, encPos, mres, eres, mrec_res, mpos );
+	//printf("PIE712Axis::getPositionEGU: axisNo[%d] cts=%ld, mrec_offset=%f\n",axisNo_, cts, mrec_offset );
+	
+	return cts;
 	
 }	
 
@@ -1932,7 +1967,7 @@ asynStatus PIE712Axis::setPositionEGU(double pos)
 	
 	steps = pos / mres;
 	steps = int(steps);
-	printf("PIE712Axis::setPositionEGU: axisNo[%d] pos_egu=%f, steps=%d\n",axisNo_, pos, steps );
+	//printf("PIE712Axis::setPositionEGU: axisNo[%d] pos_egu=%f, steps=%d\n",axisNo_, pos, steps );
 	setPosition(steps);
 	//callParamCallbacks();
 
@@ -3260,6 +3295,9 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 		createParam(P_DataRec_AutoEnableString, 				asynParamInt32,	&P_DataRec_AutoEnable);
 		
 		createParam(P_ATZVoltString, 						asynParamFloat64, &P_ATZVolt);
+		
+		createParam(P_PosFromE712ScalerString, 						asynParamFloat64, &P_PosFromE712Scaler);
+
 		
 		m_pWavTbl1Data = (epicsFloat64 *)calloc(WAVE_MAX_NUM_SAMPLES, sizeof(epicsFloat64));
 		m_pWavTbl2Data = (epicsFloat64 *)calloc(WAVE_MAX_NUM_SAMPLES, sizeof(epicsFloat64));

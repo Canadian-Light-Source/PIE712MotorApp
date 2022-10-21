@@ -288,6 +288,8 @@ December 13, 2009
 
 #define P_ATZVoltString 						"PI_ATZ_VOLTS"	/* asynFloat64,    r */ 
 
+#define P_PosFromE712ScalerString		"PI_POS_FROM_E712_SCALER"	/* asynFloat64,    r/w */ 
+
 
 #define P_LastParamString       	"PI_LAST_PARAM"    /* asynInt32,    r/w */ 
 
@@ -494,6 +496,7 @@ public:
     
     //asynStatus getPositionEgu(double * result);
     double getPositionEGU(void);
+    double getPositionCTS(void);
     asynStatus setPositionEGU(double pos);
     
 	  asynStatus getRRBV(double * result);
@@ -992,6 +995,8 @@ protected:
 	int P_LoadParamFile;
 	
 	int P_ATZVolt;
+	
+	int P_PosFromE712Scaler;
 	
   int P_LastParam;
   
