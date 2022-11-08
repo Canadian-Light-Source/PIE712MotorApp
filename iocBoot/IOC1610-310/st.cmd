@@ -57,9 +57,14 @@ dbpf(PZAC1610-3-I12-41:ServoPower, "0")
 
 dbpf(PZAC1610-3-I12-40_able.VAL, "$(START_EN_DISABLED)")
 dbpf(PZAC1610-3-I12-41_able.VAL, "$(START_EN_DISABLED)")
+dbpf(PZAC1610-3-I12-40.FOFF, "1") #Frozen
+dbpf(PZAC1610-3-I12-41.FOFF, "1") #Frozen
 
-dbpf("PSMTR1610-3-I12-00.RTRY","1") 
-dbpf("PSMTR1610-3-I12-01.RTRY","1") 
+#dbpf("PSMTR1610-3-I12-00.RTRY","1") 
+#dbpf("PSMTR1610-3-I12-01.RTRY","1") 
+
+
+
 
 #dbpf("$(STXM):E712:ParamFileName", "oct20_2022_coarse_smplfine.pam")
 #epicsThreadSleep(5.0)
