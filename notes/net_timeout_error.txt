@@ -1,0 +1,12 @@
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=TSP? 8 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=SPA? 8 83886082 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=SPA? 8 83886080 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=SPA? 8 83886081 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=SPA? 8 83886337 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=SPA? 8 83886338 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=SPA? 8 83886339 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=SPA? 8 83886340 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=SPA? 8 83886341 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=POS? 1 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+2022/07/25 12:55:43.828 PIGCSController:sendAndReceive error calling write, output=SPA? 3 117441280 status=3, error=asynManager::queueLockPort queueRequest failed: port L100 not connected
+

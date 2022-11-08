@@ -21,7 +21,8 @@ drvAsynIPPortConfigure("L100", "192.168.50.5:50000",0,0,0)
 
 # PI_E712_CreateController("Port name","asyn Port name","data recorder asyn Port name","Number of axes","moving polling time [msec]","idle polling time [msec]") 
 #PI_E712_CreateController("E712", "L100", "L101", 3, 50, 250)
-PI_E712_CreateController("E712", "L100", "L101", 3, 50, 500)
+#PI_E712_CreateController("E712", "L100", "L101", 3, 50, 500)
+PI_E712_CreateController("E712", "L100", "L101", 3, 50, 250)
 
 
 
@@ -49,20 +50,25 @@ iocInit
 
 
 #save positions every five seconds, it will look only in the dir setup in set_requestfile_path()
-create_monitor_set("$(AUTOSAVE_PREFIX).req", 5, "P=IOC")
+create_monitor_set("$(AUTOSAVE_PREFIX).req", 5)
 
 dbpf(PZAC1610-3-I12-40:ServoPower, "0")
 dbpf(PZAC1610-3-I12-41:ServoPower, "0")
 
 dbpf(PZAC1610-3-I12-40_able.VAL, "$(START_EN_DISABLED)")
 dbpf(PZAC1610-3-I12-41_able.VAL, "$(START_EN_DISABLED)")
+dbpf(PZAC1610-3-I12-40.FOFF, "1") #Frozen
+dbpf(PZAC1610-3-I12-41.FOFF, "1") #Frozen
 
-dbpf("PSMTR1610-3-I12-00.RTRY","1") 
-dbpf("PSMTR1610-3-I12-01.RTRY","1") 
+#dbpf("PSMTR1610-3-I12-00.RTRY","1") 
+#dbpf("PSMTR1610-3-I12-01.RTRY","1") 
 
-dbpf("$(STXM):E712:ParamFileName", "tb_coarse_samplefine_mode.pam")
-epicsThreadSleep(5.0)
+
+
+
+#dbpf("$(STXM):E712:ParamFileName", "oct20_2022_coarse_smplfine.pam")
+#epicsThreadSleep(5.0)
  
-dbpf("$(STXM):E712:LoadParamFile", "1")
+#dbpf("$(STXM):E712:LoadParamFile", "1")
  
  
