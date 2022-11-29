@@ -33,6 +33,14 @@ December 13, 2009
 
 #include "picontrollererrors.h"
 
+/* GCS commands that use non printable characters */
+
+#define GCS_REQ_MOTION_STS "" /* #5 also CTRL-E*/
+#define GCS_REQ_CNTRLR_RDY_STS "" /* #7  also CTRL-G*/
+#define GCS_REQ_WAVGEN_STS "	" /* #9  also CTRL-I*/
+#define GCS_STOP_ALL_MOTION "" /* #24  also CTRL-X*/
+
+
 #define mmToMicrons(x) x*1000.0 
 #define micronsToMMs(x) x*0.001
 
@@ -528,7 +536,6 @@ public:
 		asynStatus selectPiezoOutputDirection(int dir);
 		asynStatus get_status(unsigned int *sts);
 		asynStatus getAutoZeroStatus(bool *atz_sts);
-		asynStatus getWaveGenStatus(bool *wvg_sts);
 		
 		bool isWithInRange(double target);
 		bool isMoving(void);
@@ -684,7 +691,7 @@ public:
   asynStatus setGCSParameter(PIE712Axis* pAxis, unsigned int paramID, double value);
   asynStatus getGCSParameter(int itemID, unsigned int paramID, double& value);
   asynStatus getGCSParameter(PIE712Axis* pAxis, unsigned int paramID, double& value);
-  
+   
   
   asynStatus findConnectedAxes();
 
@@ -711,7 +718,7 @@ public:
 	asynStatus clearWavTable(int tblid);
 	asynStatus clearTriggers(void);
 	
-	asynStatus getWaveGenStatus(int wavgen_num, bool *wvg_sts);
+	asynStatus getWaveGenStatus(bool *wvg_1, bool *wvg_2, bool *wvg_3, bool *wvg_4 );
 	asynStatus startWavegen(void);
 	asynStatus stopWavegen(int tblid);
 	asynStatus calcDDLProcParms(int waveTbl);

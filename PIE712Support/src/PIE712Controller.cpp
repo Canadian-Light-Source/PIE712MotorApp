@@ -3518,7 +3518,7 @@ asynStatus PIE712Controller::sendCommandList(const char *cmds)
 	printf("sendCommandList: starting\n");
 	for(i=0; i <m_numCmnds; i++)
 	{
-		/*printf("sendCommandList:[%d] sending: [%s]\n", i, m_cmnd_list[i]);*/
+		printf("sendCommandList:[%d] sending: [%s]\n", i, m_cmnd_list[i]);
 		asynStatus status = m_pInterface->sendOnly(m_cmnd_list[i]);
 		//sprintf(m_lastCmnd, "%s", m_cmnd_list[i]); 
 		errorCode = getGCSError();
@@ -5039,66 +5039,56 @@ asynStatus PIE712Controller::putDDLDatatbl(int tblid, int num_points, epicsFloat
 	return(status);
 
 }
- /***************************************************************************/
-asynStatus PIE712Controller::getWaveGenStatus(int wavgen_num, bool *wvg_sts)
+
+
+/***************************************************************************/
+asynStatus PIE712Controller::getWaveGenStatus(bool *wvg_1, bool *wvg_2, bool *wvg_3, bool *wvg_4 )
 {
-	char cmd[100];
+	char cmd = 0x09;
 	char buf[255];
 	int t_val = 0;
 	
-	sprintf(cmd, "#9");
+	
+	//sprintf(cmd, "#9");
+	//sprintf(cmd, "%s", GCS_REQ_WAVGEN_STS); printf("%x", ch & 0xff);
+	//printf("getWaveGenStatus: sending [%x]\n", cmd);
 	
   asynStatus status = m_pInterface->sendAndReceive(cmd, buf, 99);
+  
   if (status != asynSuccess)
   {
     	return status;
   }
   t_val = (int)strtol(buf, NULL, 16);
   
-  if(wavgen_num == 1)
-  {
-	  if(t_val & WVGEN_1_RUNNING)
-	  {
-  		*wvg_sts = true;
-	  } else {
-			*wvg_sts = false;
-	  }
-	return(asynSuccess);
-  }
+  if(t_val & WVGEN_1_RUNNING)
+	{
+  	*wvg_1 = true;
+	} else {
+			*wvg_1 = false;
+	}
+	
   
-  if(wavgen_num == 2)
-  {
-	  if(t_val & WVGEN_2_RUNNING)
-	  {
-  		*wvg_sts = true;
-	  } else {
-			*wvg_sts = false;
-	  }
-	return(asynSuccess);
+  if(t_val & WVGEN_2_RUNNING)
+	{
+  	*wvg_2 = true;
+	} else {
+		*wvg_2 = false;
+	}
+	
+  if(t_val & WVGEN_3_RUNNING)
+	{
+  	*wvg_3 = true;
+	} else {
+		*wvg_3 = false;
+	}
+	
+  if(t_val & WVGEN_4_RUNNING)
+	{
+  	*wvg_4 = true;
+	} else {
+		*wvg_4 = false;
   }
-  
-  if(wavgen_num == 3)
-  {
-	  if(t_val & WVGEN_3_RUNNING)
-	  {
-  		*wvg_sts = true;
-	  } else {
-			*wvg_sts = false;
-	  }
-	return(asynSuccess);
-  }
-  
-  if(wavgen_num == 4)
-  {
-	  if(t_val & WVGEN_4_RUNNING)
-	  {
-  		*wvg_sts = true;
-	  } else {
-			*wvg_sts = false;
-	  }
-	return(asynSuccess);
-  }
-  
   return status;
 } 
 
@@ -6129,12 +6119,9 @@ asynStatus PIE712Controller::poll(void)
 		{	
 			return(asynSuccess);
 		}
-		
-    getWaveGenStatus(1, &m_wavegen1_Status);
-    getWaveGenStatus(2, &m_wavegen2_Status);
-    getWaveGenStatus(3, &m_wavegen3_Status);
-    getWaveGenStatus(4, &m_wavegen4_Status);
-    
+			
+		/* update the wavegen status */
+    getWaveGenStatus(&m_wavegen1_Status, &m_wavegen2_Status, &m_wavegen3_Status, &m_wavegen4_Status);
     getIntegerParam(P_ExecWavegen, &exec_ival);
     
     setIntegerParam(P_WaveGen1_Status,   m_wavegen1_Status);
