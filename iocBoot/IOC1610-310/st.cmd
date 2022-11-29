@@ -63,7 +63,8 @@ dbpf(PZAC1610-3-I12-41.FOFF, "1") #Frozen
 #dbpf("PSMTR1610-3-I12-00.RTRY","1") 
 #dbpf("PSMTR1610-3-I12-01.RTRY","1") 
 
-
+dbpf("$(STXM):E712:XAxisId", "$(FINE_X_AXIS_ID)")
+dbpf("$(STXM):E712:YAxisId", "$(FINE_Y_AXIS_ID)")
 
 
 #dbpf("$(STXM):E712:ParamFileName", "oct20_2022_coarse_smplfine.pam")

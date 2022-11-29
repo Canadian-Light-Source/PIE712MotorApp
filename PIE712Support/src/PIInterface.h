@@ -41,7 +41,6 @@ public:
 	virtual asynStatus sendAndReceive(const char* output, char *inputBuff, int inputSize);
 	virtual asynStatus sendAndReceiveDRR(const char* output, char *inputBuff, int inputSize);
 	virtual asynStatus sendAndReceive(char c, char *inputBuff, int inputSize, asynUser* logSink);
-	
 
     asynUser* m_pCurrentLogSink;
 

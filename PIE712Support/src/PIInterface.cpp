@@ -28,6 +28,8 @@ Created: 15.12.2010
 //#undef asynPrint
 //#define asynPrint(user,reason,format...) 0
 
+//#define SHOW_VERBOSE  1
+
 
 extern "C" {
 int TranslatePIError(const int error, char* szBuffer, const int maxlen);
@@ -56,7 +58,7 @@ asynStatus PIInterface::sendOnly(const char *outputBuff, asynUser* logSink)
 
     asynPrint(logSink, ASYN_TRACEIO_DRIVER,
     		"PIInterface::sendOnly() sending \"%s\"\n", outputBuff);
-    //printf("PIInterface::sendOnly() sending \"%s\"\n", outputBuff);
+    printf("PIInterface::sendOnly() sending \"%s\"\n", outputBuff);
 
     status = pasynOctetSyncIO->write(m_pAsynInterface, outputBuff,
                                      nRequested, TIMEOUT, &nActual);
@@ -80,7 +82,7 @@ asynStatus PIInterface::sendOnly(char c, asynUser* logSink)
 
     asynPrint(logSink, ASYN_TRACEIO_DRIVER,
     		"PIInterface::sendOnly() sending \"#%d\"\n", int(c));
-    //printf("PIInterface::sendOnly() sending \"#%d\"\n", int(c));
+    printf("PIInterface::sendOnly() sending \"#%d\"\n", int(c));
 
     status = pasynOctetSyncIO->write(m_pAsynInterface, &c,
                                      1, TIMEOUT, &nActual);
@@ -106,35 +108,48 @@ asynStatus PIInterface::sendAndReceive(const char *outputBuff, char *inputBuff, 
     size_t pos = 0;
     asynPrint(logSink, ASYN_TRACEIO_DRIVER,
     		"PIInterface::sendAndReceive() sending \"%s\"\n", outputBuff);
-//    //printf("PIInterface::sendAndReceive() sending \"%s\"\n", outputBuff);
-
+#ifdef SHOW_VERBOSE    
+    printf("PIInterface::sendAndReceive() sending \"%s\"\n", outputBuff);
+#endif
     status = pasynOctetSyncIO->write(m_pAsynInterface, outputBuff,
     		nWriteRequested, TIMEOUT, &nWrite);
     if (nWrite != nWriteRequested)
-	{
+		{
         asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,
                   "PIGCSController:sendAndReceive error calling write, output=%s status=%d, error=%s\n",
                   outputBuff, status, m_pAsynInterface->errorMessage);
+#ifdef SHOW_VERBOSE
+        printf("PIGCSController:sendAndReceive error calling write 1, output=%s status=%d, error=%s\n",
+                  outputBuff, status, m_pAsynInterface->errorMessage);
+#endif                  
     	return asynError;
-	}
+		}
 
-     status = pasynOctetSyncIO->writeRead(m_pAsynInterface,
+    status = pasynOctetSyncIO->writeRead(m_pAsynInterface,
                                          "\n", 1,
                                          inputBuff, inputSize,
                                          TIMEOUT, &nWrite, &nRead, &eomReason);
     if (nWrite != 1)
-	{			
+		{			
 				asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,
-                  "PIGCSController:sendAndReceive error calling write, output=%s status=%d, error=%s\n",
+                  "PIGCSController:sendAndReceive error calling writeRead 2, output=%s status=%d, error=%s\n",
                   outputBuff, status, m_pAsynInterface->errorMessage);
+#ifdef SHOW_VERBOSE
+        printf("PIGCSController:sendAndReceive error calling writeRead 2 , output=%s status=%d, error=%s\n",
+                  outputBuff, status, m_pAsynInterface->errorMessage);
+#endif                  
     	return asynError;
-	}
+		}
 
     if (status != asynSuccess)
     {
 				asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,
-                  "PIGCSController:sendAndReceive error calling writeRead, output=%s status=%d, error=%s\n",
+                  "PIGCSController:sendAndReceive error calling writeRead 2, output=%s status=%d, error=%s\n",
                   outputBuff, status, m_pAsynInterface->errorMessage);
+#ifdef SHOW_VERBOSE
+        printf("PIGCSController:sendAndReceive error calling writeRead 3, output=%s status=%d, error=%s\n",
+                  outputBuff, status, m_pAsynInterface->errorMessage);
+#endif                  
     }
     
     while(inputBuff[strlen(inputBuff)-1] == ' ')
@@ -148,8 +163,9 @@ asynStatus PIInterface::sendAndReceive(const char *outputBuff, char *inputBuff, 
     }
     asynPrint(logSink, ASYN_TRACEIO_DRIVER,
     		"PIInterface::sendAndReceive() received \"%s\"\n", inputBuff);
- //   //printf("PIInterface::sendAndReceive() received \"%s\"\n", inputBuff);
- 	
+#ifdef SHOW_VERBOSE    
+    printf("PIInterface::sendAndReceive() received \"%s\"\n", inputBuff);
+#endif 	
 
    return(status);
 }
@@ -259,7 +275,9 @@ asynStatus PIInterface::sendAndReceive(char c, char *inputBuff, int inputSize, a
     int eomReason;
     asynStatus status;
     size_t pos = 0;
-
+	
+		//printf("SENDANDRECEIVE CHAR [%d]\n", int(c));
+		
     asynPrint(logSink, ASYN_TRACEIO_DRIVER,
     		"PIInterface::sendAndReceive() sending \"#%d\"\n", int(c));
     //printf("PIInterface::sendAndReceive() sending \"#%d\"\n", int(c));
@@ -289,7 +307,7 @@ asynStatus PIInterface::sendAndReceive(char c, char *inputBuff, int inputSize, a
     }
     asynPrint(logSink, ASYN_TRACEIO_DRIVER,
     		"PIInterface::sendAndReceive() received \"%s\"\n", inputBuff);
-    //printf("PIInterface::sendAndReceive() received \"%s\" - (0x%02X)\n", inputBuff, int(inputBuff[0]));
+    //printf("PIInterface::SENDANDRECEIVE CHAR() received \"%s\" - (0x%02X)\n", inputBuff, int(inputBuff[0]));
 
     return(status);
 }
