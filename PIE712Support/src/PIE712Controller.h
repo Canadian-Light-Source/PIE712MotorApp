@@ -707,6 +707,7 @@ public:
 	asynStatus connectWavtablesToGenerator(void);
 	asynStatus getWavTblLength(int tblid, int &value);
 	asynStatus getWavDatatbl(int tblid);
+	asynStatus getNumWavGenerators(int& num_wvgens);
 	asynStatus getDDLTblLength(int tblid, int& value);
 	asynStatus getDDLDatatbl(int tblid);
 	asynStatus putDDLDatatbl(int tblid, int num_points, epicsFloat64 *data);
@@ -720,7 +721,7 @@ public:
 	
 	asynStatus getWaveGenStatus(bool *wvg_1, bool *wvg_2, bool *wvg_3, bool *wvg_4 );
 	asynStatus startWavegen(void);
-	asynStatus stopWavegen(int tblid);
+	asynStatus stopWavegen(void);
 	asynStatus calcDDLProcParms(int waveTbl);
 	asynStatus getWaveTableLength(int waveTbl, int &result);
 	asynStatus setWaveTableOffset(int wavegen_id, double offset);
