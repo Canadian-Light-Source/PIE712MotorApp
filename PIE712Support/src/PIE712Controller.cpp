@@ -2312,7 +2312,7 @@ asynStatus PIE712Axis::setMarker(double pos)
 			return(	asynSuccess);
 		}	
 
-	
+	printf("setMarker: RUSS MARKER_WIDTH = %f\n", MARKER_WIDTH);
 	sprintf(axisSel, "%d 2 %d", TRIG_OUT_ID, m_axisNo);
 	sprintf(trigMode, "%d 3 3", TRIG_OUT_ID);
 	sprintf(minThresh, "%d 5 %.3f", TRIG_OUT_ID, pos);
@@ -2407,7 +2407,8 @@ asynStatus PIE712Axis::setMarkerWindow(void)
 	// MAX here is defined here assumes moving left(negative) to the right(positive)
 	
 	//JULY 6 2022 sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 1.0);
-	sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 100.0);
+	sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 0.1);
+	//sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 100.0);
 	
 	
 	//printf("\n\nPIE712Axis [%s]::setMarkerWindow(%.5f, %.5f) with MARKER_WIDTH(%.3f)\n\n", m_axisName, m_markerStart, m_markerStop, MARKER_WINDOW);
@@ -3518,12 +3519,15 @@ asynStatus PIE712Controller::sendCommandList(const char *cmds)
 	printf("sendCommandList: starting\n");
 	for(i=0; i <m_numCmnds; i++)
 	{
-		printf("sendCommandList:[%d] sending: [%s]\n", i, m_cmnd_list[i]);
-		asynStatus status = m_pInterface->sendOnly(m_cmnd_list[i]);
-		//sprintf(m_lastCmnd, "%s", m_cmnd_list[i]); 
-		errorCode = getGCSError();
-		
+		if (strlen(m_cmnd_list[i]) > 1){
+			printf("sendCommandList:[%d] sending: [%s]\n", i, m_cmnd_list[i]);
+			asynStatus status = m_pInterface->sendOnly(m_cmnd_list[i]);
+			//sprintf(m_lastCmnd, "%s", m_cmnd_list[i]); 
+			errorCode = getGCSError();
+		}
 		free(m_cmnd_list[i]);
+		// allow time for controller to respond
+		//epicsThreadSleep(0.100); // in seconds
 	}
 	
 	printf("sendCommandList: done\n");
@@ -3899,24 +3903,33 @@ asynStatus PIE712Controller::getStartMode(int wavegen_id, int &value)
 asynStatus PIE712Controller::connectWavtablesToGenerator(void)
 {	
 	int wvgen_usetbl_num = 0;
+	int num_wvgens = 0;
 	
+	getNumWavGenerators(num_wvgens);
+	//printf("connectWavtablesToGenerator: num_wvgens=%d\n", num_wvgens);
 	
-	getIntegerParam(P_WaveGen1UseTblNum, &wvgen_usetbl_num);
-	printf("connectWavtablesToGenerator: connecting tbl[%d] to wgen[%d]\n", 1,wvgen_usetbl_num); 
-	setWaveTableToGenerator(1, wvgen_usetbl_num);	
+	if(num_wvgens >= 1){
+		getIntegerParam(P_WaveGen1UseTblNum, &wvgen_usetbl_num);
+		printf("connectWavtablesToGenerator: connecting tbl[%d] to wgen[%d]\n", 1,wvgen_usetbl_num); 
+		setWaveTableToGenerator(1, wvgen_usetbl_num);	
+	}
+	if(num_wvgens >= 2){
+		getIntegerParam(P_WaveGen2UseTblNum, &wvgen_usetbl_num);
+		printf("connectWavtablesToGenerator: connecting tbl[%d] to wgen[%d]\n", 2,wvgen_usetbl_num); 
+		setWaveTableToGenerator(2, wvgen_usetbl_num);	
+	}
 	
-	getIntegerParam(P_WaveGen2UseTblNum, &wvgen_usetbl_num);
-	printf("connectWavtablesToGenerator: connecting tbl[%d] to wgen[%d]\n", 2,wvgen_usetbl_num); 
-	setWaveTableToGenerator(2, wvgen_usetbl_num);	
+	if(num_wvgens >= 3){
+		getIntegerParam(P_WaveGen3UseTblNum, &wvgen_usetbl_num);
+		printf("connectWavtablesToGenerator: connecting tbl[%d] to wgen[%d]\n", 3,wvgen_usetbl_num); 
+		setWaveTableToGenerator(3, wvgen_usetbl_num);	
+	}
 	
-	getIntegerParam(P_WaveGen3UseTblNum, &wvgen_usetbl_num);
-	printf("connectWavtablesToGenerator: connecting tbl[%d] to wgen[%d]\n", 3,wvgen_usetbl_num); 
-	setWaveTableToGenerator(3, wvgen_usetbl_num);	
-	
-	getIntegerParam(P_WaveGen4UseTblNum, &wvgen_usetbl_num);
-	printf("connectWavtablesToGenerator: connecting tbl[%d] to wgen[%d]\n", 4,wvgen_usetbl_num); 
-	setWaveTableToGenerator(4, wvgen_usetbl_num);	
-    
+	if(num_wvgens >= 4){
+		getIntegerParam(P_WaveGen4UseTblNum, &wvgen_usetbl_num);
+		printf("connectWavtablesToGenerator: connecting tbl[%d] to wgen[%d]\n", 4,wvgen_usetbl_num); 
+		setWaveTableToGenerator(4, wvgen_usetbl_num);	
+  }  
 	
 	return(asynSuccess);
 	
@@ -3937,14 +3950,16 @@ asynStatus PIE712Controller::startWavegen(void)
     int startMode = 0;
     int ddlFlags = 0;
     int wvgen_usetbl_num = 0;
+    int num_wvgens = 0;
     
     char axis1StartStr[25];
     char axis2StartStr[25];
     char axis3StartStr[25];
     char axis4StartStr[25];
-    
     asynStatus status;
-
+		
+		getNumWavGenerators(num_wvgens);
+		//printf("startWavegen: num_wvgens=[%d]\n",num_wvgens);
     
 		/* make sure velo ius set up for fast*/
     //sprintf(cmd, "VEL %d 1000000", m_xAxis_id);
@@ -3965,28 +3980,41 @@ asynStatus PIE712Controller::startWavegen(void)
     setWaveTableToGenerator(m_xAxis_id, m_xAxis_id);
     setWaveTableToGenerator(m_yAxis_id, m_yAxis_id);
     */
+    /* start the command string */
+    sprintf(cmd, "WGO");
+    
     connectWavtablesToGenerator();
     
      /* determine which wavegenerators are configured to be used */
-    getStartMode(1, startMode);
-    getDDLFlags(1, ddlFlags);
-    sprintf(axis1StartStr, "1 %d", startMode + ddlFlags);
+    if(num_wvgens >= 1){
+	    getStartMode(1, startMode);
+	    getDDLFlags(1, ddlFlags);
+	    sprintf(axis1StartStr, " 1 %d", startMode + ddlFlags);
+	    strcat(cmd, axis1StartStr); 
+    }
     
-    getStartMode(2, startMode);
-    getDDLFlags(2, ddlFlags);
-    sprintf(axis2StartStr, "2 %d", startMode + ddlFlags);
+    if(num_wvgens >= 2){
+	    getStartMode(2, startMode);
+	    getDDLFlags(2, ddlFlags);
+	    sprintf(axis2StartStr, " 2 %d", startMode + ddlFlags);
+	    strcat(cmd, axis2StartStr);  
+    }
     
-    getStartMode(3, startMode);
-    getDDLFlags(3, ddlFlags);
-    sprintf(axis3StartStr, "3 %d", startMode + ddlFlags);
+    if(num_wvgens >= 3){
+	    getStartMode(3, startMode);
+	    getDDLFlags(3, ddlFlags);
+	    sprintf(axis3StartStr, " 3 %d", startMode + ddlFlags);
+	    strcat(cmd, axis3StartStr); 
+    }
     
-    getStartMode(4, startMode);
-    getDDLFlags(4, ddlFlags);
-    sprintf(axis4StartStr, "4 %d", startMode + ddlFlags);
-    	
+    if(num_wvgens >= 4){
+	    getStartMode(4, startMode);
+	    getDDLFlags(4, ddlFlags);
+	    sprintf(axis4StartStr, " 4 %d", startMode + ddlFlags);
+	    strcat(cmd, axis4StartStr); 
+    }	
   	/* build a single string for all 4 wavegenerators */      
-  	sprintf(cmd, "WGO %s %s %s %s", axis1StartStr, axis2StartStr, axis3StartStr, axis4StartStr);
-  	printf("sending: [%s]\n", cmd);
+  	//printf("sending: [%s]\n", cmd);
     status = m_pInterface->sendOnly(cmd);
 		
 	  return status;
@@ -3995,11 +4023,11 @@ asynStatus PIE712Controller::startWavegen(void)
 
 
 /**************************************************/
-asynStatus PIE712Controller::stopWavegen(int tblid)
+asynStatus PIE712Controller::stopWavegen(void)
 {
     /*
     command: 
-    	DTC <wave tbaleID>
+    	WGO <wave tbaleID> 0
     	
     Response:
     	None
@@ -4007,8 +4035,16 @@ asynStatus PIE712Controller::stopWavegen(int tblid)
     */
     
     char cmd[100];
-		sprintf(cmd, "WGO %d %d", tblid, WVGEN_STRTMODE_DO_NOT_START);
-		asynStatus status = m_pInterface->sendOnly(cmd);
+    int num_wvgens = 0;
+    int i=0;
+    asynStatus status;
+    
+    getNumWavGenerators(num_wvgens);
+    
+    for(int i=1; i <= num_wvgens; i++){
+			sprintf(cmd, "WGO %d %d", i, WVGEN_STRTMODE_DO_NOT_START);
+			status = m_pInterface->sendOnly(cmd);
+		}
 	  return status;
 }
 
@@ -4353,6 +4389,29 @@ asynStatus PIE712Controller::getWavDatatbl(int tblid)
 	    
 	return (status);
 
+}
+
+/**************************************************/
+/**************************************************/
+asynStatus PIE712Controller::getNumWavGenerators(int& num_wvgens)
+{
+    /*
+    command: 
+    	TWG? 
+    	
+    valid response from the E712 is:
+      3\n
+
+		which is the nuumber of waveform genereators available
+
+    */
+    char buf[255];
+    char cmd[100];
+		sprintf(cmd, "TWG?");
+		asynStatus status = m_pInterface->sendAndReceive(cmd, buf, 99);
+		//printf("getNumWavGenerators: the response is [%s]\n", buf);
+		num_wvgens = atoi(buf);
+	  return status;
 }
 
 /**************************************************/
@@ -5463,6 +5522,7 @@ asynStatus PIE712Controller::writeInt32(asynUser *pasynUser, epicsInt32 value)
     char fname[256];
     char *cmd_ptr;
     int auto_dr_enable = 0;
+    int num_wvgens = 0;
 
     lock();
     /* Set the parameter and readback in the parameter library.  This may be overwritten when we read back the
@@ -5686,10 +5746,10 @@ asynStatus PIE712Controller::writeInt32(asynUser *pasynUser, epicsInt32 value)
 			{	
 				if(value == 1)
 				{
-					stopWavegen(1);
-					stopWavegen(2);
-					stopWavegen(3);
-					stopWavegen(4);
+					stopWavegen();
+					//stopWavegen(2);
+					//stopWavegen(3);
+					//stopWavegen(4);
 				}
 			}
 			else if (function == P_StartWavegen)
