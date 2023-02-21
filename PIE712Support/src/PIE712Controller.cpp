@@ -2312,7 +2312,7 @@ asynStatus PIE712Axis::setMarker(double pos)
 			return(	asynSuccess);
 		}	
 
-	
+	printf("setMarker: RUSS MARKER_WIDTH = %f\n", MARKER_WIDTH);
 	sprintf(axisSel, "%d 2 %d", TRIG_OUT_ID, m_axisNo);
 	sprintf(trigMode, "%d 3 3", TRIG_OUT_ID);
 	sprintf(minThresh, "%d 5 %.3f", TRIG_OUT_ID, pos);
@@ -2407,7 +2407,8 @@ asynStatus PIE712Axis::setMarkerWindow(void)
 	// MAX here is defined here assumes moving left(negative) to the right(positive)
 	
 	//JULY 6 2022 sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 1.0);
-	sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 100.0);
+	sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 0.1);
+	//sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 100.0);
 	
 	
 	//printf("\n\nPIE712Axis [%s]::setMarkerWindow(%.5f, %.5f) with MARKER_WIDTH(%.3f)\n\n", m_axisName, m_markerStart, m_markerStop, MARKER_WINDOW);
@@ -3518,12 +3519,15 @@ asynStatus PIE712Controller::sendCommandList(const char *cmds)
 	printf("sendCommandList: starting\n");
 	for(i=0; i <m_numCmnds; i++)
 	{
-		printf("sendCommandList:[%d] sending: [%s]\n", i, m_cmnd_list[i]);
-		asynStatus status = m_pInterface->sendOnly(m_cmnd_list[i]);
-		//sprintf(m_lastCmnd, "%s", m_cmnd_list[i]); 
-		errorCode = getGCSError();
-		
+		if (strlen(m_cmnd_list[i]) > 1){
+			printf("sendCommandList:[%d] sending: [%s]\n", i, m_cmnd_list[i]);
+			asynStatus status = m_pInterface->sendOnly(m_cmnd_list[i]);
+			//sprintf(m_lastCmnd, "%s", m_cmnd_list[i]); 
+			errorCode = getGCSError();
+		}
 		free(m_cmnd_list[i]);
+		// allow time for controller to respond
+		//epicsThreadSleep(0.100); // in seconds
 	}
 	
 	printf("sendCommandList: done\n");

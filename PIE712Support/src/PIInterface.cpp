@@ -58,7 +58,7 @@ asynStatus PIInterface::sendOnly(const char *outputBuff, asynUser* logSink)
 
     asynPrint(logSink, ASYN_TRACEIO_DRIVER,
     		"PIInterface::sendOnly() sending \"%s\"\n", outputBuff);
-    printf("PIInterface::sendOnly() sending \"%s\"\n", outputBuff);
+    
 
     status = pasynOctetSyncIO->write(m_pAsynInterface, outputBuff,
                                      nRequested, TIMEOUT, &nActual);
@@ -82,7 +82,7 @@ asynStatus PIInterface::sendOnly(char c, asynUser* logSink)
 
     asynPrint(logSink, ASYN_TRACEIO_DRIVER,
     		"PIInterface::sendOnly() sending \"#%d\"\n", int(c));
-    printf("PIInterface::sendOnly() sending \"#%d\"\n", int(c));
+    
 
     status = pasynOctetSyncIO->write(m_pAsynInterface, &c,
                                      1, TIMEOUT, &nActual);
