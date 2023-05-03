@@ -2157,7 +2157,7 @@ asynStatus PIE712Axis::setMarkerStart(double pos){
 	m_markerStart = pos;
 	
 	callParamCallbacks();
-	/*printf("PIE712Axis [%s]::setMarkerStart(%.3f)\n", m_axisName, pos);*/
+	printf("PIE712Axis [%s]::setMarkerStart(%.3f)\n", m_axisName, pos);
 	return(asynSuccess);
 }
 /***************************************************************************/	
@@ -2386,6 +2386,7 @@ asynStatus PIE712Axis::setMarkerWindow(void)
 	char trigMode[50];
 	char minThresh[50];
 	char maxThresh[50];
+	float trig_window = 0.0;
 	
 
 		if(m_simchan)
@@ -2396,8 +2397,13 @@ asynStatus PIE712Axis::setMarkerWindow(void)
 	
 	pC_->getDoubleParam(axisNo_, pC_->P_MarkerStart, &m_markerStart);
 	pC_->getDoubleParam(axisNo_, pC_->P_MarkerStop, &m_markerStop);
+	pC_->getDoubleParam(axisNo_, pC_->P_ScanStart, &m_scanStart);
+	pC_->getDoubleParam(axisNo_, pC_->P_ScanStop, &m_scanStop);
 	
-
+	trig_window = fabs(m_scanStop - m_scanStart) * 0.001;
+	if(trig_window < 0.1){
+		trig_window = 1.0;
+	}	
 
 	//sprintf(axisSel, "%d 2 %d", m_axisNo, m_axisNo);
 	sprintf(axisSel, "%d 2 %d", TRIG_OUT_ID, m_axisNo);
@@ -2407,8 +2413,9 @@ asynStatus PIE712Axis::setMarkerWindow(void)
 	// MAX here is defined here assumes moving left(negative) to the right(positive)
 	
 	//JULY 6 2022 sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 1.0);
-	sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 0.1);
+	//sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 0.1);
 	//sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + 100.0);
+	sprintf(maxThresh, "%d 6 %.3f", TRIG_OUT_ID, m_markerStart + trig_window);
 	
 	
 	//printf("\n\nPIE712Axis [%s]::setMarkerWindow(%.5f, %.5f) with MARKER_WIDTH(%.3f)\n\n", m_axisName, m_markerStart, m_markerStop, MARKER_WINDOW);
@@ -3099,6 +3106,8 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 		createParam(P_ClrWavTbl2String,  		asynParamInt32,  &P_ClrWavTbl2);
 		createParam(P_ClrWavTbl3String,  		asynParamInt32,  &P_ClrWavTbl3);
 		createParam(P_ClrWavTbl4String,  		asynParamInt32,  &P_ClrWavTbl4);
+		createParam(P_ClrWavTblAllString,  	asynParamInt32,  &P_ClrWavTblAll);
+		
 		
 		createParam(P_ClrTrigTblString,  		asynParamInt32,  &P_ClrTrigTbl);
 		
@@ -5736,6 +5745,16 @@ asynStatus PIE712Controller::writeInt32(asynUser *pasynUser, epicsInt32 value)
 			{
 					if(value == 1) clearWavTable(4);
 			}
+			else if (function == P_ClrWavTblAll)
+			{
+					if(value == 1) {
+						printf("Clearing all wavetables\n");
+						for(int i=1; i<=MAX_NUM_WAVE_TABLES; i+=1){
+							clearWavTable(i);
+						}
+					}
+			}
+			
 			else if (function == P_ClrTrigTbl)
 			{
 					if(value == 1) clearTriggers();
@@ -5983,8 +6002,8 @@ asynStatus PIE712Controller::writeFloat64(asynUser *pasynUser, epicsFloat64 valu
 			  {
 			  	/*printf("writeFloat64: P_SetMarker[%d]: changed\n", function);*/
 			  	//getDoubleParam(axisNo_, pC_->P_MarkerStop, &p_markerstop);
-			  	//status = pAxis->setMarker(value);
-			  	status = pAxis->setMarkerWindow();
+			  	status = pAxis->setMarker(value);
+			  	//status = pAxis->setMarkerWindow();
 			  	
 			  }
 			  
@@ -6250,7 +6269,12 @@ asynStatus PIE712Controller::poll(void)
     setIntegerParam(P_WaveTbl4Len,   t_ival);
     total_points -= t_ival;
     
-    
+    /* there are 160 tables so querey those as well */
+    for(int i=5; i <= MAX_NUM_WAVE_TABLES; i++){
+    	getWaveTableLength(i, t_ival);
+    	total_points -= t_ival;    	    
+    }
+
     getDDLTblLength(1, t_ival);
     setIntegerParam(P_DDLTbl1Len,   t_ival);
     

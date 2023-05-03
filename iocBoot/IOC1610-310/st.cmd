@@ -26,6 +26,7 @@ PI_E712_CreateController("E712", "L100", "L101", 3, 50, 250)
 
 
 
+
 # PI_E712_MotorConfigAxis("Port name", "Axis #", "Axis name",  "High limit", "Low limit", "Home position", "Start posn", "Simulate")
 PI_E712_MotorConfigAxis("E712", 0, "SampleFineX", 20000, -20000,  500, 0, 0)
 PI_E712_MotorConfigAxis("E712", 1, "SampleFineY", 20000, -20000,  500, 0, 0)

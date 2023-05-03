@@ -120,6 +120,7 @@ file bo_param.template
 		{  ClearWavTbl2  ""		asynInt32  	PI_CLR_WAVTBL_2		NO		"OFF"		"ON"	0.2}
 		{  ClearWavTbl3  ""		asynInt32  	PI_CLR_WAVTBL_3		NO		"OFF"		"ON"	0.2}
 		{  ClearWavTbl4  ""		asynInt32  	PI_CLR_WAVTBL_4		NO		"OFF"		"ON"	0.2}
+		{  ClearWavTblAll  ""		asynInt32  	PI_CLR_WAVTBL_ALL		NO		"OFF"		"ON"	0.2}
 		
 		{  CalcDDLParms  ""		asynInt32  	PI_CALC_DDL_PARMS		NO		"OFF"		"ON"	0.2}
 		

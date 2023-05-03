@@ -80,7 +80,7 @@ December 13, 2009
 
 /* this is the number of available data ppoints in E712 */
 #define WAVE_MAX_NUM_SAMPLES 262144
-#define MAX_NUM_WAVE_TABLES 120
+#define MAX_NUM_WAVE_TABLES 160
 
 /* Data acquisition modes */
 #define MODE_NORMAL 					0
@@ -226,6 +226,8 @@ December 13, 2009
 #define P_ClrWavTbl2String				"PI_CLR_WAVTBL_2"			/* asynInt32,   r/w  */  
 #define P_ClrWavTbl3String				"PI_CLR_WAVTBL_3"			/* asynInt32,   r/w  */  
 #define P_ClrWavTbl4String				"PI_CLR_WAVTBL_4"			/* asynInt32,   r/w  */  
+#define P_ClrWavTblAllString				"PI_CLR_WAVTBL_ALL"			/* asynInt32,   r/w  */  
+
 
 #define P_ClrTrigTblString				"PI_CLR_TRIGTBL"			/* asynInt32,   r/w  */  
 
@@ -934,6 +936,7 @@ protected:
 	int P_ClrWavTbl2;
 	int P_ClrWavTbl3;
 	int P_ClrWavTbl4;
+	int P_ClrWavTblAll;
 	
 	int P_ClrTrigTbl;
 
