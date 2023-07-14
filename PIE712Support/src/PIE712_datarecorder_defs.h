@@ -64,18 +64,20 @@
 #define PI_DR_TRG_IMMEDIATE	4
 
 /* data recorder SPA param addrs */
-#define	PI_DR_DRTR	0x16000000 /* =Data Recorder Table Rate */
-#define	PI_DR_DRCN	0x16000300	/*	=Data Recorder Chan Number */
-#define	PI_DR_DRC_DS	0x16000700	/*	=DRC Data Source */
-#define	PI_DR_DRC_RO	0x16000701	/*	=DRC Record Option */
+#define	PI_DR_DRTR					0x16000000 /* =Data Recorder Table Rate */
+#define	PI_DR_MAX_NUM_TBLS	0x16000100 /* =Data Recorder max num tables READONLY*/
+#define	PI_DR_MAX_POINTS		0x16000200 /* =Data Recorder max num points READONLY*/
+#define	PI_DR_DRCN					0x16000300	/*	=Data Recorder Chan Number or max tables that can be enabled changes how many points available to each table*/
+#define	PI_DR_DRC_DS				0x16000700	/*	=DRC Data Source */
+#define	PI_DR_DRC_RO				0x16000701	/*	=DRC Record Option */
 
 /*****/
 
 #define PI_DR_DEFAULT_TABLE_ID 1
 #define PI_DR_MAX_TABLES 12
-#define PI_DR_MAX_POINTS 699050
+//#define PI_DR_MAX_POINTS 699050
 #define PI_GCS_DATA_HDR_BYTES 1000
-#define PI_DR_MIN_REC_TBL_RATE 0.000050 /* seconds */
+#define PI_DR_MIN_REC_TBL_RATE 0.000030 /* seconds */
 
 
 /* data recorder driver attrs */
@@ -191,9 +193,6 @@
 
 
 /* result of DRC? <rec option> */
-
-
-
 #define P_DatRec_T1OptionFbkString		"PI_DR_T1_OPTN_FBK"		/* asynInt32,  r/o */
 #define P_DatRec_T2OptionFbkString		"PI_DR_T2_OPTN_FBK"		/* asynInt32,  r/o */
 #define P_DatRec_T3OptionFbkString		"PI_DR_T3_OPTN_FBK"		/* asynInt32,  r/o */
@@ -215,6 +214,8 @@
 /* result of DRT? <trig src> <value>*/                                                        
 #define P_DatRec_TrgSrcFbkString				"PI_DR_TRGSRC_FBK"		/* asynInt32,  r/o */
 
+/* result of GWD? <start point> <num points> <wave table id> */ 
+
 
 /* result of RTR? <value>*/                                                         
 #define P_DatRec_RTRFbkString					"PI_DR_RTR_FBK"		/* asynInt32,  r/o */
@@ -226,6 +227,9 @@
 
 #define P_DatRec_AbortString					"PI_DR_ABORT"		/* asynInt32,  r/o only used internally*/
 
+#define P_DatRec_CharDataString				"PI_DR_CHAR_DATA" /* asynOctet */ 
+
+#define P_DataRec_NumPtsExpectedString			"PI_DR_NUM_PTS_EXPCTD" /* asynInt32,  r/o only set internally*/
 
 
 /* all data recorder related commands and feedbacks */
@@ -330,6 +334,9 @@
 	int P_DatRec_TNRFbk;
 	int P_DatRec_Abort;
 	int P_DataRec_AutoEnable;
+	
+	int P_DatRec_CharData;
+	int P_DataRec_NumPtsExpected;
 
 	int P_DatRec_LastParam;
   

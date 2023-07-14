@@ -25,6 +25,9 @@ Based on drvMotorSim.c, Mark Rivers, December 13, 2009
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
 
 
 #include <epicsTime.h>
@@ -50,7 +53,7 @@ Based on drvMotorSim.c, Mark Rivers, December 13, 2009
 
 
 #define TEST_DATARECORDER_XFER 1
-
+#define USE_DATARECORDER 1
 
 
 
@@ -1761,6 +1764,11 @@ asynStatus PIE712Axis::getMoving(int& moving)
     long movingState = strtol(buf, &pStr, 16);
     
     moving = (movingState & m_movingStateMask) != 0 ? 1 : 0;
+    
+    if(pC_->m_suspend_fbk){
+    	// force moving status for piezo top always be not moving as it screws up scanning
+    	moving = 0;
+    }
 
     return status;
 }
@@ -3060,7 +3068,9 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 		createParam(P_WaveGen3_StatusString, 	    asynParamInt32,  &P_WaveGen3_Status); 	
 		createParam(P_WaveGen4_StatusString, 	    asynParamInt32,  &P_WaveGen4_Status); 	
 		
-		createParam(P_SendCommandsString, 	    asynParamOctet,  &P_SendCommands); 
+		createParam(P_SendCommandsString, 	    asynParamOctet,  &P_SendCommands);
+		createParam(P_SendTrigCommandsString, 	asynParamOctet,  &P_SendTrigCommands);
+		 
 		createParam(P_GetIDNString, 	    asynParamOctet,  &P_GetIDN	 ); 
 		
 		createParam(P_WaveTbl1WfString,           asynParamFloat64Array,  &P_WaveTbl1Wf);
@@ -3242,6 +3252,7 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 		createParam(P_DatRec_NptsString,		                asynParamInt32,  &P_DatRec_Npts);
 		
 		createParam(P_DatRec_FPathString,                			asynParamOctet,    &P_DatRec_FPath);
+		createParam(P_DatRec_CharDataString,           				asynParamOctet,    &P_DatRec_CharData);
 		
 		createParam(P_DatRec_StartString, 										asynParamInt32, &P_DatRec_Start);
 		
@@ -3284,8 +3295,10 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 		createParam(P_ATZVoltString, 						asynParamFloat64, &P_ATZVolt);
 		
 		createParam(P_PosFromE712ScalerString, 						asynParamFloat64, &P_PosFromE712Scaler);
-
+		createParam(P_SuspendControllerFbkString, 				asynParamInt32,	&P_SuspendControllerFbk);
 		
+		createParam(P_DataRec_NumPtsExpectedString, 				asynParamInt32,	&P_DataRec_NumPtsExpected);
+				
 		m_pWavTbl1Data = (epicsFloat64 *)calloc(WAVE_MAX_NUM_SAMPLES, sizeof(epicsFloat64));
 		m_pWavTbl2Data = (epicsFloat64 *)calloc(WAVE_MAX_NUM_SAMPLES, sizeof(epicsFloat64));
 		m_pWavTbl3Data = (epicsFloat64 *)calloc(WAVE_MAX_NUM_SAMPLES, sizeof(epicsFloat64));
@@ -3301,9 +3314,9 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 		m_pDDLPutStr = (char *)calloc(8, sizeof(char));
 		
 		/*m_strbuf = (char *)calloc(((16000 * 11) * 12) + PI_GCS_DATA_HDR_BYTES + 100, sizeof(char));*/
-		bytes_per_point = 11;
-		num_dest_bytes_expected = ((PI_DR_MAX_POINTS * bytes_per_point) * PI_DR_MAX_TABLES) + PI_GCS_DATA_HDR_BYTES;
-		m_strbuf = (char *)calloc(num_dest_bytes_expected + 1, sizeof(char));
+		//bytes_per_point = 11;
+		//num_dest_bytes_expected = ((PI_DR_MAX_POINTS * bytes_per_point) * PI_DR_MAX_TABLES) + PI_GCS_DATA_HDR_BYTES;
+		//m_strbuf = (char *)calloc(num_dest_bytes_expected + 1, sizeof(char));
 		
 		m_iDataRecTblEnabled[0] = P_DatRec_T1Enabled;
 		m_iDataRecTblEnabled[1] = P_DatRec_T2Enabled;
@@ -3432,10 +3445,18 @@ PIE712Controller::PIE712Controller(const char *portName, const char* asynPort, c
 	m_pDataRecInterface = new PIInterface(dr_pAsynCom);
 	m_pDataRecInterface->m_pCurrentLogSink = dr_pAsynCom;
 	printf("Data Recorder interface has been created\n");
+	
+	setIntegerParam(P_DataRec_NumPtsExpected, 0);
+	
+	
 #endif
 	/**********************************************************/
 	
-	
+	/* get the servo update rate off of the controller, older E712 were 0.00005 and new one is 0.00003 */
+	getNonVolatileGCSParameter(SERVO_UPDATE_RATE, m_RO_servoUpdateRate);
+	/* get the max number of total points available */
+	getNonVolatileGCSParameter(PI_DR_MAX_POINTS, m_RO_total_rec_pnts);
+    
 	char inputBuff[256];
 	inputBuff[0] = '\0';
 	status = m_pInterface->sendAndReceive("*IDN?", inputBuff, 255, pAsynCom);
@@ -3488,7 +3509,7 @@ int PIE712Controller::commandStringToList(const char *cmndString)
     int num_cmnd_chars;
     int num_bytes = 0;
     
-	m_numCmnds = 0;
+		m_numCmnds = 0;
     num_cmnd_chars = strlen(cmndString);
     i = 0;
     cmnd_start_idx = 0;
@@ -3543,6 +3564,94 @@ asynStatus PIE712Controller::sendCommandList(const char *cmds)
 	return(asynSuccess);
 
 }
+
+/**************************************************/
+asynStatus PIE712Controller::sendTrigCommandList(const char *cmds)
+{
+	int i=0;
+	int errorCode = 0;
+	
+	
+	/*
+	The cmds string contains a list of integer values that represent points for the waveform generator
+	*/
+	//commandStringToList(cmds);
+	int index;  // Assuming a maximum of 100 occurrences
+	int num_bytes;
+  char target = ';';
+  char cmnd[512];
+  char value[30];
+  const char* ptr = cmds;
+  const char* next_ptr;
+  int count = 0;
+  int cmd_len = 0;
+  int val_len = 0;
+  int cmd_sent = 0;
+  int num_args = 0;
+  int tws_added = 0;
+  int trig_output = 0;
+  
+  getIntegerParam(P_TrigOutput, &trig_output);
+  
+  while ((next_ptr = strchr(ptr, target)) != NULL) {
+        index = next_ptr - cmds;
+        if(tws_added == 0){
+        	// this is the first point number
+        	strncpy(value, ptr, sizeof(char)*index );
+        	value[index] = '\0';
+        	sprintf(cmnd, "TWS %d %s 1 ", trig_output, value);
+        	tws_added = 1;
+        	num_args = 3;
+        	cmd_sent = 0;
+        	ptr = next_ptr;
+		      ptr++;
+        } else {
+	        if(next_ptr != NULL){
+	        	num_bytes = next_ptr - ptr;
+	        	//epicsSnprintf(cmnd, num_bytes + 1, "TWS 1 %s 1", &cmds[index]);
+	        	// dest , src, size
+	        	strncpy(value, ptr, sizeof(char)*num_bytes );
+	        	value[num_bytes] = '\0';
+	        	cmd_len = strlen(cmnd);
+	        	val_len = strlen(value);
+	        	
+	        	if((!cmd_sent) || (num_args >= 29) ){
+	        		if(cmd_len > 0){
+	        			cmnd[cmd_len-1] = '\0';
+		        		printf("sendTrigCommandList: sending: [%s]\n", cmnd);
+		        		asynStatus status = m_pInterface->sendOnly(cmnd);
+		        		errorCode = getGCSError();
+		        		cmnd[0] = '\0';
+		        		cmd_sent = 1;
+		        	}
+	        		sprintf(cmnd, "TWS %d %s 1 ", trig_output, value);
+	        		num_args = 3;
+	        		tws_added = 1;
+	        		
+	        	} else {
+	        		//continue to build this command
+	        		sprintf(&cmnd[cmd_len], "%d %s 1 ", trig_output, value);
+	        		num_args += 3;
+	        	}
+	        	
+		        ptr = next_ptr;
+		        ptr++;
+	      	}
+	      }
+  }
+  //check to see if there is an insent command
+  if(tws_added == 1){
+  	printf("sendTrigCommandList: sending: [%s]\n", cmnd);
+		asynStatus status = m_pInterface->sendOnly(cmnd);
+		errorCode = getGCSError();
+  }
+  
+	printf("sendTrigCommandList: done\n");
+	return(asynSuccess);
+
+}
+
+
 
 /**************************************************/
 asynStatus PIE712Controller::getWavTblLength(int tblid, int& value)
@@ -4092,7 +4201,7 @@ asynStatus PIE712Controller::startDataRecorder(void)
     this starts the data recorder immediately
     	
     */
-    configDataRecorder();
+   // configDataRecorder();
    	setDataRecTrigSrc(PI_DR_TRG_IMMEDIATE);
 		
     return(asynSuccess);
@@ -4111,23 +4220,21 @@ asynStatus PIE712Controller::setRecTblRate(int rate)
     int rateFbk = 0;
     double rateInSec = 0.0;
     asynStatus status;
-    /* june 30 2022 */
-    return(asynSuccess);
-    
-#ifdef NOT_SURE_IF_I_WANT_TO_KEEP
+		
     sprintf(cmd, "RTR %d", rate);
-		status = m_pDataRecInterface->sendOnly(cmd);
+    //printf("setRecTblRate: sent [%s]\n", cmd);
+		status = m_pInterface->sendOnly(cmd);
 		
 		getRecTblRate(rateFbk);
 		setIntegerParam(P_DatRec_getRTR, rateFbk);
 		
-		rateInSec = rateFbk * PI_DR_MIN_REC_TBL_RATE;
+		rateInSec = rateFbk * m_RO_servoUpdateRate;
 		setDoubleParam(P_DatRec_getRTRInSec, rateInSec);
 		
 		status = (asynStatus)callParamCallbacks();
 		
     return status;
-#endif    
+
 }
 
 /**************************************************/
@@ -4146,8 +4253,10 @@ asynStatus PIE712Controller::getRecTblRate(int& value)
     char cmd[100];
 		sprintf(cmd, "RTR?");
 		asynStatus status = m_pInterface->sendAndReceive(cmd, buf, 99);
-		
-	value = atoi(buf);
+		//printf("getRecTblRate: sent[%s] rcvd[%s]\n",cmd,buf);
+		value = atoi(buf);
+		setIntegerParam(P_DatRec_getRTR, value);
+		status = (asynStatus)callParamCallbacks();
     return status;
 }
 
@@ -4166,16 +4275,17 @@ asynStatus PIE712Controller::setDataRecTrigSrc(int src)
     
 	char cmd[100];
 	asynStatus status;
-	/* june 30 2022 */
-	 return(asynSuccess);
-
-#ifdef NOT_SURE_IF_I_WANT_TO_KEEP    
-    /* get only the one table length */
+  /* get only the one table length */
+  /* if src is Immediate just skip it because if we send it as the source the
+  data recorder will start right away, we do Immediate by calling startDataRecorder()
+  */
+  if(src != PI_DR_TRG_IMMEDIATE){
 		sprintf(cmd, "DRT 1 %d 1", src);
 		status = m_pDataRecInterface->sendOnly(cmd);
+	}
 		
-    return status;
-#endif    
+  return status;
+
 }
 
 
@@ -4193,24 +4303,78 @@ asynStatus PIE712Controller::configDataRecorder(void)
     
     char cmd[100];
     int src, option = 0;
+    int num_enabled = 0;
+    int enable = 0;
     asynStatus status=asynError;
-    /* june 30 2022 */
-     return(status);
-#ifdef NOT_SURE_IF_I_WANT_TO_KEEP    
+    int wtbl_parms[] = {P_WaveTbl1StartMode, P_WaveTbl2StartMode, P_WaveTbl3StartMode, P_WaveTbl4StartMode};
+    int tbl_len, tmp_len = 0;
+    int en, wtr, rtr, ttl_wav_pnts, equiv_dr_pnts = 0;
+    int num_cycles = 0;
+    double ttl_wav_time = 0.0;
+    
     /* walk all 12 channels setting up the src and options */
    	for(int i=0; i < PI_DR_MAX_TABLES; i++){
    		getIntegerParam( m_iDataRecTblSrcs[i], &src);
    		getIntegerParam( m_iDataRecTblOptions[i], &option);
    		sprintf(cmd, "DRC %d %d %d", i+1, src, option);
-		status = m_pDataRecInterface->sendOnly(cmd);
-	}	
+   		printf("configDataRecorder: sending [%s]\n", cmd);
+			status = m_pDataRecInterface->sendOnly(cmd);
+			getIntegerParam(m_iDataRecTblEnabled[i], &enable);
+			if(enable){
+				num_enabled += 1;
+			}
+		}	
+		printf("\n");
+		
+		/* because we know the number of enabled channels we can 
+		here now set the number of total measurements that can be acquired
+		because the data recorder will run until all points have been acquired
+		
+		Right now we make the assumption that the datarecorder is ONLY used with
+		the waveform generators, so the number of points should be the least value
+		of all the tables that is non zero, as the generator will only run the shortest
+		of all the tables that are used, 
+		so here we assume the X axis table is the shortest
+		
+		*/
+		/* based on which of the 4 wavegens are set to run either by external trig or IMmediately
+		 find out which table has the shortest length
+		*/
+		tbl_len = m_RO_total_rec_pnts;
+		for(int i=1;i<5;i++){
+			en = 0;
+			getIntegerParam(wtbl_parms[i], &en);
+			printf("configDataRecorder: wavetable [%d] is saying that the parameter is en=[%d]\n", i, en);
+			if(en){
+				getWavTblLength(i, tmp_len);
+				printf("configDataRecorder: table [%d] tmp_len = %d\n", i, tmp_len);
+				if(tmp_len < tbl_len){
+					if(tmp_len > 0){
+							tbl_len = tmp_len;
+					}
+				}
+			}
+		}
+		
+		getIntegerParam(P_NumCycles, &num_cycles);
+		getWaveTableRate(1, wtr);
+		getRecTblRate(rtr);
+		
+		ttl_wav_pnts = tbl_len*num_cycles;
+		ttl_wav_time = ttl_wav_pnts * (m_RO_servoUpdateRate * wtr);
+		equiv_dr_pnts = ttl_wav_time / (m_RO_servoUpdateRate * rtr);
+		
+		
+		setIntegerParam(P_DataRec_NumPtsExpected, equiv_dr_pnts);
+		status = (asynStatus)callParamCallbacks();
+		
+		printf("configDataRecorder: tbl_len=%d * num_cycles=%d = [%d] expected dr pnts=%d\n", tbl_len, num_cycles, tbl_len*num_cycles, equiv_dr_pnts);
+		//m_total_measurements_requested = int(tbl_len) / num_enabled;
+		//m_total_measurements_requested = int(tbl_len*num_cycles);
+		m_total_measurements_requested = equiv_dr_pnts;
     return status;
-#endif    
+
 }
-
-
-
-
 
 /**************************************************/
 /**************************************************/
@@ -4236,12 +4400,39 @@ asynStatus PIE712Controller::getDRRTblLength(int tblid, int& value)
 		{
 			return asynError;
 		}
-		if(value > PI_DR_MAX_POINTS)
+		if(value > m_RO_total_rec_pnts)
 		{	
-			value = PI_DR_MAX_POINTS;
+			value = m_RO_total_rec_pnts;
 		}
     return status;
 }
+/**************************************************/
+asynStatus PIE712Controller::getDRRTrigSrc(int tblid, int& value)
+{
+    /*
+    command:
+    	DRT? <data recorder tableID>
+    	DRT? 1
+    	
+    	valid response from the E712 is:
+      1=0 0\n
+
+
+    */
+    char buf[255 * PI_DR_MAX_TABLES];
+    char cmd[100];
+   	/* get only the one table length */
+		sprintf(cmd, "DRT? %d", tblid);
+		asynStatus status = m_pInterface->sendAndReceive(cmd, buf, 99);
+		printf("getDRRTrigSrc: sent[%s] rcvd[%s]\n", cmd, buf);
+	  if (!getValue(buf, value))
+		{
+			return asynError;
+		}
+		
+    return status;
+}
+
 /**************************************************/
 asynStatus stringToDoubleArray(char *rcvbuf, epicsFloat64 *data_array)
 {
@@ -4545,7 +4736,7 @@ asynStatus PIE712Controller::readDRRDatatbls(char *strbuf)
   int datstr_len = 0;
   asynStatus status;
   int enable = 0;
-  float total_points_read = 0.0;
+  int total_points_read = 0;
   int points_to_read = 500;
   int start_point = 1;
   char *last_idx;
@@ -4556,25 +4747,36 @@ asynStatus PIE712Controller::readDRRDatatbls(char *strbuf)
   int abort = 0;
   int bytes_per_point=0;
   int j = 0;
+  char *endHeaderPos;
+  float column1[1000];
+  float column2[1000];
+  int prev_read = 0;
+  clock_t start_time, end_time;
+  double cpu_time_used;
   
-  /* June 28 2022*/
-  return(asynSuccess);
+  while(m_get_data_rec_running){
+  	epicsThreadSleep(0.5);
+  }
+  m_get_data_rec_running = 1;
+  	
+ printf("executing readDRRDatatbls from thread\n");
 
-#ifdef NOT_SURE_IF_I_WANT_TO_KEEP
-  setIntegerParam(P_DatRec_Abort, abort);
+ setIntegerParam(P_DatRec_Abort, abort);
   /* clear previous data */
   bytes_per_point = 11;
 	//num_dest_bytes_expected = ((PI_DR_MAX_POINTS * bytes_per_point) * PI_DR_MAX_TABLES) + PI_GCS_DATA_HDR_BYTES;
-  memset(&strbuf[0], 0, sizeof(strbuf));
+	//strbuf = (char *)malloc(sizeof(num_dest_bytes_expected));
+  //memset(&strbuf[0], 0, sizeof(strbuf));
+  //strbuf[0] = '\0';
   
-  strbuf[0] = '\0';
-  getStringParam(P_DatRec_FPath , 1000, m_pDataRecFPath);
-	sprintf(pathname, "%s",m_pDataRecFPath);
-	
-	if(strlen(pathname) < 1){
-		printf("readDRRDatatbls: pathname is empty\n");
-		return(asynSuccess);
-	}
+  //getStringParam(P_DatRec_FPath , 1000, m_pDataRecFPath);
+	//sprintf(pathname, "%s",m_pDataRecFPath);
+	//
+	//if(strlen(pathname) < 1){
+	//	printf("readDRRDatatbls: pathname is empty\n");
+	//	m_get_data_rec_running = false;
+	//	return(asynSuccess);
+	//}
   
   not_ready = true;
   i = 0;
@@ -4584,9 +4786,23 @@ asynStatus PIE712Controller::readDRRDatatbls(char *strbuf)
   	if(abort){
   			break;
   	} else {
-			getDRRTblLength(PI_DR_DEFAULT_TABLE_ID, num_points_expected);
-			if(num_points_expected < 1){
-				printf("getDRRDatatbls: DRL? returned num_points_expected < 1, waiting\n");
+			getDRRTblLength(PI_DR_DEFAULT_TABLE_ID, total_points_read);
+			
+			
+			//if(num_points_expected < 1){
+			//	printf("getDRRDatatbls: DRL? returned num_points_expected < 1, waiting\n");
+			//	/* wait a second */
+			//	epicsThreadSleep(1.0);
+			//	i += 1;
+			//} else {
+			//	/* its ready so giver */
+			//	not_ready = false;
+			//}
+			printf("readDRRDatatbls: checking if(total_points_read < m_total_measurements_requested){\n");
+			printf("readDRRDatatbls: checking if(%d < %d){\n", total_points_read, m_total_measurements_requested);
+			
+			if(total_points_read < m_total_measurements_requested){
+				printf("getDRRDatatbls: DRL? returned num_points_expected < %d,  waiting\n", m_total_measurements_requested);
 				/* wait a second */
 				epicsThreadSleep(1.0);
 				i += 1;
@@ -4596,27 +4812,26 @@ asynStatus PIE712Controller::readDRRDatatbls(char *strbuf)
 			}
 			
 			/* check to see if we waited long enough */
-			if(i > 10){
+			if(i > 20 && (prev_read == total_points_read)){
 				printf("getDRRDatatbls: datarecorder does not appear to be recording, leaving\n");
+				m_get_data_rec_running = false;
 				return(asynError);
 			}
+			prev_read = total_points_read;
+			m_drec_current_pnts_read = total_points_read;
 			
 		}
 	}
 	
-	printf("executing readDRRDatatbls from thread\n");
+	
   setIntegerParam(P_DatRec_getDRRSts, 1);
   setIntegerParam(P_DatRec_DRRProgress, progress);
   
   status = (asynStatus)callParamCallbacks();
   
   
-  num_dest_bytes_expected = ((PI_DR_MAX_POINTS * BYTES_PER_POINT) * PI_DR_MAX_TABLES) + PI_GCS_DATA_HDR_BYTES;
-  destbuf = (char *)calloc(num_dest_bytes_expected + 1, sizeof(char));
-  
-  
   /* while 699050 not reached, request data points */
-  /* build the command string */
+  /* build the command string first checking which tables are enabled*/
   ptr = t_cmd;
   for(int x=0; x<PI_DR_MAX_TABLES; x++){
 		getIntegerParam(m_iDataRecTblEnabled[x], &enable);
@@ -4626,342 +4841,50 @@ asynStatus PIE712Controller::readDRRDatatbls(char *strbuf)
 			ptr += strlen(ptr);
 		}
 	}
-  
-  while(PI_DR_MAX_POINTS > total_points_read){
-  	/* check to see if we have been aborted */
-  	getIntegerParam(P_DatRec_Abort, &abort);
- 		if(abort){
- 			break;
- 		}
-
-  	//getDRRTblLength(PI_DR_DEFAULT_TABLE_ID, num_points_expected);
-  	getIntegerParam(P_DatRec_getDRL, &num_points_expected);
   	
-  	while(num_points_expected < (total_points_read + points_to_read))
-  	{
-  		getIntegerParam(P_DatRec_Abort, &abort);
-  		/* check to see if we have been aborted */
-  		if(abort){
-  			break;
-  		} else {
-  		
-	  		getIntegerParam(P_DatRec_getDRL, &num_points_expected);
-	  		printf("Waiting for more points to be acquired [%d]\n", num_points_expected);
-	  		if(num_points_expected >= PI_DR_MAX_POINTS){
-	  			break;
-	  		}
-	  		epicsThreadSleep(2.0);
-	  	}
-  	}
-  	
-  	/* check to see if we were broken out of the loop by an abort */
-  	if(abort){
-  		printf("!!!!!!!!!!!!!!! ABORTING DATA TRANSFER !!!!!!!!!!!!!!!!!!!!!!\n");
-  		/* cleanup and leave*/
-  		free(destbuf);
-  		/* reset the GetDataRecTables status */
-			setIntegerParam(P_DatRec_getDRRSts, 0);
-			setIntegerParam(P_DatRec_Abort, 0);
-		  status = (asynStatus)callParamCallbacks();
-  		return(asynSuccess);
-  	}
-  	
-  	sprintf(cmd, "DRR? %d %d %s\n", start_point, points_to_read, t_cmd);
+	//sprintf(cmd, "DRR? %d %d %s\n", start_point, points_to_read, t_cmd);
+	sprintf(cmd, "DRR? %d %d %s\n", start_point, m_total_measurements_requested, t_cmd);
 	printf("%s\n", cmd);
 	
-	num_bytes_expected = ((points_to_read * BYTES_PER_POINT) * num_tables) + PI_GCS_DATA_HDR_BYTES;
-			
-	status = m_pDataRecInterface->sendAndReceiveDRR(cmd, strbuf, num_bytes_expected);
-	start_point = start_point + points_to_read;
-	i = strlen(strbuf);
-  	
-  	if(points_to_read == 500){
-  			/* keep the header but modify the total to 699050 */
-  			
-  	} else {
-  		/* skip the header */
-  		last_idx = strstr( strbuf, "# END_HEADER");
-		strbuf = (char *)last_idx+14;
-	}
-		
-	//strcpy(&destbuf[dest_ptr], "!");
-	//dest_ptr += 1;
-	j = strlen(strbuf);
-	strcpy(&destbuf[dest_ptr], strbuf);
-	j = strlen(strbuf);
-	dest_ptr += strlen(strbuf);
-	//dest_ptr += i;
-	i = strlen(destbuf);
-		
-	points_to_read = points_to_read * 2;
-  	if(points_to_read > 64000){
-  		points_to_read = 64000;
-  	}
-  	
-  	total_points_read += points_to_read;
-  	
-  	progress = float(total_points_read / PI_DR_MAX_POINTS) * 100.0;
-  	setIntegerParam(P_DatRec_DRRProgress, progress);
-  	
-  	/* give the controller a break */
-  	epicsThreadSleep(1.0);
-  	
-  	
-	}
 	
-
-	/* unset flag that suspended most of the polling feedback */
-	m_bDataTransfering = false;
-
-	if(abort){
-  		printf("!!!!!!!!!!!!!!! ABORTING DATA TRANSFER !!!!!!!!!!!!!!!!!!!!!!\n");
-  		/* cleanup and leave*/
-  		free(destbuf);
-  		/* reset the GetDataRecTables status */
-			setIntegerParam(P_DatRec_getDRRSts, 0);
-			setIntegerParam(P_DatRec_Abort, 0);
-		  status = (asynStatus)callParamCallbacks();
-  		return(asynSuccess);
-  	} else {
-  
-		datstr_len = strlen(destbuf);
-		saveDataRecFile(destbuf);
-		free(destbuf);
-		printf("getDRRDatatbls: Done saving datarec file\n");
-		/* reset the GetDataRecTables status */
-		setIntegerParam(P_DatRec_getDRRSts, 0);
-		status = (asynStatus)callParamCallbacks();
-		
-		return (status);
-	}
-#endif
-}
-
-#ifdef NOT_SURE_IF_I_WANT_TO_KEEP
-/**************************************************/
-/* get data from all data recorder tables, this is executed in its own thread */
-asynStatus PIE712Controller::readDRRDatatbls(char *strbuf)
-{
-	int num_points_expected = 0;
-	int num_bytes_expected = 0;
-	int num_dest_bytes_expected = 0;
-	int rcv_bytes_expected = 0;
-	char pathname[1000];
-	//int BYTES_PER_POINT = 11;
-	int BYTES_PER_POINT = 11;
-	int start_idx = 1;
-	char *ptr;
-	char *destbuf;
-	char cmd[100];
-	char t_cmd[100];
-	int t_bytes = 0;
-  int i = 0;
-  int t_idx = 1;
-  int read_points = 10000;
-  int datstr_len = 0;
-  asynStatus status;
-  int enable = 0;
-  float total_points_read = 0.0;
-  int points_to_read = 500;
-  int start_point = 1;
-  char *last_idx;
-  int dest_ptr = 0;
-  int num_tables = 0;
-  float progress = 0.0;
-  bool not_ready = true;
-  int abort = 0;
-  char new_header[2000]= {'\n'};
-  char *start_ptr;
-  char *stop_ptr;
-  int num_cpy_chars = 0;
-  
-  /*setIntegerParam(P_DatRec_Abort, abort);*/
-  m_bDataTransfering = false;
-  strbuf[0] = '\0';
-  getStringParam(P_DatRec_FPath , 1000, m_pDataRecFPath);
-	sprintf(pathname, "%s",m_pDataRecFPath);
+	//num_bytes_expected =num_points_expected * BYTES_PER_POINT; 
+	//num_bytes_expected = ((points_to_read * BYTES_PER_POINT) * num_tables) + PI_GCS_DATA_HDR_BYTES;
+	num_bytes_expected = ((m_total_measurements_requested * BYTES_PER_POINT) * num_tables) + PI_GCS_DATA_HDR_BYTES;
+	char *rcvbuf;
+	//char *xstrbuf;
+	//rcvbuf = (char *)malloc(num_bytes_expected + 1);
+	rcvbuf = (char *)calloc(num_bytes_expected + 1, sizeof(char));
 	
-	if(strlen(pathname) < 1){
-		printf("readDRRDatatbls: pathname is empty\n");
-		return(asynSuccess);
-	}
-  
-  not_ready = true;
-  i = 0;
-	while(not_ready)
-  {
-  	getIntegerParam(P_DatRec_Abort, &abort);
-  	if(abort){
-  			break;
-  	} else {
-			//getDRRTblLength(PI_DR_DEFAULT_TABLE_ID, num_points_expected);
-			getIntegerParam(P_DatRec_getDRL, &num_points_expected);
-			if(num_points_expected < 1){
-				printf("getDRRDatatbls: DRL? returned num_points_expected < 1, waiting\n");
-				/* wait a second */
-				epicsThreadSleep(1.0);
-				i += 1;
-			} else {
-				/* its ready so giver */
-				not_ready = false;
-			}
-			
-			/* check to see if we waited long enough */
-			if(i > 10){
-				printf("getDRRDatatbls: datarecorder does not appear to be recording, leaving\n");
-				return(asynError);
-			}
-			
-		}
-	}
+	start_time = clock();
 	
-	printf("executing readDRRDatatbls from thread\n");
-  setIntegerParam(P_DatRec_getDRRSts, 1);
-  setIntegerParam(P_DatRec_DRRProgress, progress);
-  
-  status = (asynStatus)callParamCallbacks();
-  
-  
-  num_dest_bytes_expected = ((PI_DR_MAX_POINTS * BYTES_PER_POINT) * PI_DR_MAX_TABLES) + PI_GCS_DATA_HDR_BYTES;
-  destbuf = (char *)calloc(num_dest_bytes_expected + 1, sizeof(char));
-  
-  
-  /* while 699050 not reached, request data points */
-  /* build the command string */
-  ptr = t_cmd;
-  for(int x=0; x<PI_DR_MAX_TABLES; x++){
-		getIntegerParam(m_iDataRecTblEnabled[x], &enable);
-		if(enable){	
-			num_tables += 1;
-			sprintf(ptr, "%d ", x+1); 
-			ptr += strlen(ptr);
-		}
+	//xstrbuf = (char *)malloc(num_bytes_expected + 1);
+	status = m_pInterface->sendAndReceive(cmd, rcvbuf, num_bytes_expected);
+	if(status != asynSuccess){
+		printf("getDRRDatatbls: there was a problem during m_pInterface->sendAndReceive(), skipping save\n");
+		m_get_data_rec_running = false;
+		return(status);
 	}
-  
-  while(PI_DR_MAX_POINTS > total_points_read){
-  	/* check to see if we have been aborted */
-  	getIntegerParam(P_DatRec_Abort, &abort);
- 		if(abort){
- 			break;
- 		}
+	//printf("\trcvbuf=[%s]\n", rcvbuf);	
+	//saveDataRecFile(rcvbuf);
+	fastsaveDataRecFile(rcvbuf);
+	end_time = clock();
+  cpu_time_used = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
 
-  	//getDRRTblLength(PI_DR_DEFAULT_TABLE_ID, num_points_expected);
-  	getIntegerParam(P_DatRec_getDRL, &num_points_expected);
-  	
-  	while(num_points_expected < (total_points_read + points_to_read))
-  	{
-  		getIntegerParam(P_DatRec_Abort, &abort);
-  		/* check to see if we have been aborted */
-  		if(abort){
-  			break;
-  		} else {
-  		
-	  		getIntegerParam(P_DatRec_getDRL, &num_points_expected);
-	  		//getDRRTblLength(PI_DR_DEFAULT_TABLE_ID, num_points_expected);
-	  		printf("Waiting for more points to be acquired [%d]\n", num_points_expected);
-	  		if(num_points_expected >= PI_DR_MAX_POINTS){
-	  			break;
-	  		}
-	  		
-	  		epicsThreadSleep(2.0);
-	  	}
-  	}
-  	
-  	/* check to see if we were broken out of the loop by an abort */
-  	if(abort){
-  		printf("!!!!!!!!!!!!!!! ABORTING DATA TRANSFER !!!!!!!!!!!!!!!!!!!!!!\n");
-  		/* cleanup and leave*/
-  		free(destbuf);
-  		/* reset the GetDataRecTables status */
-			setIntegerParam(P_DatRec_getDRRSts, 0);
-			//setIntegerParam(P_DatRec_Abort, 0);
-		  status = (asynStatus)callParamCallbacks();
-  		return(asynSuccess);
-  	}
-  	
-  	sprintf(cmd, "DRR? %d %d %s\n", start_point, points_to_read, t_cmd);
-		printf("%s\n", cmd);
+  printf("Time taken to get data from E712 and save to disk: %f seconds\n", cpu_time_used);
 	
-		num_bytes_expected = ((points_to_read * BYTES_PER_POINT) * num_tables) + PI_GCS_DATA_HDR_BYTES;
-			
-		status = m_pDataRecInterface->sendAndReceiveDRR(cmd, strbuf, num_bytes_expected);
-	  start_point = start_point + points_to_read;
-		i = strlen(strbuf);
-  	
-  		if(points_to_read == 500){
-  				/* keep the header but modify the total to 699050 */
-  			start_ptr = strbuf;
-  			last_idx = strstr( strbuf, "# END_HEADER");
-			strbuf = (char *)last_idx+14;
-			stop_ptr = (char *)last_idx+14;
-			num_cpy_chars = stop_ptr - start_ptr;
-			strncpy(new_header, start_ptr, num_cpy_chars);
-			fix_NDATA_value(new_header, 699050);
-			printf("%s\n", new_header);
-			/* copy the new header*/
-			strcpy(&destbuf[dest_ptr], new_header);
-			dest_ptr += strlen(new_header);
-			/* now adjust strbuf ptr to start of the data */
-			last_idx = strstr( start_ptr, "# END_HEADER");
-			strbuf = start_ptr;
-			strbuf = (char *)last_idx+14;
-	  			
-  		} else {
-  			/* skip the header */
-  			last_idx = strstr( strbuf, "# END_HEADER");
-				strbuf = (char *)last_idx+14;
-		}
-		
-		strcpy(&destbuf[dest_ptr], strbuf);
-		dest_ptr += strlen(strbuf);
-		i = strlen(destbuf);
-		
-		points_to_read = points_to_read * 2;
-  		if(points_to_read > 64000){
-  			points_to_read = 64000;
-  		}
-	  	
-  		total_points_read += points_to_read;
-	  	
-  		progress = float(total_points_read / PI_DR_MAX_POINTS) * 100.0;
-  		setIntegerParam(P_DatRec_DRRProgress, progress);
-	  	
-  		/* give the controller a break */
-  		epicsThreadSleep(1.0);
-  	
-  	
-	}
-	
-	
-
-	/* unset flag that suspended most of the polling feedback */
-	m_bDataTransfering = false;
-
-	if(abort){
-  		printf("!!!!!!!!!!!!!!! ABORTING DATA TRANSFER !!!!!!!!!!!!!!!!!!!!!!\n");
-  		/* cleanup and leave*/
-  		free(destbuf);
-  		/* reset the GetDataRecTables status */
-			setIntegerParam(P_DatRec_getDRRSts, 0);
-			//setIntegerParam(P_DatRec_Abort, 0);
-		  status = (asynStatus)callParamCallbacks();
-  		return(asynSuccess);
-  	} else {
-  
-		datstr_len = strlen(destbuf);
-		saveDataRecFile(destbuf);
-		free(destbuf);
-		printf("getDRRDatatbls: Done saving datarec file\n");
-		/* reset the GetDataRecTables status */
-		setIntegerParam(P_DatRec_getDRRSts, 0);
-		status = (asynStatus)callParamCallbacks();
-		
-		return (status);
-	}
+	printf("getDRRDatatbls: Done saving datarec file\n");
+	/* reset the GetDataRecTables status */
+	setIntegerParam(P_DatRec_getDRRSts, 0);
+	status = (asynStatus)callParamCallbacks();
+	free(rcvbuf);
+    
+	m_get_data_rec_running = 0;
+	return (status);
 
 }
 
-#endif //NOT_SURE_IF_I_WANT_TO_KEEP
+
+
 asynStatus PIE712Controller::fix_NDATA_value(char *hdrbuf, int num_data)
 {
 	char *idx = NULL;
@@ -5028,10 +4951,16 @@ asynStatus PIE712Controller::fix_NDATA_value(char *hdrbuf, int num_data)
 asynStatus PIE712Controller::saveDataRecFile(char *lines)
 {
 	FILE * fptr;
-	char pathname[1000];
+	char pathname[5000];
 	
+	printf("\tsaveDataRecFile: lines=[%s]\n", lines);
 	//getStringParam(P_DatRec_FileName , 255, fname);
-	getStringParam(P_DatRec_FPath , 1000, m_pDataRecFPath);
+	if(strlen(lines) < 1){
+		printf("saveDataRecFile: strlen(lines) is len 0, leaving\n");
+		return(asynSuccess);
+	}
+	
+	getStringParam(P_DatRec_FPath , 5000, m_pDataRecFPath);
 	//sprintf(fpath, "%s\\%s",m_pDataRecFPath, fname);
 	sprintf(pathname, "%s",m_pDataRecFPath);
 	
@@ -5040,13 +4969,81 @@ asynStatus PIE712Controller::saveDataRecFile(char *lines)
 		return(asynSuccess);
 	}
 	fptr = fopen (pathname,"wb"); 
-	fwrite(lines, sizeof(char), strlen(lines), fptr);
+	printf("saveDataRecFile: was able to open file for writing [%s]\n",pathname );
+	//fwrite(lines, sizeof(char), strlen(lines), fptr);
   fclose (fptr);
-  printf("saveDataRecFile: saved [%s]\n", pathname);
+  
+  printf("saveDataRecFile: saved %d lines to [%s]\n", int(strlen(lines)),pathname);
   return(asynSuccess);
   
  }
 
+
+asynStatus PIE712Controller::fastsaveDataRecFile(char *buffer)
+{
+    int BUFFER_SIZE = 10 * 1024;  // Buffer size in bytes
+    long FILE_SIZE;// = 5 * 1024 * 1024;  // Desired file size in bytes
+		int i= 0;
+		char pathname[1000];
+		mode_t new_mask = 000;  // Set the new umask value here
+
+    mode_t old_mask = umask(new_mask);
+		
+		FILE_SIZE = strlen(buffer) * sizeof(char);
+		printf("\fastsaveDataRecFile: FILE_SIZE=[%d]\n", FILE_SIZE);
+		//getStringParam(P_DatRec_FileName , 255, fname);
+		getStringParam(P_DatRec_FPath , 1000, m_pDataRecFPath);
+		//sprintf(fpath, "%s\\%s",m_pDataRecFPath, fname);
+		sprintf(pathname, "%s",m_pDataRecFPath);
+		
+		
+		if(strlen(pathname) < 1){
+			printf("fastsaveDataRecFile: pathname is empty\n");
+			return(asynSuccess);
+		}
+		
+		printf("going to try to open [%s] for writing\n", pathname);
+    FILE* file = fopen(pathname, "w");
+    if (file == NULL) {
+        //printf("fastsaveDataRecFile: Unable to open the file.\n");
+        perror("fastsaveDataRecFile: Unable to open the file.\n");
+        return asynSuccess;
+    }
+
+    //char buffer[BUFFER_SIZE];
+
+    // Fill the buffer with some sample data
+    //for (int i = 0; i < BUFFER_SIZE; i++) {
+    //    buffer[i] = 'A';
+   // }
+
+    long bytes_written = 0;
+    int bytes_to_write = BUFFER_SIZE;
+		printf("fastsaveDataRecFile: starting while that contains fwrite(), BUFFER_SIZE=%d\n",BUFFER_SIZE);
+    // Write to the file in chunks until the desired file size is reached
+    while (bytes_written < FILE_SIZE) {
+        
+        if (bytes_written + BUFFER_SIZE > FILE_SIZE) {
+            bytes_to_write = FILE_SIZE - bytes_written;
+        }
+        size_t result = fwrite(&buffer[bytes_written], 1, bytes_to_write, file);
+        printf("fastsaveDataRecFile: [%d] bytes_written=%d\n", i, bytes_written);
+        if (result != bytes_to_write) {
+            printf("fastsaveDataRecFile: Error while writing to the file.\n");
+            fclose(file);
+            return asynSuccess;
+        }
+
+        bytes_written += bytes_to_write;
+        i += 1;
+    }
+
+    fclose(file);
+    printf("fastsaveDataRecFile: File written successfully.\n");
+		
+		umask(old_mask);
+    return asynSuccess;
+}
 
 
 /***********************************************************************
@@ -5191,6 +5188,19 @@ asynStatus PIE712Controller::writeOctet(asynUser *pasynUser, const char *value,
     		/* READY */
     		status = pAxis->setIntegerParam(P_CommStatus, 0);
     		status = (asynStatus)callParamCallbacks();
+    		
+    } else if (function == P_SendTrigCommands) {
+    		printf("in writeOctet for P_SendTrigCommands\n");
+    		/* BUSY */
+    		status = pAxis->setIntegerParam(P_CommStatus, 1);
+    		status = (asynStatus)callParamCallbacks();
+    		
+    		sendTrigCommandList(value);
+    		/* READY */
+    		status = pAxis->setIntegerParam(P_CommStatus, 0);
+    		status = (asynStatus)callParamCallbacks();
+    	
+    	
     } else if (function == P_ParamFileName) {
     		printf("in writeOctet for P_ParamFileName\n");
     		setStringParam(P_ParamFileName, (char *)value);
@@ -5374,7 +5384,26 @@ asynStatus PIE712Controller::getGCSParameter(int itemID, unsigned int paramID, d
 
 }
 
+/******************************************************************/
+/****************************************************************/    
+asynStatus PIE712Controller::getNonVolatileGCSParameter(unsigned int paramID, double& value)
+{
+	char cmd[100];
+	char buf[255];
+	sprintf(cmd, "SEP? 1 %d", paramID);
+	asynStatus status = m_pInterface->sendAndReceive(cmd, buf, 99);
+	if (status != asynSuccess)
+	{
+		return status;
+	}
 
+	if (!getValue(buf, value))
+	{
+		return asynError;
+	}
+    return status;
+
+}
 /****************************************************************************************/
 asynStatus PIE712Controller::processDeferredMoves()
 {
@@ -5532,6 +5561,7 @@ asynStatus PIE712Controller::writeInt32(asynUser *pasynUser, epicsInt32 value)
     char *cmd_ptr;
     int auto_dr_enable = 0;
     int num_wvgens = 0;
+    int trg_src;
 
     lock();
     /* Set the parameter and readback in the parameter library.  This may be overwritten when we read back the
@@ -5778,14 +5808,24 @@ asynStatus PIE712Controller::writeInt32(asynUser *pasynUser, epicsInt32 value)
 						getIntegerParam(P_DataRec_AutoEnable, &auto_dr_enable);
 						if(auto_dr_enable)
 						{
-							
+							/* check if the user has selected IMMEDIATLEY for the trigger source 
+								#define PI_DR_TRG_DFLT			0
+								#define PI_DR_TRG_ANY_CMD		1
+								#define PI_DR_TRG_EXTERNAL	3
+								#define PI_DR_TRG_IMMEDIATE	4
+							*/
+							getDRRTrigSrc(1, trg_src);
+							if(trg_src == PI_DR_TRG_IMMEDIATE){
+								startDataRecorder();
+							}
 							/* cause an abort of a current recording if noe is being taken */
 							//setIntegerParam(P_DatRec_Abort, 1);
 							/* Do callbacks so higher layers see any changes */
 	    				callParamCallbacks();
-							epicsThreadSleep(5.0);
+							epicsThreadSleep(0.005);
 							getDRRDatatbls();
 						}
+						
 					}
 					
 			}
@@ -5797,13 +5837,19 @@ asynStatus PIE712Controller::writeInt32(asynUser *pasynUser, epicsInt32 value)
 						getIntegerParam(P_DataRec_AutoEnable, &auto_dr_enable);
 						if(auto_dr_enable)
 						{
+							getDRRTrigSrc(1, trg_src);
+							if(trg_src == PI_DR_TRG_IMMEDIATE){
+								startDataRecorder();
+							}
 							/* cause an abort of a current recording if noe is being taken */
 							//setIntegerParam(P_DatRec_Abort, 1);
 							/* Do callbacks so higher layers see any changes */
 	    				callParamCallbacks();
-							epicsThreadSleep(5.0);
+							epicsThreadSleep(0.005);
 							getDRRDatatbls();
+							
 						}
+						
 					} else {
 						m_exec_pending = false;
 					}
@@ -5855,7 +5901,9 @@ asynStatus PIE712Controller::writeInt32(asynUser *pasynUser, epicsInt32 value)
 			
 			else if (function == P_DatRec_ExecConfig)
 			{
-					if(value == 1) configDataRecorder();
+					if(value == 1){ 
+						configDataRecorder();
+					}
 					
 			}
 			
@@ -5892,7 +5940,17 @@ asynStatus PIE712Controller::writeInt32(asynUser *pasynUser, epicsInt32 value)
 					setRecTblRate(value);
 					
 			}
-			
+			else if (function == P_SuspendControllerFbk)
+			{
+					if(value == 1){
+						/* tell poll() to skip updates until we are done */
+						printf("Skipping feedback poll updates for the controller\n");
+						m_suspend_fbk = true;
+					} else {
+						printf("Starting feedback poll updates for the controller\n");
+						m_suspend_fbk = false;
+					}
+			}
 			
     	
         /* Call base class call its method (if we have our parameters check this here) */
@@ -6193,12 +6251,15 @@ asynStatus PIE712Controller::poll(void)
 		int wg_sts, exec_ival, t_ival = 0;
 		double t_dval = 0.0;
 		int total_points = WAVE_MAX_NUM_SAMPLES;
-
+		static int iters = 0;
+	
+	
 		if(m_suspend_fbk)
 		{	
 			return(asynSuccess);
 		}
-			
+		
+		iters += 1;		
 		/* update the wavegen status */
     getWaveGenStatus(&m_wavegen1_Status, &m_wavegen2_Status, &m_wavegen3_Status, &m_wavegen4_Status);
     getIntegerParam(P_ExecWavegen, &exec_ival);
@@ -6208,8 +6269,8 @@ asynStatus PIE712Controller::poll(void)
     setIntegerParam(P_WaveGen3_Status,   m_wavegen3_Status);
     setIntegerParam(P_WaveGen4_Status,   m_wavegen4_Status);
     
-    /* check the wavegenerator status, if it is stopped and the busy record P_ExecWavegen to 0*/
-    wg_sts = (m_wavegen1_Status + m_wavegen2_Status + m_wavegen3_Status + m_wavegen4_Status);
+    /* check the wavegenerator status, if it is stopped and the busy record P_ExecWavegen to 0, and the datarecorder is stopped*/
+    wg_sts = (m_wavegen1_Status + m_wavegen2_Status + m_wavegen3_Status + m_wavegen4_Status + m_get_data_rec_running);
     
 #ifdef TESTING    
     /* wavegen is stopped, exec has been requested, pending flag has been cleared so set it to stopped */
@@ -6231,8 +6292,6 @@ asynStatus PIE712Controller::poll(void)
 		} else {
 			setIntegerParam(P_ExecWavegen, 0);
 		}
-		
-//#ifdef RUSS_SEPT_7_2022    
     
     /* only use the value returned from table 1 as all the tables report the same (most recently set) value */
     getWaveTableCycles(1, t_ival);
@@ -6253,28 +6312,35 @@ asynStatus PIE712Controller::poll(void)
     setIntegerParam(P_WaveTblRate,   t_ival);
     
     /****************************************/
-    getWaveTableLength(1, t_ival);
-    setIntegerParam(P_WaveTbl1Len,   t_ival);
-    total_points -= t_ival;
     
-    getWaveTableLength(2, t_ival);
-    setIntegerParam(P_WaveTbl2Len,   t_ival);
-    total_points -= t_ival;
-    
-    getWaveTableLength(3, t_ival);
-    setIntegerParam(P_WaveTbl3Len,   t_ival);
-    total_points -= t_ival;
-    
-    getWaveTableLength(4, t_ival);
-    setIntegerParam(P_WaveTbl4Len,   t_ival);
-    total_points -= t_ival;
     
     /* there are 160 tables so querey those as well */
-    for(int i=5; i <= MAX_NUM_WAVE_TABLES; i++){
-    	getWaveTableLength(i, t_ival);
-    	total_points -= t_ival;    	    
-    }
-
+    /* only process this every 10 polls */
+    if(iters > 10){
+    	iters = 0;
+    	getWaveTableLength(1, t_ival);
+	    setIntegerParam(P_WaveTbl1Len,   t_ival);
+	    total_points -= t_ival;
+	    
+	    getWaveTableLength(2, t_ival);
+	    setIntegerParam(P_WaveTbl2Len,   t_ival);
+	    total_points -= t_ival;
+	    
+	    getWaveTableLength(3, t_ival);
+	    setIntegerParam(P_WaveTbl3Len,   t_ival);
+	    total_points -= t_ival;
+	    
+	    getWaveTableLength(4, t_ival);
+	    setIntegerParam(P_WaveTbl4Len,   t_ival);
+	    total_points -= t_ival;
+	    
+	    for(int i=5; i <= MAX_NUM_WAVE_TABLES; i++){
+	    	getWaveTableLength(i, t_ival);
+	    	total_points -= t_ival;    	    
+	    }
+	    /*****************************************/
+    	setIntegerParam(P_TotalPointsLeft,   total_points);
+		}
     getDDLTblLength(1, t_ival);
     setIntegerParam(P_DDLTbl1Len,   t_ival);
     
@@ -6287,8 +6353,7 @@ asynStatus PIE712Controller::poll(void)
     getDDLTblLength(4, t_ival);
     setIntegerParam(P_DDLTbl4Len,   t_ival);
     
-    /*****************************************/
-    setIntegerParam(P_TotalPointsLeft,   total_points);
+    
     
     /* update some member variables */
     getIntegerParam(P_XAxisId, &m_xAxis_id);
@@ -6297,11 +6362,12 @@ asynStatus PIE712Controller::poll(void)
 		getDoubleParam(P_YStartPos, &m_yStartPos);
 		getIntegerParam(P_ScanMode, &m_scanMode);
 		
-		getDRRTblLength(PI_DR_DEFAULT_TABLE_ID, t_ival);
-		setIntegerParam(P_DatRec_getDRL, t_ival);
-
-//#endif // RUSS_SEPT_7_2022    		
-    
+		
+		//getDRRTblLength(PI_DR_DEFAULT_TABLE_ID, t_ival);
+		//setIntegerParam(P_DatRec_getDRL, t_ival);
+		/* update the num read from the var set in readDRR thread */
+		setIntegerParam(P_DatRec_getDRL, m_drec_current_pnts_read);
+		
     callParamCallbacks();
 		
 	return asynSuccess;

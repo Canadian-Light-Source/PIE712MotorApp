@@ -179,20 +179,20 @@ asynStatus PIInterface::DRRsendAndReceive(const char *outputBuff, char *inputBuf
     size_t pos = 0;
     int idx = 0;
     int l=0;
-    asynPrint(logSink, ASYN_TRACEIO_DRIVER,	"PIInterface::sendAndReceive() sending \"%s\"\n", outputBuff);
-		//    //printf("PIInterface::sendAndReceive() sending \"%s\"\n", outputBuff);
+    asynPrint(logSink, ASYN_TRACEIO_DRIVER,	"PIInterface::DRRsendAndReceive() sending \"%s\"\n", outputBuff);
+		printf("PIInterface::DRRsendAndReceive() sending \"%s\"\n", outputBuff);
 
-    status = pasynOctetSyncIO->write(m_pAsynInterface, outputBuff,nWriteRequested, TIMEOUT, &nWrite);
+    status = pasynOctetSyncIO->write(m_pAsynInterface, outputBuff, nWriteRequested, TIMEOUT, &nWrite);
     if (nWrite != nWriteRequested)
 		{
-	        asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,  "PIGCSController:sendAndReceive error calling write, output=%s status=%d, error=%s\n", outputBuff, status, m_pAsynInterface->errorMessage);
+	        asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,  "PIInterface:DRRsendAndReceive error calling write, output=%s status=%d, error=%s\n", outputBuff, status, m_pAsynInterface->errorMessage);
 	    	return asynError;
 		}
 
     /*status = pasynOctetSyncIO->writeRead(m_pAsynInterface, "\n", 1,inputBuff, inputSize, TIMEOUT, &nWrite, &nRead, &eomReason);
     if (nWrite != 1)
 		{
-	        asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER, "PIGCSController:sendAndReceive error calling write, output=%s status=%d, error=%s\n", outputBuff, status, m_pAsynInterface->errorMessage);
+	        asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER, "PIInterface:DRRsendAndReceive error calling write, output=%s status=%d, error=%s\n", outputBuff, status, m_pAsynInterface->errorMessage);
 	    	return asynError;
 		}
 		*/
@@ -201,7 +201,7 @@ asynStatus PIInterface::DRRsendAndReceive(const char *outputBuff, char *inputBuf
 
     if (status != asynSuccess)
     {
-        asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,  "PIGCSController:sendAndReceive error calling writeRead, output=%s status=%d, error=%s\n", outputBuff, status, m_pAsynInterface->errorMessage);
+        asynPrint(logSink, ASYN_TRACE_ERROR|ASYN_TRACEIO_DRIVER,  "PIInterface:DRRsendAndReceive error calling writeRead, output=%s status=%d, error=%s\n", outputBuff, status, m_pAsynInterface->errorMessage);
     }
     
 

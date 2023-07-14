@@ -17,7 +17,7 @@ pi_e712WithAsyn_registerRecordDeviceDriver(pdbbase)
 dbLoadTemplate "motor.substitutions.pi_e712"
 drvAsynIPPortConfigure("L100", "192.168.50.5:50000",0,0,0)
 # now one for the data recorder on same port
-#drvAsynIPPortConfigure("L101", "192.168.50.5:50000",0,0,0)
+drvAsynIPPortConfigure("L101", "192.168.50.5:50000",0,0,0)
 
 # PI_E712_CreateController("Port name","asyn Port name","data recorder asyn Port name","Number of axes","moving polling time [msec]","idle polling time [msec]") 
 #PI_E712_CreateController("E712", "L100", "L101", 3, 50, 250)
@@ -42,6 +42,7 @@ dbLoadRecords("$(ASYN)/db/asynRecord.db", "P=$(STXM):E712:, R=L100, PORT=L100, A
 dbLoadRecords("db/e712_controller.db", "P=$(STXM):E712:,PORT=E712,ADDR=0,TIMEOUT=1")
 dbLoadRecords("db/e712_calib.db")
 dbLoadRecords("db/e712_scan_support.db", "P=$(STXM):E712")
+dbLoadRecords("db/e712_datarecorder.db", "P=$(STXM):E712:,PORT=E712,ADDR=0,TIMEOUT=1"
 
 
 epicsEnvSet(AUTOSAVE_PREFIX,"astxm_e712")
@@ -67,10 +68,25 @@ dbpf(PZAC1610-3-I12-41.FOFF, "1") #Frozen
 dbpf("$(STXM):E712:XAxisId", "$(FINE_X_AXIS_ID)")
 dbpf("$(STXM):E712:YAxisId", "$(FINE_Y_AXIS_ID)")
 
+#fix it to 5 to maximize point memory on E712 and the resolution
+dbpf("$(STXM):E712:WaveTableRate", "5")
+
 
 #dbpf("$(STXM):E712:ParamFileName", "oct20_2022_coarse_smplfine.pam")
 #epicsThreadSleep(5.0)
  
 #dbpf("$(STXM):E712:LoadParamFile", "1")
+dbpf("$(STXM):E712:DataRecFPath", "/home/bergr/SM/test_data/test_dr.dat")
+
+dbpf("$(STXM):E712:DRTbl_1:src", "1")
+dbpf("$(STXM):E712:DRTbl_2:src", "2")
+
+dbpf("$(STXM):E712:DRTbl_1:en", "1")
+dbpf("$(STXM):E712:DRTbl_2:en", "1")
+
+dbpf("$(STXM):E712:DataRecT1Option", "1")
+dbpf("$(STXM):E712:DataRecT2Option", "1")
+
+dbpf("$(STXM):E712:SetRecTblRate", "5")
  
  

@@ -173,6 +173,7 @@ December 13, 2009
 
 
 #define P_SendCommandsString		"PI_SEND_COMMANDS" /* asynOctet, r/w */
+#define P_SendTrigCommandsString  "PI_SEND_TRIG_COMMANDS" /* asynOctet, r/w */
 #define P_GetIDNString					"PI_GET_IDN" /* asynOctet, r/w */
 
 #define P_CommStatusString			"PI_COMMUNICATION_STATUS" /* asynInt32,    r */ 
@@ -299,7 +300,7 @@ December 13, 2009
 #define P_ATZVoltString 						"PI_ATZ_VOLTS"	/* asynFloat64,    r */ 
 
 #define P_PosFromE712ScalerString		"PI_POS_FROM_E712_SCALER"	/* asynFloat64,    r/w */ 
-
+#define P_SuspendControllerFbkString		"PI_SUSPEND_CTRLR_FBK"	/* int,    r/w */ 
 
 #define P_LastParamString       	"PI_LAST_PARAM"    /* asynInt32,    r/w */ 
 
@@ -330,6 +331,7 @@ December 13, 2009
 #define REFERENCE_MODE					0x02000a00
 
 #define SLEW_RATE	0x07000200
+#define SERVO_UPDATE_RATE 0x0E000200
 
 #define PTERM_PARAM	0x07000300
 #define ITERM_PARAM	0x07000301
@@ -677,8 +679,12 @@ public:
   asynStatus poll();
   //PIE712Axis* getAxis(asynUser *pasynUser);
   //PIE712Axis* getAxis(int axisNo);
+  //int commandStringToList(const char *cmndString);
   int commandStringToList(const char *cmndString);
+  
   asynStatus sendCommandList(const char *cmds);
+  asynStatus sendTrigCommandList(const char *cmds);
+  
   PIE712Axis* getAxis(asynUser *pasynUser) { return (PIE712Axis*)asynMotorController::getAxis(pasynUser); }
   PIE712Axis* getAxis(int axisNo) { return (PIE712Axis*)asynMotorController::getAxis(axisNo); }
   
@@ -693,7 +699,7 @@ public:
   asynStatus setGCSParameter(PIE712Axis* pAxis, unsigned int paramID, double value);
   asynStatus getGCSParameter(int itemID, unsigned int paramID, double& value);
   asynStatus getGCSParameter(PIE712Axis* pAxis, unsigned int paramID, double& value);
-   
+  asynStatus getNonVolatileGCSParameter(unsigned int paramID, double& value); 
   
   asynStatus findConnectedAxes();
 
@@ -741,8 +747,10 @@ public:
 	/* data recorder commands */
 	asynStatus getDRRDatatbls(void);
 	asynStatus getDRRTblLength(int tblid, int& value);
+	asynStatus getDRRTrigSrc(int tblid, int& value);
 	asynStatus readDRRDatatbls(char *);
 	asynStatus saveDataRecFile(char *lines);
+	asynStatus fastsaveDataRecFile(char *lines);
 	asynStatus startDataRecorder(void);
 	asynStatus configDataRecorder(void);
 	asynStatus setDataRecTrigSrc(int src);
@@ -750,6 +758,11 @@ public:
 	asynStatus getRecTblRate(int& value);
 	asynStatus fix_NDATA_value(char *strbuf, int num_data);
 	
+	double m_RO_servoUpdateRate;
+	double m_RO_total_rec_pnts;
+	
+	int m_total_measurements_requested;
+	int m_drec_current_pnts_read;
 	
 	bool m_bAnyAxisMoving;
 	bool m_bDataTransfering;
@@ -760,9 +773,12 @@ public:
 	
 	char m_rcvbuf[WAVE_MAX_NUM_SAMPLES];
 	char *m_cmnd_list[WAVE_MAX_NUM_SAMPLES];
+	
 	int m_numCmnds;
 	char m_pDataRecFPath[1000];
 	char *m_strbuf;
+	int m_get_data_rec_running;
+	
 	
 	int m_simController;
 	int m_xAxis_id;
@@ -892,6 +908,7 @@ protected:
 	int P_WaveGen4_Status;
 	
 	int P_SendCommands;
+	int P_SendTrigCommands;
 	int P_GetIDN;
 	
 	int P_WaveTbl1Wf;
@@ -1008,6 +1025,7 @@ protected:
 	int P_ATZVolt;
 	
 	int P_PosFromE712Scaler;
+	int P_SuspendControllerFbk;
 	
   int P_LastParam;
   
