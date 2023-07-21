@@ -3618,7 +3618,7 @@ asynStatus PIE712Controller::sendTrigCommandList(const char *cmds)
 	        	if((!cmd_sent) || (num_args >= 29) ){
 	        		if(cmd_len > 0){
 	        			cmnd[cmd_len-1] = '\0';
-		        		printf("sendTrigCommandList: sending: [%s]\n", cmnd);
+		        		//printf("sendTrigCommandList: sending: [%s]\n", cmnd);
 		        		asynStatus status = m_pInterface->sendOnly(cmnd);
 		        		errorCode = getGCSError();
 		        		cmnd[0] = '\0';
@@ -4762,6 +4762,9 @@ asynStatus PIE712Controller::readDRRDatatbls(char *strbuf)
  printf("executing readDRRDatatbls from thread\n");
 
  setIntegerParam(P_DatRec_Abort, abort);
+ m_drec_current_pnts_read = 0;
+ setIntegerParam(P_DatRec_getDRL, m_drec_current_pnts_read);
+ callParamCallbacks();
   /* clear previous data */
   bytes_per_point = 11;
 	//num_dest_bytes_expected = ((PI_DR_MAX_POINTS * bytes_per_point) * PI_DR_MAX_TABLES) + PI_GCS_DATA_HDR_BYTES;
@@ -5828,6 +5831,7 @@ asynStatus PIE712Controller::writeInt32(asynUser *pasynUser, epicsInt32 value)
 						
 					}
 					
+					
 			}
 			else if (function == P_ExecWavegen)
 			{
@@ -5849,6 +5853,7 @@ asynStatus PIE712Controller::writeInt32(asynUser *pasynUser, epicsInt32 value)
 							getDRRDatatbls();
 							
 						}
+						
 						
 					} else {
 						m_exec_pending = false;
