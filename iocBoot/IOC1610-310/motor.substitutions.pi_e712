@@ -3,8 +3,8 @@ file "$(MOTOR)/db/basic_asyn_motor.db"
 {
 	pattern
 	{P,    						N, 	M,       DTYP,   			PORT, 	ADDR, 	DESC,   				EGU,	DIR,   VELO,  	VBAS, 	ACCL, 	BDST, BVEL, BACC, 	MRES, PREC,  	DLLM, 	DHLM, 	RTRY	INIT}
-	{PZAC1610-3-I12-, 40, "$(N)", "asynMotor",	"E712", 	0, 		"SampleFineX",	um,  	Pos,   1000.0, 	0.00,  	1.0,    0,  	.2,   .2,    	0.000000793,  8,   		-7000,		7000,  0,			""}
- 	{PZAC1610-3-I12-, 41, "$(N)", "asynMotor",	"E712", 	1, 		"SampleFineY",	um,  	Pos,   1000.0, 	0.00,  	1.0,    0,  	.2,   .2,    	0.000000793,  8,   		-7000,		7000,  0,			""}
+	{PZAC1610-3-I12-, 40, "$(N)", "asynMotor",	"E712", 	0, 		"SampleFineX",	um,  	Pos,   1000.0, 	0.00,  	1.0,    0,  	.2,   .2,    	-0.001,  8,   		-7000,		7000,  0,			""}
+ 	{PZAC1610-3-I12-, 41, "$(N)", "asynMotor",	"E712", 	1, 		"SampleFineY",	um,  	Pos,   1000.0, 	0.00,  	1.0,    0,  	.2,   .2,    	-0.001,  8,   		-7000,		7000,  0,			""}
 }
 
 file "$(TOP)/db/motorCal.db"

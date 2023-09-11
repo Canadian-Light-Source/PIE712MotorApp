@@ -34,10 +34,7 @@ file ai_param.template
     {  GetNumRecPoints	""		asynInt32    PI_DR_GET_DRL		YES	 	0}
     {  GetRecDataProg	""		asynInt32    PI_DR_DRR_PROG		YES	 	1}
     
-    
-    
-    
-
+    {  NumPointsExpected	""		asynInt32    PI_DR_NUM_PTS_EXPCTD		YES	 	1}
 }
 
 file ao_param.template
@@ -58,9 +55,7 @@ file ao_param.template
     {  DRTbl_12:src		""		asynInt32    PI_DR_T12_SRC			YES		0				64				3				0}
     
     
-    {  SetRecTblRate		""		asynInt32    PI_DR_SET_RTR			YES		1			64				1				0}
-    
-    
+    {  SetRecTblRate		""		asynInt32    PI_DR_SET_RTR			YES		1			10000				1				0}
     
 }
 
@@ -109,8 +104,7 @@ file bo_param.template
 		{  StartDataRec  		""	asynInt32 	PI_DR_START		NO		"STOP"		"START"	0.2}
 		{  AutoDataRec  		""	asynInt32 	PI_DR_AUTO_ENABLE		NO		"DISABLED"		"ENABLED"	0.0}
 		{  AbortDataRec  		""	asynInt32 	PI_DR_ABORT		NO		"NORMAL"		"ABORT"	3.0}
-		
-		
+	
 }
 
 file bi_param.template
@@ -124,11 +118,31 @@ file bi_param.template
 		
 }
 
+##define PI_DR_MAX_POINTS 699050
+# but this is a function of the data recorder rate (RTR: default is 1)
+# from teh command manual:
+# The duration of the recording can be calculated as follows:
+# 	Rec Duration = Servo Update Time * RTR value * (Number of points per table * number of enabled tables)
+#
+# for the E712 that was used on the Test bench in 2023 the Servo Update Rate is 0.00003 seconds
+# so if RTR was 5, and 2 tables were used to record X and Y feedback positions, and 10,000 points were recorded
+#			RTR = 5
+#			Rec Duration seconds = 0.00003 * 5 * (2 * 10,000)
+#									         = 3 seconds
+#						Per point time = 0.00003 * 5
+#													 = 0.00015 seconds per point
+#			RTR = 25
+#			Rec Duration seconds = 0.00003 * 25 * (2 * 10,000)
+#									         = 15 seconds
+#						Per point time = 0.00003 * 25
+#													 = 0.00075 seconds per point
+
 file char_waveform_param.template
 {
     pattern
     {  param      	port_drvr_string  pini  nelm}
-    {  DataRecFPath			PI_DR_FPATH		NO		1000	}
+    {  DataRecFPath			PI_DR_FPATH		NO		5000	}
+#    {  DataRecCharData			PI_DR_CHAR_DATA		NO		262144}
     
     
 }
@@ -153,7 +167,7 @@ file char_waveform_param.template
 #    
 #    
 #}
-#
+
 
 ## here param_type refers to the readback type
 # not supporting all options only the 16 most used

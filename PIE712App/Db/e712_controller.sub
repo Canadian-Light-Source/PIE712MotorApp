@@ -21,6 +21,7 @@ file waveform_param.template
     pattern
     {  param      M		port_drvr_string  pini  nelm}
     {  SendCmnds	""	PI_SEND_COMMANDS		NO		950000	}
+    {  SendTrigCmnds	""	PI_SEND_TRIG_COMMANDS		NO		950000	}
     
 }
 
@@ -120,6 +121,7 @@ file bo_param.template
 		{  ClearWavTbl2  ""		asynInt32  	PI_CLR_WAVTBL_2		NO		"OFF"		"ON"	0.2}
 		{  ClearWavTbl3  ""		asynInt32  	PI_CLR_WAVTBL_3		NO		"OFF"		"ON"	0.2}
 		{  ClearWavTbl4  ""		asynInt32  	PI_CLR_WAVTBL_4		NO		"OFF"		"ON"	0.2}
+		{  ClearWavTblAll  ""		asynInt32  	PI_CLR_WAVTBL_ALL		NO		"OFF"		"ON"	0.2}
 		
 		{  CalcDDLParms  ""		asynInt32  	PI_CALC_DDL_PARMS		NO		"OFF"		"ON"	0.2}
 		
@@ -141,7 +143,9 @@ file bo_param.template
 		
 		{  ScanMode 					""		asynInt32  	PI_SCAN_MODE		NO		"LxL"		"PxP"	0} 
 		
-		{  LoadParamFile			""		asynInt32  	PI_LOAD_PARAM_FILE		NO		"Load"		"Load"	0.25} 
+		{  LoadParamFile			""		asynInt32  	PI_LOAD_PARAM_FILE		NO		"Load"		"Load"	0.25}
+		 
+		{  SuspendCtrlrFbk		""		asynInt32  	PI_SUSPEND_CTRLR_FBK	NO		"Running"		"Stopped"	0} 
 		
 		
 		
