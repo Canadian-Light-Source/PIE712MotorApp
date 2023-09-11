@@ -11,3 +11,5 @@ $(P)$(M):calibPosn.RVAL
 $(P)$(M):finalPosn.PREC
 $(P)$(M):finalPosn.VAL
 $(P)$(M):finalPosn.RVAL
+$(P)$(M):ATZVolts.VAL
+
