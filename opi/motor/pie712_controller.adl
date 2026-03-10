@@ -1,0 +1,2029 @@
+
+file {
+	name="/home/bergr/git_sandbox/cs_apps/Beamlines/SM_Beamline/STXM/ASTXM/opi/motor/pie712_controller.adl"
+	version=030109
+}
+display {
+	object {
+		x=169
+		y=111
+		width=523
+		height=832
+	}
+	clr=14
+	bclr=4
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+"text update" {
+	object {
+		x=118
+		y=15
+		width=370
+		height=20
+	}
+	monitor {
+		chan="$(P)GetIDN_RBV"
+		clr=14
+		bclr=61
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+text {
+	object {
+		x=59
+		y=19
+		width=31
+		height=18
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="PI-E712 ID"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=47
+		y=108
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Number of cycles"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=119
+		y=102
+		width=90
+		height=24
+	}
+	control {
+		chan="$(P)NumCycles"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=218
+		y=108
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)NumCycles_RBV"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+"message button" {
+	object {
+		x=335
+		y=113
+		width=150
+		height=20
+	}
+	control {
+		chan="$(P)StartWavgen"
+		clr=14
+		bclr=51
+	}
+	label="Start Wave Generator"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=335
+		y=138
+		width=150
+		height=20
+	}
+	control {
+		chan="$(P)StopWavgen"
+		clr=14
+		bclr=51
+	}
+	label="Stop Wave Generator"
+	press_msg="1"
+}
+polyline {
+	object {
+		x=23
+		y=78
+		width=465
+		height=2
+	}
+	"basic attribute" {
+		clr=14
+		width=2
+	}
+	points {
+		(24,79)
+		(487,79)
+	}
+}
+text {
+	object {
+		x=47
+		y=137
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Wave Table Rate"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=119
+		y=131
+		width=90
+		height=24
+	}
+	control {
+		chan="$(P)WaveTableRate"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=218
+		y=137
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)WaveTableRate_RBV"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+"message button" {
+	object {
+		x=334
+		y=199
+		width=150
+		height=20
+	}
+	control {
+		chan="$(P)CalcDDLParms"
+		clr=14
+		bclr=62
+	}
+	label="Calc DDL Params"
+	press_msg="1"
+}
+composite {
+	object {
+		x=24
+		y=682
+		width=479
+		height=47
+	}
+	"composite name"=""
+	children {
+		rectangle {
+			object {
+				x=33
+				y=708
+				width=50
+				height=20
+			}
+			"basic attribute" {
+				clr=16
+			}
+			"dynamic attribute" {
+				vis="if not zero"
+				chan="$(P)WaveGen1Status_RBV"
+			}
+		}
+		text {
+			object {
+				x=45
+				y=689
+				width=31
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+				fill="outline"
+			}
+			textix="WaveGen 1"
+			align="horiz. centered"
+		}
+		polyline {
+			object {
+				x=24
+				y=682
+				width=479
+				height=2
+			}
+			"basic attribute" {
+				clr=14
+				width=2
+			}
+			points {
+				(25,683)
+				(502,683)
+			}
+		}
+		text {
+			object {
+				x=183
+				y=689
+				width=31
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+				fill="outline"
+			}
+			textix="WaveGen 2"
+			align="horiz. centered"
+		}
+		rectangle {
+			object {
+				x=171
+				y=708
+				width=50
+				height=20
+			}
+			"basic attribute" {
+				clr=16
+			}
+			"dynamic attribute" {
+				vis="if not zero"
+				chan="$(P)WaveGen2Status_RBV"
+			}
+		}
+		text {
+			object {
+				x=309
+				y=689
+				width=31
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+				fill="outline"
+			}
+			textix="WaveGen 3"
+			align="horiz. centered"
+		}
+		rectangle {
+			object {
+				x=297
+				y=708
+				width=50
+				height=20
+			}
+			"basic attribute" {
+				clr=16
+			}
+			"dynamic attribute" {
+				vis="if not zero"
+				chan="$(P)WaveGen3Status_RBV"
+			}
+		}
+		text {
+			object {
+				x=442
+				y=690
+				width=31
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+				fill="outline"
+			}
+			textix="WaveGen 4"
+			align="horiz. centered"
+		}
+		rectangle {
+			object {
+				x=430
+				y=709
+				width=50
+				height=20
+			}
+			"basic attribute" {
+				clr=16
+			}
+			"dynamic attribute" {
+				vis="if not zero"
+				chan="$(P)WaveGen4Status_RBV"
+			}
+		}
+	}
+}
+text {
+	object {
+		x=47
+		y=175
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="X Axis"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=119
+		y=169
+		width=90
+		height=24
+	}
+	control {
+		chan="$(P)XAxisId"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=218
+		y=175
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)XAxisId_RBV"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=284
+		y=172
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Trig Output"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=356
+		y=166
+		width=90
+		height=24
+	}
+	control {
+		chan="$(P)TrigOutput"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=455
+		y=172
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)TrigOutput_RBV"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+polyline {
+	object {
+		x=126
+		y=332
+		width=2
+		height=489
+	}
+	"basic attribute" {
+		clr=14
+		width=2
+	}
+	points {
+		(127,333)
+		(127,820)
+	}
+}
+polyline {
+	object {
+		x=258
+		y=332
+		width=2
+		height=489
+	}
+	"basic attribute" {
+		clr=14
+		width=2
+	}
+	points {
+		(259,333)
+		(259,820)
+	}
+}
+polyline {
+	object {
+		x=388
+		y=333
+		width=2
+		height=489
+	}
+	"basic attribute" {
+		clr=14
+		width=2
+	}
+	points {
+		(389,334)
+		(389,821)
+	}
+}
+"message button" {
+	object {
+		x=360
+		y=225
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P)GetTrigTbl"
+		clr=14
+		bclr=51
+	}
+	label="Get Trig Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=360
+		y=248
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P)ClearTrigTbl"
+		clr=14
+		bclr=51
+	}
+	label="Clear Trig Tbl"
+	press_msg="1"
+}
+text {
+	object {
+		x=12
+		y=654
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="StrtAtEnd"
+	align="horiz. right"
+}
+text {
+	object {
+		x=12
+		y=628
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="UseReinit"
+	align="horiz. right"
+}
+text {
+	object {
+		x=12
+		y=603
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Use DDL"
+	align="horiz. right"
+}
+"choice button" {
+	object {
+		x=12
+		y=534
+		width=100
+		height=50
+	}
+	control {
+		chan="$(P)WavTbl1StartMode"
+		clr=14
+		bclr=4
+	}
+}
+text {
+	object {
+		x=44
+		y=514
+		width=30
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Start Mode"
+	align="horiz. centered"
+}
+"message button" {
+	object {
+		x=21
+		y=491
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)GetDDLTbl1"
+		clr=14
+		bclr=52
+	}
+	label="Get DDL Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=21
+		y=468
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)ClearDDLTbl1"
+		clr=14
+		bclr=52
+	}
+	label="Clr DDL Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=21
+		y=414
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)GetWavTbl1"
+		clr=14
+		bclr=51
+	}
+	label="Get Wav Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=21
+		y=390
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)ClearWavTbl1"
+		clr=14
+		bclr=51
+	}
+	label="Clr Wav Tbl"
+	press_msg="1"
+}
+"text update" {
+	object {
+		x=30
+		y=368
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)WaveTbl1Len_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+text {
+	object {
+		x=46
+		y=348
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Table Length (pts)"
+	align="horiz. right"
+}
+text {
+	object {
+		x=20
+		y=330
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="WaveTable 1"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=146
+		y=329
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="WaveTable 2"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=172
+		y=347
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Table Length (pts)"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=164
+		y=368
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)WaveTbl2Len_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+"message button" {
+	object {
+		x=156
+		y=390
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)ClearWavTbl2"
+		clr=14
+		bclr=51
+	}
+	label="Clr Wav Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=156
+		y=414
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)GetWavTbl2"
+		clr=14
+		bclr=51
+	}
+	label="Get Wav Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=156
+		y=468
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)ClearDDLTbl2"
+		clr=14
+		bclr=52
+	}
+	label="Clr DDL Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=156
+		y=491
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)GetDDLTbl2"
+		clr=14
+		bclr=52
+	}
+	label="Get DDL Tbl"
+	press_msg="1"
+}
+text {
+	object {
+		x=177
+		y=514
+		width=30
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Start Mode"
+	align="horiz. centered"
+}
+"choice button" {
+	object {
+		x=145
+		y=534
+		width=100
+		height=50
+	}
+	control {
+		chan="$(P)WavTbl2StartMode"
+		clr=14
+		bclr=4
+	}
+}
+text {
+	object {
+		x=137
+		y=602
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Use DDL"
+	align="horiz. right"
+}
+text {
+	object {
+		x=137
+		y=627
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="UseReinit"
+	align="horiz. right"
+}
+text {
+	object {
+		x=137
+		y=653
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="StrtAtEnd"
+	align="horiz. right"
+}
+text {
+	object {
+		x=284
+		y=329
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="WaveTable 3"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=310
+		y=347
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Table Length (pts)"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=296
+		y=368
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)WaveTbl3Len_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+"message button" {
+	object {
+		x=284
+		y=390
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)ClearWavTbl3"
+		clr=14
+		bclr=51
+	}
+	label="Clr Wav Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=284
+		y=414
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)GetWavTbl3"
+		clr=14
+		bclr=51
+	}
+	label="Get Wav Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=284
+		y=468
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)ClearDDLTbl3"
+		clr=14
+		bclr=52
+	}
+	label="Clr DDL Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=284
+		y=491
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)GetDDLTbl3"
+		clr=14
+		bclr=52
+	}
+	label="Get DDL Tbl"
+	press_msg="1"
+}
+text {
+	object {
+		x=308
+		y=514
+		width=30
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Start Mode"
+	align="horiz. centered"
+}
+"choice button" {
+	object {
+		x=276
+		y=534
+		width=100
+		height=50
+	}
+	control {
+		chan="$(P)WavTbl3StartMode"
+		clr=14
+		bclr=4
+	}
+}
+text {
+	object {
+		x=269
+		y=601
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Use DDL"
+	align="horiz. right"
+}
+text {
+	object {
+		x=269
+		y=626
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="UseReinit"
+	align="horiz. right"
+}
+text {
+	object {
+		x=269
+		y=652
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="StrtAtEnd"
+	align="horiz. right"
+}
+text {
+	object {
+		x=412
+		y=327
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="WaveTable 1"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=438
+		y=345
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Table Length (pts)"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=426
+		y=368
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)WaveTbl4Len_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+"message button" {
+	object {
+		x=417
+		y=390
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)ClearWavTbl4"
+		clr=14
+		bclr=51
+	}
+	label="Clr Wav Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=417
+		y=414
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)GetWavTbl4"
+		clr=14
+		bclr=51
+	}
+	label="Get Wav Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=417
+		y=468
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)ClearDDLTbl4"
+		clr=14
+		bclr=52
+	}
+	label="Clr DDL Tbl"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=417
+		y=491
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)GetDDLTbl4"
+		clr=14
+		bclr=52
+	}
+	label="Get DDL Tbl"
+	press_msg="1"
+}
+text {
+	object {
+		x=438
+		y=514
+		width=30
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Start Mode"
+	align="horiz. centered"
+}
+"choice button" {
+	object {
+		x=406
+		y=533
+		width=100
+		height=50
+	}
+	control {
+		chan="$(P)WavTbl4StartMode"
+		clr=14
+		bclr=4
+	}
+}
+text {
+	object {
+		x=398
+		y=601
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Use DDL"
+	align="horiz. right"
+}
+text {
+	object {
+		x=398
+		y=626
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="UseReinit"
+	align="horiz. right"
+}
+text {
+	object {
+		x=398
+		y=652
+		width=50
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="StrtAtEnd"
+	align="horiz. right"
+}
+text {
+	object {
+		x=47
+		y=271
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="X start"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=119
+		y=265
+		width=90
+		height=24
+	}
+	control {
+		chan="$(P)XStartPos"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=218
+		y=271
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)XStartPos_RBV"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=47
+		y=298
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Y start"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=119
+		y=292
+		width=90
+		height=24
+	}
+	control {
+		chan="$(P)YStartPos"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=218
+		y=298
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)YStartPos_RBV"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=46
+		y=203
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Y Axis"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=118
+		y=197
+		width=90
+		height=24
+	}
+	control {
+		chan="$(P)YAxisId"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=217
+		y=203
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)YAxisId_RBV"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+"choice button" {
+	object {
+		x=68
+		y=591
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl1UseDDL"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=68
+		y=621
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl1UseReinitDDL"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=68
+		y=651
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl1StartAtEndPos"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=198
+		y=590
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl2UseDDL"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=198
+		y=620
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl2UseReinitDDL"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=198
+		y=650
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl2StartAtEndPos"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=327
+		y=590
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl3UseDDL"
+		clr=14
+		bclr=4
+	}
+	clrmod="discrete"
+}
+"choice button" {
+	object {
+		x=327
+		y=620
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl3UseReinitDDL"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=327
+		y=650
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl3StartAtEndPos"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=458
+		y=591
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl4UseDDL"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=458
+		y=621
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl4UseReinitDDL"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=458
+		y=651
+		width=48
+		height=28
+	}
+	control {
+		chan="$(P)WavTbl4StartAtEndPos"
+		clr=14
+		bclr=4
+	}
+}
+text {
+	object {
+		x=372
+		y=285
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="TTotal Points Left"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=364
+		y=306
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)TotalPointsLeft_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+text {
+	object {
+		x=56
+		y=43
+		width=31
+		height=18
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Last Error"
+	align="horiz. centered"
+}
+"text update" {
+	object {
+		x=117
+		y=43
+		width=370
+		height=20
+	}
+	monitor {
+		chan="$(P)LastErr_RBV"
+		clr=14
+		bclr=6
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=32
+		y=447
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)DDLTbl1Len_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=166
+		y=447
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)DDLTbl2Len_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=298
+		y=447
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)DDLTbl3Len_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=428
+		y=447
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)DDLTbl4Len_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+"message button" {
+	object {
+		x=335
+		y=89
+		width=150
+		height=20
+	}
+	control {
+		chan="$(P)ExecWavgen"
+		clr=14
+		bclr=51
+	}
+	label="Exec Wave Generator"
+	press_msg="1"
+}
+text {
+	object {
+		x=45
+		y=738
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Gen using Table"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=63
+		y=761
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)WavGen1UseTblNum_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	format="truncated"
+	limits {
+	}
+}
+text {
+	object {
+		x=179
+		y=735
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Gen using Table"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=197
+		y=758
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)WavGen2UseTblNum_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	format="truncated"
+	limits {
+	}
+}
+text {
+	object {
+		x=306
+		y=733
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Gen using Table"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=324
+		y=756
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)WavGen3UseTblNum_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	format="truncated"
+	limits {
+	}
+}
+text {
+	object {
+		x=441
+		y=732
+		width=70
+		height=17
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+	textix="Gen using Table"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=459
+		y=753
+		width=60
+		height=16
+	}
+	monitor {
+		chan="$(P)WavGen4UseTblNum_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	format="truncated"
+	limits {
+	}
+}
+text {
+	object {
+		x=47
+		y=783
+		width=30
+		height=12
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Trig Mode"
+	align="horiz. centered"
+}
+"text update" {
+	object {
+		x=7
+		y=800
+		width=110
+		height=16
+	}
+	monitor {
+		chan="$(P)TrigModeWg1_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	format="truncated"
+	limits {
+	}
+}
+text {
+	object {
+		x=178
+		y=783
+		width=30
+		height=12
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Trig Mode"
+	align="horiz. centered"
+}
+"text update" {
+	object {
+		x=138
+		y=800
+		width=110
+		height=16
+	}
+	monitor {
+		chan="$(P)TrigModeWg2_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	format="truncated"
+	limits {
+	}
+}
+text {
+	object {
+		x=308
+		y=783
+		width=30
+		height=12
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Trig Mode"
+	align="horiz. centered"
+}
+"text update" {
+	object {
+		x=268
+		y=800
+		width=110
+		height=16
+	}
+	monitor {
+		chan="$(P)TrigModeWg3_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	format="truncated"
+	limits {
+	}
+}
+text {
+	object {
+		x=444
+		y=783
+		width=30
+		height=10
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Trig Mode"
+	align="horiz. centered"
+}
+"text update" {
+	object {
+		x=404
+		y=800
+		width=110
+		height=13
+	}
+	monitor {
+		chan="$(P)TrigModeWg4_RBV"
+		clr=54
+		bclr=3
+	}
+	align="horiz. centered"
+	format="truncated"
+	limits {
+	}
+}
+"message button" {
+	object {
+		x=241
+		y=238
+		width=110
+		height=20
+	}
+	control {
+		chan="$(P)ClearWavTblAll"
+		clr=14
+		bclr=51
+	}
+	label="ClearAll Wavtbls"
+	press_msg="1"
+}
+"text entry" {
+	object {
+		x=13
+		y=755
+		width=40
+		height=24
+	}
+	control {
+		chan="$(P)WavGen1UseTblNum"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=145
+		y=753
+		width=40
+		height=24
+	}
+	control {
+		chan="$(P)WavGen2UseTblNum"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=272
+		y=750
+		width=40
+		height=24
+	}
+	control {
+		chan="$(P)WavGen3UseTblNum"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=405
+		y=751
+		width=40
+		height=24
+	}
+	control {
+		chan="$(P)WavGen4UseTblNum"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"related display" {
+	object {
+		x=466
+		y=280
+		width=40
+		height=20
+	}
+	display[0] {
+		label="Data Recorder"
+		name="pie712_datrecorder.adl"
+		args="P=$(P),M=$(M)"
+		policy="replace display"
+	}
+	clr=0
+	bclr=17
+	label="-More"
+}
