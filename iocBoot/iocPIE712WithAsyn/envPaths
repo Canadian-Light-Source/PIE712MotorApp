@@ -1,7 +1,0 @@
-epicsEnvSet(ARCH,"win32-x86")
-epicsEnvSet(IOC,"PI E712 Control")
-epicsEnvSet(TOP,"C:/controls/epics/R3.14.12.4/modules/support/motor-6-8")
-epicsEnvSet(IOCDIR,"C:/controls/epics/R3.14.12.4/modules/support/motor-6-8/iocBoot/iocPIE712WithAsyn")
-epicsEnvSet(MOTOR,"C:/controls/epics/R3.14.12.4/modules/support/motor-6-8")
-epicsEnvSet(ASYN,"C:/controls/epics/R3.14.12.4/modules/support/asyn-4-21")
-epicsEnvSet(SSCAN,"C:/controls/epics/R3.14.12.4/modules/support/sscan-2-9")
