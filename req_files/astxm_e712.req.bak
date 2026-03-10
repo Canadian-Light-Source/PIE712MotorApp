@@ -1,9 +1,0 @@
-file basic_motor_settings.req P=PZAC1610-3-I12-43,M="" 
-
-file basic_motor_settings.req P=PZAC1610-3-I12-43,M="" 
-
-
-file CLS_motor_calib.req P=PZAC1610-3-I12-43,M="" 
-
-file CLS_motor_calib.req P=PZAC1610-3-I12-44,M="" 
-
