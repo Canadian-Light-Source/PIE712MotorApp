@@ -1,0 +1,9 @@
+#!/bin/sh
+set EPICS_DISPLAY_PATH=/home/bergr/git_sandbox/cs_apps/Beamlines/SM_Beamline/STXM/ASTXM_upg/opi
+
+/home/epics/src/R3.14.12.4-SL-7/extensions/bin/linux-x86_64/medm -x  -macro "
+	COMMON=/home/bergr/git_sandbox/cs_apps/Beamlines/SM_Beamline/STXM/ASTXM/opi,
+	" ./motor/pie712_motors.adl &
+
+
+

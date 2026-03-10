@@ -10,7 +10,7 @@ include $(TOP)/configure/CONFIG
 USR_CFLAGS += -g -O0
 USR_CPPFLAGS += -g -O0
 
-USR_CPPFLAGS += -I/home/beamline/tools/anaconda3/include/python3.7m -Wno-unused-variable -Wno-unused-but-set-variable
+USR_CPPFLAGS += -I/home/beamline/tools/anaconda3/include/python3.12 -Wno-unused-variable -Wno-unused-but-set-variable
 USR_LDFLAGS += -L/home/beamline/tools/anaconda3/lib -Wno-unused-variable
 USR_CPPFLAGS += -I/$(MOTOR)/include
 USR_CFLAGS += -I/$(MOTOR)/include

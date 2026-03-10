@@ -1,0 +1,1392 @@
+
+file {
+	name="/home/bergr/git_sandbox/cs_apps/Beamlines/SM_Beamline/STXM/ASTXM/opi/motor/pie712_datrecorder.adl"
+	version=030109
+}
+display {
+	object {
+		x=577
+		y=86
+		width=505
+		height=959
+	}
+	clr=14
+	bclr=4
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+text {
+	object {
+		x=127
+		y=14
+		width=84
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Configure Data Recorder"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=-3
+		y=39
+		width=90
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Trigger Src"
+	align="horiz. centered"
+}
+menu {
+	object {
+		x=87
+		y=35
+		width=126
+		height=24
+	}
+	control {
+		chan="$(P)DataRecTrigSrc"
+		clr=14
+		bclr=4
+	}
+}
+"choice button" {
+	object {
+		x=359
+		y=35
+		width=111
+		height=33
+	}
+	control {
+		chan="$(P)StartDataRec"
+		clr=14
+		bclr=4
+	}
+}
+text {
+	object {
+		x=16
+		y=684
+		width=132
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Datarec Filename"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=48
+		y=700
+		width=393
+		height=22
+	}
+	control {
+		chan="$(P)DataRecFPath"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
+}
+composite {
+	object {
+		x=48
+		y=772
+		width=393
+		height=55
+	}
+	"composite name"=""
+	children {
+		"message button" {
+			object {
+				x=48
+				y=772
+				width=393
+				height=30
+			}
+			control {
+				chan="$(P)GetDataRecTbls"
+				clr=14
+				bclr=51
+			}
+			label="Get Datarec Tables"
+			press_msg="1"
+		}
+		"text update" {
+			object {
+				x=48
+				y=807
+				width=390
+				height=20
+			}
+			monitor {
+				chan="$(P)GetDataRecTblsSts_RBV"
+				clr=0
+				bclr=10
+			}
+			clrmod="alarm"
+			align="horiz. centered"
+			limits {
+			}
+		}
+	}
+}
+text {
+	object {
+		x=89
+		y=153
+		width=87
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Read"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=174
+		y=153
+		width=87
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Source"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=307
+		y=153
+		width=87
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Option"
+	align="horiz. centered"
+}
+composite {
+	object {
+		x=23
+		y=645
+		width=428
+		height=33
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=23
+				y=655
+				width=87
+				height=15
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Table 12"
+			align="horiz. centered"
+		}
+		"choice button" {
+			object {
+				x=98
+				y=645
+				width=62
+				height=33
+			}
+			control {
+				chan="$(P)DRTbl_12:en"
+				clr=14
+				bclr=4
+			}
+		}
+		"text entry" {
+			object {
+				x=185
+				y=647
+				width=56
+				height=29
+			}
+			control {
+				chan="$(P)DRTbl_12:src"
+				clr=14
+				bclr=4
+			}
+			limits {
+			}
+		}
+		menu {
+			object {
+				x=252
+				y=647
+				width=199
+				height=28
+			}
+			control {
+				chan="$(P)DataRecT12Option"
+				clr=14
+				bclr=4
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=23
+		y=557
+		width=428
+		height=33
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=23
+				y=567
+				width=87
+				height=15
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Table 10"
+			align="horiz. centered"
+		}
+		"choice button" {
+			object {
+				x=98
+				y=557
+				width=62
+				height=33
+			}
+			control {
+				chan="$(P)DRTbl_10:en"
+				clr=14
+				bclr=4
+			}
+		}
+		"text entry" {
+			object {
+				x=185
+				y=559
+				width=56
+				height=29
+			}
+			control {
+				chan="$(P)DRTbl_10:src"
+				clr=14
+				bclr=4
+			}
+			limits {
+			}
+		}
+		menu {
+			object {
+				x=252
+				y=559
+				width=199
+				height=28
+			}
+			control {
+				chan="$(P)DataRecT10Option"
+				clr=14
+				bclr=4
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=23
+		y=471
+		width=428
+		height=33
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=23
+				y=481
+				width=87
+				height=15
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Table 8"
+			align="horiz. centered"
+		}
+		"choice button" {
+			object {
+				x=98
+				y=471
+				width=62
+				height=33
+			}
+			control {
+				chan="$(P)DRTbl_8:en"
+				clr=14
+				bclr=4
+			}
+		}
+		"text entry" {
+			object {
+				x=185
+				y=473
+				width=56
+				height=29
+			}
+			control {
+				chan="$(P)DRTbl_8:src"
+				clr=14
+				bclr=4
+			}
+			limits {
+			}
+		}
+		menu {
+			object {
+				x=252
+				y=473
+				width=199
+				height=28
+			}
+			control {
+				chan="$(P)DataRecT8Option"
+				clr=14
+				bclr=4
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=21
+		y=383
+		width=431
+		height=33
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=21
+				y=393
+				width=88
+				height=15
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Table 6"
+			align="horiz. centered"
+		}
+		"choice button" {
+			object {
+				x=97
+				y=383
+				width=62
+				height=33
+			}
+			control {
+				chan="$(P)DRTbl_6:en"
+				clr=14
+				bclr=4
+			}
+		}
+		"text entry" {
+			object {
+				x=184
+				y=385
+				width=57
+				height=29
+			}
+			control {
+				chan="$(P)DRTbl_6:src"
+				clr=14
+				bclr=4
+			}
+			limits {
+			}
+		}
+		menu {
+			object {
+				x=252
+				y=385
+				width=200
+				height=28
+			}
+			control {
+				chan="$(P)DataRecT6Option"
+				clr=14
+				bclr=4
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=23
+		y=296
+		width=428
+		height=33
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=23
+				y=306
+				width=87
+				height=15
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Table 4"
+			align="horiz. centered"
+		}
+		"choice button" {
+			object {
+				x=98
+				y=296
+				width=62
+				height=33
+			}
+			control {
+				chan="$(P)DRTbl_4:en"
+				clr=14
+				bclr=4
+			}
+		}
+		"text entry" {
+			object {
+				x=185
+				y=298
+				width=56
+				height=29
+			}
+			control {
+				chan="$(P)DRTbl_4:src"
+				clr=14
+				bclr=4
+			}
+			limits {
+			}
+		}
+		menu {
+			object {
+				x=252
+				y=298
+				width=199
+				height=28
+			}
+			control {
+				chan="$(P)DataRecT4Option"
+				clr=14
+				bclr=4
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=23
+		y=213
+		width=428
+		height=33
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=23
+				y=223
+				width=87
+				height=15
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Table 2"
+			align="horiz. centered"
+		}
+		"choice button" {
+			object {
+				x=98
+				y=213
+				width=62
+				height=33
+			}
+			control {
+				chan="$(P)DRTbl_2:en"
+				clr=14
+				bclr=4
+			}
+		}
+		"text entry" {
+			object {
+				x=185
+				y=215
+				width=56
+				height=29
+			}
+			control {
+				chan="$(P)DRTbl_2:src"
+				clr=14
+				bclr=4
+			}
+			limits {
+			}
+		}
+		menu {
+			object {
+				x=252
+				y=215
+				width=199
+				height=28
+			}
+			control {
+				chan="$(P)DataRecT2Option"
+				clr=14
+				bclr=4
+			}
+		}
+	}
+}
+"text entry" {
+	object {
+		x=132
+		y=73
+		width=61
+		height=24
+	}
+	control {
+		chan="$(P)SetRecTblRate"
+		clr=14
+		bclr=4
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=199
+		y=78
+		width=40
+		height=20
+	}
+	monitor {
+		chan="$(P)GetRecTblRate_RBV"
+		clr=0
+		bclr=10
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+text {
+	object {
+		x=-5
+		y=82
+		width=160
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Record Table Rate"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=290
+		y=81
+		width=98
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Time in sec"
+	align="horiz. centered"
+}
+"text update" {
+	object {
+		x=377
+		y=78
+		width=81
+		height=20
+	}
+	monitor {
+		chan="$(P)GetRecTblRateInSec_RBV"
+		clr=0
+		bclr=10
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+text {
+	object {
+		x=62
+		y=130
+		width=98
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Number of recorded points"
+	align="horiz. centered"
+}
+"text update" {
+	object {
+		x=196
+		y=129
+		width=60
+		height=20
+	}
+	monitor {
+		chan="$(P)GetNumRecPoints_RBV"
+		clr=0
+		bclr=10
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+composite {
+	object {
+		x=23
+		y=165
+		width=433
+		height=43
+	}
+	"composite name"=""
+	children {
+		composite {
+			object {
+				x=23
+				y=172
+				width=427
+				height=33
+			}
+			"composite name"=""
+			children {
+				"choice button" {
+					object {
+						x=98
+						y=172
+						width=62
+						height=33
+					}
+					control {
+						chan="$(P)DRTbl_1:en"
+						clr=14
+						bclr=4
+					}
+					clrmod="discrete"
+				}
+				text {
+					object {
+						x=23
+						y=182
+						width=87
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="Table 1"
+					align="horiz. centered"
+				}
+				"text entry" {
+					object {
+						x=185
+						y=174
+						width=58
+						height=29
+					}
+					control {
+						chan="$(P)DRTbl_1:src"
+						clr=14
+						bclr=4
+					}
+					limits {
+					}
+				}
+				menu {
+					object {
+						x=251
+						y=174
+						width=199
+						height=28
+					}
+					control {
+						chan="$(P)DataRecT1Option"
+						clr=14
+						bclr=4
+					}
+				}
+			}
+		}
+		rectangle {
+			object {
+				x=41
+				y=165
+				width=415
+				height=43
+			}
+			"basic attribute" {
+				clr=6
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=23
+		y=249
+		width=432
+		height=43
+	}
+	"composite name"=""
+	children {
+		rectangle {
+			object {
+				x=40
+				y=249
+				width=415
+				height=43
+			}
+			"basic attribute" {
+				clr=6
+			}
+		}
+		composite {
+			object {
+				x=23
+				y=253
+				width=428
+				height=33
+			}
+			"composite name"=""
+			children {
+				text {
+					object {
+						x=23
+						y=263
+						width=87
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="Table 3"
+					align="horiz. centered"
+				}
+				"choice button" {
+					object {
+						x=98
+						y=253
+						width=62
+						height=33
+					}
+					control {
+						chan="$(P)DRTbl_3:en"
+						clr=14
+						bclr=4
+					}
+				}
+				"text entry" {
+					object {
+						x=185
+						y=255
+						width=56
+						height=29
+					}
+					control {
+						chan="$(P)DRTbl_3:src"
+						clr=14
+						bclr=4
+					}
+					limits {
+					}
+				}
+				menu {
+					object {
+						x=252
+						y=255
+						width=199
+						height=28
+					}
+					control {
+						chan="$(P)DataRecT3Option"
+						clr=14
+						bclr=4
+					}
+				}
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=23
+		y=336
+		width=434
+		height=43
+	}
+	"composite name"=""
+	children {
+		rectangle {
+			object {
+				x=42
+				y=336
+				width=415
+				height=43
+			}
+			"basic attribute" {
+				clr=6
+			}
+		}
+		composite {
+			object {
+				x=23
+				y=340
+				width=428
+				height=33
+			}
+			"composite name"=""
+			children {
+				text {
+					object {
+						x=23
+						y=350
+						width=87
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="Table 5"
+					align="horiz. centered"
+				}
+				"choice button" {
+					object {
+						x=98
+						y=340
+						width=62
+						height=33
+					}
+					control {
+						chan="$(P)DRTbl_5:en"
+						clr=14
+						bclr=4
+					}
+				}
+				"text entry" {
+					object {
+						x=185
+						y=342
+						width=56
+						height=29
+					}
+					control {
+						chan="$(P)DRTbl_5:src"
+						clr=14
+						bclr=4
+					}
+					limits {
+					}
+				}
+				menu {
+					object {
+						x=252
+						y=342
+						width=199
+						height=28
+					}
+					control {
+						chan="$(P)DataRecT5Option"
+						clr=14
+						bclr=4
+					}
+				}
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=23
+		y=421
+		width=435
+		height=43
+	}
+	"composite name"=""
+	children {
+		rectangle {
+			object {
+				x=43
+				y=421
+				width=415
+				height=43
+			}
+			"basic attribute" {
+				clr=6
+			}
+		}
+		composite {
+			object {
+				x=23
+				y=426
+				width=428
+				height=33
+			}
+			"composite name"=""
+			children {
+				text {
+					object {
+						x=23
+						y=436
+						width=87
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="Table 7"
+					align="horiz. centered"
+				}
+				"choice button" {
+					object {
+						x=98
+						y=426
+						width=62
+						height=33
+					}
+					control {
+						chan="$(P)DRTbl_7:en"
+						clr=14
+						bclr=4
+					}
+				}
+				"text entry" {
+					object {
+						x=185
+						y=428
+						width=56
+						height=29
+					}
+					control {
+						chan="$(P)DRTbl_7:src"
+						clr=14
+						bclr=4
+					}
+					limits {
+					}
+				}
+				menu {
+					object {
+						x=252
+						y=428
+						width=199
+						height=28
+					}
+					control {
+						chan="$(P)DataRecT7Option"
+						clr=14
+						bclr=4
+					}
+				}
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=23
+		y=509
+		width=434
+		height=43
+	}
+	"composite name"=""
+	children {
+		rectangle {
+			object {
+				x=42
+				y=509
+				width=415
+				height=43
+			}
+			"basic attribute" {
+				clr=6
+			}
+		}
+		composite {
+			object {
+				x=23
+				y=514
+				width=428
+				height=33
+			}
+			"composite name"=""
+			children {
+				text {
+					object {
+						x=23
+						y=524
+						width=87
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="Table 9"
+					align="horiz. centered"
+				}
+				"choice button" {
+					object {
+						x=98
+						y=514
+						width=62
+						height=33
+					}
+					control {
+						chan="$(P)DRTbl_9:en"
+						clr=14
+						bclr=4
+					}
+				}
+				"text entry" {
+					object {
+						x=185
+						y=516
+						width=56
+						height=29
+					}
+					control {
+						chan="$(P)DRTbl_9:src"
+						clr=14
+						bclr=4
+					}
+					limits {
+					}
+				}
+				menu {
+					object {
+						x=252
+						y=516
+						width=199
+						height=28
+					}
+					control {
+						chan="$(P)DataRecT9Option"
+						clr=14
+						bclr=4
+					}
+				}
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=23
+		y=595
+		width=433
+		height=43
+	}
+	"composite name"=""
+	children {
+		rectangle {
+			object {
+				x=41
+				y=595
+				width=415
+				height=43
+			}
+			"basic attribute" {
+				clr=6
+			}
+		}
+		composite {
+			object {
+				x=23
+				y=600
+				width=428
+				height=33
+			}
+			"composite name"=""
+			children {
+				text {
+					object {
+						x=23
+						y=610
+						width=87
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="Table 11"
+					align="horiz. centered"
+				}
+				"choice button" {
+					object {
+						x=98
+						y=600
+						width=62
+						height=33
+					}
+					control {
+						chan="$(P)DRTbl_11:en"
+						clr=14
+						bclr=4
+					}
+				}
+				"text entry" {
+					object {
+						x=185
+						y=602
+						width=56
+						height=29
+					}
+					control {
+						chan="$(P)DRTbl_11:src"
+						clr=14
+						bclr=4
+					}
+					limits {
+					}
+				}
+				menu {
+					object {
+						x=252
+						y=602
+						width=199
+						height=28
+					}
+					control {
+						chan="$(P)DataRecT11Option"
+						clr=14
+						bclr=4
+					}
+				}
+			}
+		}
+	}
+}
+bar {
+	object {
+		x=48
+		y=830
+		width=393
+		height=80
+	}
+	monitor {
+		chan="$(P)GetRecDataProg_RBV"
+		clr=52
+		bclr=10
+	}
+	label="channel"
+	limits {
+		hoprSrc="default"
+		hoprDefault=100
+	}
+}
+"choice button" {
+	object {
+		x=385
+		y=111
+		width=60
+		height=34
+	}
+	control {
+		chan="$(P)AutoDataRec"
+		clr=14
+		bclr=4
+	}
+}
+text {
+	object {
+		x=279
+		y=125
+		width=99
+		height=21
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Auto Enabled"
+	align="horiz. centered"
+}
+"choice button" {
+	object {
+		x=249
+		y=729
+		width=60
+		height=33
+	}
+	control {
+		chan="$(P)AbortDataRec"
+		clr=14
+		bclr=4
+	}
+}
+text {
+	object {
+		x=135
+		y=738
+		width=98
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Abort Data transfer"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=62
+		y=105
+		width=98
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Number points expected"
+	align="horiz. centered"
+}
+"text update" {
+	object {
+		x=196
+		y=104
+		width=60
+		height=20
+	}
+	monitor {
+		chan="$(P)NumPointsExpected_RBV"
+		clr=0
+		bclr=10
+	}
+	align="horiz. centered"
+	limits {
+	}
+}
+"choice button" {
+	object {
+		x=228
+		y=39
+		width=111
+		height=33
+	}
+	control {
+		chan="$(P)ConfigDataRec"
+		clr=14
+		bclr=4
+	}
+}
+text {
+	object {
+		x=241
+		y=23
+		width=98
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Exec Config"
+	align="horiz. centered"
+}

@@ -14,7 +14,7 @@ include $(TOP)/configure/CONFIG
 USR_CFLAGS += -g -O0
 USR_CPPFLAGS += -g -O0
 
-USR_CPPFLAGS += -I/home/beamline/tools/anaconda3/include/python3.7m
+USR_CPPFLAGS += -I/home/beamline/tools/anaconda3/include/python3.12
 USR_LDFLAGS += -L/home/beamline/tools/anaconda3/lib
 
 USR_CPPFLAGS += -I/$(MOTOR)/include
@@ -51,8 +51,8 @@ COMMONLIBS += motorSimSupport
 COMMONLIBS += motor
 
 
-pi_e712WithAsyn_LIBS += python3.7m
-python3.7m_DIR = /home/beamline/tools/anaconda3/lib
+pi_e712WithAsyn_LIBS += python3.12
+python3.12_DIR = /home/beamline/tools/anaconda3/lib
 
 
 # Needed for Newport SNL programs
